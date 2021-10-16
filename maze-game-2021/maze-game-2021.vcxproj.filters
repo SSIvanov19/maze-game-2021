@@ -18,5 +18,13 @@
     <ClCompile Include="maze-game-2021.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="front-end.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="front-end.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
