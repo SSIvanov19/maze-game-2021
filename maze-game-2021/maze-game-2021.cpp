@@ -13,5 +13,9 @@ void initializeTheGame()
 int main()
 {
     initializeTheGame();
-    printMenu(1);
+    
+    while (true)
+    {
+        printMainMenu(1);
+    }
 }
