@@ -20,3 +20,4 @@ struct MENU_OPTION
 bool checkForInvalidHandle();
 HANDLE getOutputHandle();
 void printMenu(int selectedOption);
+void setConsoleColorTo(int color);
