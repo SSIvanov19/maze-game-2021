@@ -3,7 +3,10 @@
 #include <iostream>
 #include <Windows.h>
 
-void gotoxy(int x, int y);
+void gotoxy(short x, short y);
 void clear();
 void move();
-bool movePosible(int row, int col);
+bool movePosible(short row, short col);
+void space(short row, short col);
+string** room(); // bug
+void freeRoom(char** room);

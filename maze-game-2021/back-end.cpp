@@ -1,12 +1,13 @@
 #include "backEnd.h"
+#include <iostream>
+#include <Windows.h>
 
 using namespace std;
 
-int rowRoom, colRoom; // size of the rooms
-int rowPlayer = (rowRoom-1)/2, colPlayer = (colRoom-1)/2, moves = 0;
-int** room = new int *room[rowRoom];
-for (int i = 0; i < rowRoom; i++)
-    room[i] = new int[colRoom];
+short rowRoom = 22, colRoom = 11; // size of the rooms
+int helper = 0;
+string** board; // bug
+short rowPlayer = 1, colPlayer = 1, moves = 0;
 
 HANDLE rhnd = GetStdHandle(STD_INPUT_HANDLE);  // handle to read console
 
@@ -15,27 +16,53 @@ DWORD EventsRead = 0; // Events read from console
 
 bool Running = true;
 
-bool movePosible(int row, int col) {
-    if (row = -1 || col = -1)
-        return false;
+string** room() { // bug
+    string** room = new string * [rowRoom];
+    for (int i = 0; i < rowRoom; i++)
+        room[i] = new string[colRoom];
 
     for (int i = 0; i < rowRoom; i++) {
-        for (int j = 0; j < colRoom*2; j++) {
-            if (row == 0 && col == j)
-                return false;
-            if (row == i && col == 0)
-                return false;
-            if (row == 0 && col == colRoom-1)
-                return false;
-            if (row == rowRoom-1 && col == 0)
-                return false;
+        for (int j = 0; j < colRoom; j++) {
+            if (i == 0 && j == 0) {
+                room[i][j] = "#";
+            }
+            if (i == 0 && j != 0) {
+                room[i][j] = "#";
+            }
+            if (j == 0 && i != 0) {
+                room[i][j] = "#";
+            }
+
+            if (j == colRoom - 1 && i != rowRoom - 1) {
+                room[i][j] = "#";
+            }
+            if (i == rowRoom - 1 && j != 0) {
+                room[i][j] = "#";
+            }
         }
     }
-   
+
+    return room;
+}
+
+void freeRoom(char** room) {
+    for (int i = 0; i < rowRoom; i++) {
+        delete[] room[i];
+    }
+    delete[] room;
+}
+
+bool movePosible(short row, short col) {
+    if (row == -1 || col == -1)
+        return false;
+    board = room();
+    if (board[row][col] == "#")
+        return false;
+
     return true;
 }
 
-void gotoxy(int x, int y)
+void gotoxy(short x, short y)
 {
     static HANDLE h = NULL;
     if (!h)
@@ -43,6 +70,22 @@ void gotoxy(int x, int y)
     COORD c = { x, y };
     SetConsoleCursorPosition(h, c);
 }
+
+/* for frontend :)
+void draw() {
+    board = room();
+    for (int i = 0; i < rowRoom; i++) {
+        for (int j = 0; j < colRoom; j++) {
+            if (board[i][j] == "#") {
+                gotoxy(i, j);
+                cout << "#";
+            }
+        }
+        cout << endl;
+    }
+
+}
+*/
 
 void clear() {
     COORD topLeft = { 0, 0 };
@@ -62,15 +105,12 @@ void clear() {
 }
 
 void move() {
-
     //programs main loop
     while (Running) {
-
         // gets the systems current "event" count
         GetNumberOfConsoleInputEvents(rhnd, &Events);
 
         if (Events != 0) { // if something happened we will handle the events we want
-
             // create event buffer the size of how many Events
             INPUT_RECORD* eventBuffer = new INPUT_RECORD[Events];
 
@@ -83,50 +123,43 @@ void move() {
                 // check if event[i] is a key event && if so is a press not a release
                 if (eventBuffer[i].EventType == KEY_EVENT && eventBuffer[i].Event.KeyEvent.bKeyDown) {
 
-                    // check if the key press was an arrow key
-                    if (moves > 0)
+                    if (moves > 0) {
                         clear();
+                    }
                     moves++;
+                    // check if the key press was an arrow key
+
                     switch (eventBuffer[i].Event.KeyEvent.wVirtualKeyCode) {
                     case VK_LEFT:
                         rowPlayer--;
-                        if (movePosible(rowPlayer, colPlayer)) {
-                            gotoxy(rowPlayer, colPlayer);
-                            //cout << "x"; 
-                        }
-                        else
-                            rowPlayer++; 
+                        if (!movePosible(rowPlayer, colPlayer))
+                            rowPlayer++;
+                        gotoxy(rowPlayer, colPlayer);
+                        cout << "x";
                         break;
                     case VK_RIGHT:
                         rowPlayer++;
-                        if (movePosible(rowPlayer, colPlayer)) {
-                            gotoxy(rowPlayer, colPlayer);
-                            //cout << "x"; 
-                        }
-                        else
+                        if (!movePosible(rowPlayer, colPlayer))
                             rowPlayer--;
+                        gotoxy(rowPlayer, colPlayer);
+                        cout << "x";
                         break;
                     case VK_UP:
                         colPlayer--;
-                        if (movePosible(rowPlayer, colPlayer)) {
-                            gotoxy(rowPlayer, colPlayer);
-                            //cout << "x"; 
-                        }
-                        else
+                        if (!movePosible(rowPlayer, colPlayer))
                             colPlayer++;
+                        gotoxy(rowPlayer, colPlayer);
+                        cout << "x";
                         break;
                     case VK_DOWN:
                         colPlayer++;
-                        if (movePosible(rowPlayer, colPlayer)) {
-                            gotoxy(rowPlayer, colPlayer);
-                            //cout << "x"; 
-                        }
-                        else
+                        if (!movePosible(rowPlayer, colPlayer))
                             colPlayer--;
-
+                        gotoxy(rowPlayer, colPlayer);
+                        cout << "x";
                         break;
-                        
-                    // if any arrow key was pressed go to these cordinates
+
+                        // if any arrow key was pressed go to these cordinates
                     case VK_ESCAPE: // if escape key was pressed end program loop
                         //cout << " escape key pressed.\n";
                         Running = false;
@@ -143,4 +176,9 @@ void move() {
         } // end of events
 
     } // end program loop
+}
+
+int main() {
+    move();
+    //draw();
 }
