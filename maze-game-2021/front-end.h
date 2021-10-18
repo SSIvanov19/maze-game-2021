@@ -14,23 +14,25 @@
 #define COLOR_MAIN 15
 #define KEY_ENTER 13
 
-typedef void (*Operation)(int option);
+typedef void (*Operation)(int option, bool option2);
 
 //Structures
 struct MenuOptions;
 
+
 //Functions
 
 //Handle and console releated functions
+void goToXY(short x, short y);
 bool checkForInvalidHandle();
 HANDLE getOutputHandle();
 void setConsoleColorTo(int color);
 
 //Menu releated functions
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt);
-void printLogo();
-void printMainMenu(int selectedOption);
-void printSettings(int selectedOption);
+void printMainLogo();
+void printMainMenu(int selectedOption, bool printLogo);
 void printSettingsLogo();
+void printSettings(int selectedOption, bool printLogo);
 void printHowToPlayLogo();
-void printHowToPlay();
+void printHowToPlay(int selectedOption, bool printLogo);

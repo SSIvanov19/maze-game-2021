@@ -22,10 +22,19 @@ void setConsoleColorTo(int color)
 	SetConsoleTextAttribute(STD_OUTPUT, color);
 }
 
+void goToXY(short x, short y)
+{
+	HANDLE STD_OUTPUT = getOutputHandle();
+	COORD cords;
+	cords.X = x;
+	cords.Y = y;
+	SetConsoleCursorPosition(STD_OUTPUT, cords);
+}
+
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt)
 {
 	//Output the names of the functions 
-	for (unsigned int i = 0; i < menuOptions.size(); i++)
+	for (size_t i = 0; i < menuOptions.size(); i++)
 	{
 		std::cout << " ";
 		(i + 1 == selectedOption) ? std::cout << "-> " : std::cout << "   ";
@@ -39,30 +48,30 @@ void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Oper
 	if (input == 'w' || input == 'W' || input == ARROW_UP)
 	{
 		//Go one option up
-		selectedOption == 1 ? opt(menuOptions.size()) : opt(selectedOption - 1);
+		selectedOption == 1 ? opt(int(menuOptions.size()), false) : opt(selectedOption - 1, false);
 	}
 	else if (input == 's' || input == 'S' || input == ARROW_DOWN)
 	{
 		//Go one option down
-		selectedOption == menuOptions.size() ? opt(1) : opt(selectedOption + 1);
+		selectedOption == menuOptions.size() ? opt(1, false) : opt(selectedOption + 1, false);
 	}
 	else if (input == KEY_ENTER)
 	{
 		//Call the corresponding function
-		menuOptions[selectedOption - 1].opt(1);
+		menuOptions[selectedOption - 1].opt(1, true);
 	}
 	else
 	{
-		opt(selectedOption);
+		opt(selectedOption, false);
 	}
 }
 
-void startGame(int selectedOption)
+void startGame(int selectedOption, bool printLogo)
 {
 	std::cout << "New game goes here";
 }
 
-void loadGame(int selectedOption)
+void loadGame(int selectedOption, bool printLogo)
 {
 	std::cout << "Load old game";
 }
@@ -79,12 +88,22 @@ void printSettingsLogo()
 	std::cout << "    ===========================================================" << std::endl << std::endl << std::endl;
 }
 
-void printSettings(int selectedOption)
+void printSettings(int selectedOption, bool printLogo)
 {
-	//Clear the console
-	system("CLS");
 
-	printSettingsLogo();
+	if (printLogo)
+	{
+		//Clear the screen
+		system("cls");
+
+		//TODO: Find a way to print only once
+		printSettingsLogo();
+	}
+	else
+	{
+		//Skip the logo printing
+		goToXY(0, 11);
+	}
 	
 	//Intialise a vector that holds all of the options for this menu
 	const std::vector<MenuOptions> menuOptions
@@ -120,11 +139,21 @@ void printHowToPlayLogo()
 	std::cout << "    ==================================================" << std::endl << std::endl << std::endl;
 }
 
-void printHowToPlay(int selectedOption)
+void printHowToPlay(int selectedOption, bool printLogo)
 {
-	system("CLS");
+	if (printLogo)
+	{
+		//Clear the screen
+		system("cls");
 
-	printHowToPlayLogo();
+		//TODO: Find a way to print only once
+		printHowToPlayLogo();
+	}
+	else
+	{
+		//Skip the logo printing
+		goToXY(0, 16);
+	}
 
 	std::cout << "    Lorem ipsum" << std::endl << std::endl;
 
@@ -151,11 +180,21 @@ void printAboutUsLogo()
 	std::cout << "    ==========================================" << std::endl << std::endl << std::endl;
 }
 
-void printAboutUs(int selectedOption)
+void printAboutUs(int selectedOption, bool printLogo)
 {
-	system("CLS");
+	if (printLogo)
+	{
+		//Clear the screen
+		system("cls");
 
-	printAboutUsLogo();
+		//TODO: Find a way to print only once
+		printAboutUsLogo();
+	}
+	else
+	{
+		//Skip the logo printing
+		goToXY(0, 11);
+	}
 
 	std::cout << "    Lorem ipsum" << std::endl << std::endl;
 
@@ -170,7 +209,7 @@ void printAboutUs(int selectedOption)
 	printOptions(menuOptions, selectedOption, printAboutUs);
 }
 
-void printLogo()
+void printMainLogo()
 {
 	std::cout << R"(    ============================================)" << std::endl;
 	std::cout << R"(      ____  _____       __      ________ _   _)" << std::endl;
@@ -182,13 +221,26 @@ void printLogo()
 	std::cout << R"(    ============================================)" << std::endl << std::endl << std::endl;
 }
 
-void printMainMenu(int selectedOption)
+void exitApp(int selectedOption, bool printLogo)
 {
-	//Clear the screen
-	system("cls");
+	exit(0);
+}
 
-	//Set the console output to the main color (White)
-	setConsoleColorTo(COLOR_MAIN);
+void printMainMenu(int selectedOption, bool printLogo)
+{
+	if (printLogo)
+	{
+		//Clear the screen
+		system("cls");
+		
+		//Print the logo
+		printMainLogo();
+	}
+	else
+	{
+		//Skip the logo printing
+		goToXY(0, 11);
+	}
 
 	//Intialise a vector that holds all of the options for this menu
 	const std::vector<MenuOptions> menuOptions
@@ -209,12 +261,9 @@ void printMainMenu(int selectedOption)
 			"About us", printAboutUs
 		},
 		{
-			"Exit", exit
+			"Exit", exitApp
 		}
 	};
-
-	//TODO: Find a way to print only once
-	printLogo();
 
 	printOptions(menuOptions, selectedOption, printMainMenu);
 }
