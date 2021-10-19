@@ -1,5 +1,6 @@
-//Include libraries
 #pragma once
+
+//Include libraries
 #include <windows.h>
 #include <iostream>
 #include <conio.h>
@@ -27,6 +28,7 @@ void goToXY(short x, short y);
 bool checkForInvalidHandle();
 HANDLE getOutputHandle();
 void setConsoleColorTo(int color);
+void clearConsole();
 
 //Menu releated functions
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt);
@@ -36,3 +38,7 @@ void printSettingsLogo();
 void printSettings(int selectedOption, bool printLogo);
 void printHowToPlayLogo();
 void printHowToPlay(int selectedOption, bool printLogo);
+
+//Game releated functions
+void move(int selectedOption, bool printLogo);
+void drawRoom(std::string** board, short rowRoom, short colRoom);

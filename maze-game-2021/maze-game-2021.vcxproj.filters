@@ -21,9 +21,21 @@
     <ClCompile Include="front-end.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="logs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="back-end.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="front-end.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="back-end.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

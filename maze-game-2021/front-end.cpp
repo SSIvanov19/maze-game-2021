@@ -1,4 +1,5 @@
 #include "front-end.h"
+#include "back-end.h"
 
 struct MenuOptions
 {
@@ -20,6 +21,24 @@ void setConsoleColorTo(int color)
 {
 	HANDLE STD_OUTPUT = getOutputHandle();
 	SetConsoleTextAttribute(STD_OUTPUT, color);
+}
+
+void clearConsole()
+{
+	COORD topLeft = { 0, 0 };
+	HANDLE console = getOutputHandle();
+	CONSOLE_SCREEN_BUFFER_INFO screen;
+	DWORD written;
+
+	GetConsoleScreenBufferInfo(console, &screen);
+	FillConsoleOutputCharacterA(
+		console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+	);
+	FillConsoleOutputAttribute(
+		console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
+		screen.dwSize.X * screen.dwSize.Y, topLeft, &written
+	);
+	SetConsoleCursorPosition(console, topLeft);
 }
 
 void goToXY(short x, short y)
@@ -94,7 +113,7 @@ void printSettings(int selectedOption, bool printLogo)
 	if (printLogo)
 	{
 		//Clear the screen
-		system("cls");
+		clearConsole();
 
 		//TODO: Find a way to print only once
 		printSettingsLogo();
@@ -144,7 +163,7 @@ void printHowToPlay(int selectedOption, bool printLogo)
 	if (printLogo)
 	{
 		//Clear the screen
-		system("cls");
+		clearConsole();
 
 		//TODO: Find a way to print only once
 		printHowToPlayLogo();
@@ -185,7 +204,7 @@ void printAboutUs(int selectedOption, bool printLogo)
 	if (printLogo)
 	{
 		//Clear the screen
-		system("cls");
+		clearConsole();
 
 		//TODO: Find a way to print only once
 		printAboutUsLogo();
@@ -231,7 +250,7 @@ void printMainMenu(int selectedOption, bool printLogo)
 	if (printLogo)
 	{
 		//Clear the screen
-		system("cls");
+		clearConsole();
 		
 		//Print the logo
 		printMainLogo();
@@ -246,7 +265,7 @@ void printMainMenu(int selectedOption, bool printLogo)
 	const std::vector<MenuOptions> menuOptions
 	{
 		{
-			"New game", startGame
+			"New game", move
 		},
 		{
 			"Resume game", loadGame
@@ -266,4 +285,120 @@ void printMainMenu(int selectedOption, bool printLogo)
 	};
 
 	printOptions(menuOptions, selectedOption, printMainMenu);
+}
+
+void move(int selectedOption, bool printLogo)
+{
+	short rowPlayer = 1, colPlayer = 1, moves = 0;
+	char input;
+	bool running = true;
+	short rowRoom = 22, colRoom = 11; // size of the rooms
+	std::string **board = generateRoom(rowRoom, colRoom);
+	
+	clearConsole();
+
+	drawRoom(board, rowRoom, colRoom);
+
+	//programs main loop
+	while (running)
+	{
+		goToXY(rowPlayer, colPlayer);
+		std::cout << "x";
+
+		switch ((input = _getch()))
+		{
+			case ARROW_LEFT:
+			case 'a':
+			case 'A':
+				rowPlayer--;
+
+				if (!isMovePossible(board, rowPlayer, colPlayer))
+				{
+					rowPlayer++;
+				}
+
+				goToXY(rowPlayer + 1, colPlayer);
+				std::cout << " ";
+
+				goToXY(rowPlayer, colPlayer);
+				std::cout << "x";
+
+				break;
+			case ARROW_RIGHT:
+			case 'd':
+			case 'D':
+				rowPlayer++;
+
+				if (!isMovePossible(board, rowPlayer, colPlayer))
+				{
+					rowPlayer--;
+				}
+
+				goToXY(rowPlayer - 1, colPlayer);
+				std::cout << " ";
+
+				goToXY(rowPlayer, colPlayer);
+				std::cout << "x";
+
+				break;
+			case ARROW_UP:
+			case 'w':
+			case 'W':
+				colPlayer--;
+
+				if (!isMovePossible(board, rowPlayer, colPlayer))
+				{
+					colPlayer++;
+				}
+
+				goToXY(rowPlayer, colPlayer + 1);
+				std::cout << " ";
+
+				goToXY(rowPlayer, colPlayer);
+				std::cout << "x";
+
+				break;
+			case ARROW_DOWN:
+			case 's':
+			case 'S':
+				colPlayer++;
+
+				if (!isMovePossible(board, rowPlayer, colPlayer))
+				{
+					colPlayer--;
+				}
+
+				goToXY(rowPlayer, colPlayer - 1);
+				std::cout << " ";
+
+				goToXY(rowPlayer, colPlayer);
+				std::cout << "x";
+
+				break;
+			// if any arrow key was pressed go to these cordinates
+			case ESCAPE_BUTTON: // if escape key was pressed end program loop
+				//cout << " escape key pressed.\n";
+				running = false;
+				break;
+			default:  // no handled cases where pressed 
+				//cout << "dont press other buttons.\n";
+				break;
+		}
+	}
+} 
+
+void drawRoom(std::string** board, short rowRoom, short colRoom)
+{
+	for (int i = 0; i < rowRoom; i++)
+	{
+		for (int j = 0; j < colRoom; j++)
+		{
+			if (board[i][j] == "#")
+			{
+				goToXY(i, j);
+				std::cout << "#";
+			}
+		}
+		std::cout << std::endl;
+	}
 }
