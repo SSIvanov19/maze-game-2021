@@ -1,5 +1,6 @@
 #include "front-end.h"
 #include "back-end.h"
+#include "logs.h"
 
 struct MenuOptions
 {
@@ -20,7 +21,21 @@ bool checkForInvalidHandle()
 void setConsoleColorTo(int color)
 {
 	HANDLE STD_OUTPUT = getOutputHandle();
-	SetConsoleTextAttribute(STD_OUTPUT, color);
+	if (SetConsoleTextAttribute(STD_OUTPUT, color) == 0)
+	{
+		showError("Faile to set console text attributes");
+	}
+}
+
+void showError(std::string msg)
+{
+	Logger logger;
+	logger.err("File: front-end " + msg);
+
+	clearConsole();
+	std::cout << msg + "\nThe program is going to close itself!\nSee the log file for more information";
+	
+	exit(1);
 }
 
 void clearConsole()
@@ -30,15 +45,27 @@ void clearConsole()
 	CONSOLE_SCREEN_BUFFER_INFO screen;
 	DWORD written;
 
-	GetConsoleScreenBufferInfo(console, &screen);
-	FillConsoleOutputCharacterA(
+	if (GetConsoleScreenBufferInfo(console, &screen) == 0)
+	{
+		showError("Failed to get console screen buffer info");
+	}
+
+	if (FillConsoleOutputCharacterA(
 		console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
-	);
-	FillConsoleOutputAttribute(
+	) == 0)
+	{
+		showError("Failed to writes a character to the console screen buffer");
+	}
+
+	if (FillConsoleOutputAttribute(
 		console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE,
 		screen.dwSize.X * screen.dwSize.Y, topLeft, &written
-	);
-	SetConsoleCursorPosition(console, topLeft);
+	) == 0)
+	{
+		showError("Failed to set the character attributes");
+	}
+
+	goToXY(topLeft.X, topLeft.Y);
 }
 
 void goToXY(short x, short y)
@@ -47,7 +74,11 @@ void goToXY(short x, short y)
 	COORD cords;
 	cords.X = x;
 	cords.Y = y;
-	SetConsoleCursorPosition(STD_OUTPUT, cords);
+
+	if (SetConsoleCursorPosition(STD_OUTPUT, cords) == 0)
+	{
+		showError("Can't set cursor position");
+	}
 }
 
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt)
@@ -64,24 +95,24 @@ void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Oper
 	char input = _getch();
 
 	//Check the input
-	if (input == 'w' || input == 'W' || input == ARROW_UP)
+	switch (input)
 	{
-		//Go one option up
-		selectedOption == 1 ? opt(int(menuOptions.size()), false) : opt(selectedOption - 1, false);
-	}
-	else if (input == 's' || input == 'S' || input == ARROW_DOWN)
-	{
-		//Go one option down
-		selectedOption == menuOptions.size() ? opt(1, false) : opt(selectedOption + 1, false);
-	}
-	else if (input == KEY_ENTER)
-	{
-		//Call the corresponding function
-		menuOptions[selectedOption - 1].opt(1, true);
-	}
-	else
-	{
-		opt(selectedOption, false);
+		case 'w':
+		case 'W':
+		case ARROW_UP:
+			selectedOption == 1 ? opt(int(menuOptions.size()), false) : opt(selectedOption - 1, false);
+			break;
+		case 's':
+		case 'S':
+		case ARROW_DOWN:
+			selectedOption == menuOptions.size() ? opt(1, false) : opt(selectedOption + 1, false);
+			break;
+		case KEY_ENTER:
+			menuOptions[selectedOption - 1].opt(1, true);
+			break;
+		default:
+			opt(selectedOption, false);
+			break;
 	}
 }
 

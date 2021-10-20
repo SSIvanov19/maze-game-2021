@@ -29,6 +29,7 @@ bool checkForInvalidHandle();
 HANDLE getOutputHandle();
 void setConsoleColorTo(int color);
 void clearConsole();
+void showError(std::string msg);
 
 //Menu releated functions
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt);
