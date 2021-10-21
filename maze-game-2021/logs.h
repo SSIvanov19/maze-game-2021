@@ -1,3 +1,7 @@
+/*! @file logs.h
+*   @brief A header file for the logs.
+*/
+
 #pragma once
 
 //Libraries
@@ -5,9 +9,13 @@
 #include <fstream>
 #include <ctime>
 
-//Structure
+/**
+ * @brief A struct that holds the functions for logging.
+*/
 struct Logger
 {
+	/// @brief A function for error logging
+	/// @param msg The message to be logged
 	void err(std::string msg)
 	{
 		//Get the time, return the seconds from 1 Jan 1970
@@ -34,6 +42,8 @@ struct Logger
 		std::cerr.rdbuf(cerrbuf);
 	}
 
+	/// @brief A function for logging
+	/// @param msg The message to be logged 
 	void log(std::string msg)
 	{
 		//Get the time, return the seconds from 1 Jan 1970

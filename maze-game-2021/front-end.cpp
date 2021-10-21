@@ -1,23 +1,42 @@
+/*! @file front-end.cpp
+*   @brief A source file for the presentation layer.
+*/
+
 #include "front-end.h"
 #include "back-end.h"
 #include "logs.h"
 
+/**
+ * @brief A struct for every option of the menu.
+*/
 struct MenuOptions
 {
-	std::string name;
-	Operation opt;
+	std::string name; /*!< The name of the option*/
+	Operation opt; /*!< A pointer to function that will be caled whenever this option is selected */
 };
 
+/**
+ * @brief A funtion that get the output handle.
+ * @return HANDLE
+*/
 HANDLE getOutputHandle()
 {
 	return GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
+/**
+ * @brief Check if the output that was returned from checkForInvalidHandle() is INVALID_HANDLE_VALUE.
+ * @return bool
+*/
 bool checkForInvalidHandle()
 {
 	return getOutputHandle() == INVALID_HANDLE_VALUE;
 }
 
+/**
+ * @brief Function that sets the console foreground color.
+ * @param color The code of the color.
+*/
 void setConsoleColorTo(int color)
 {
 	HANDLE STD_OUTPUT = getOutputHandle();
@@ -27,6 +46,13 @@ void setConsoleColorTo(int color)
 	}
 }
 
+/**
+ * @brief A function that displays error and logs it to the browser.
+ * @param fileName The name of the file.
+ * @param fucntionName The name of the function.
+ * @param errorCode The error code.
+ * @param msg The message shown by the error.
+*/
 void showError(std::string fileName, std::string fucntionName, DWORD errorCode, std::string msg)
 {
 	Logger logger;
@@ -38,6 +64,9 @@ void showError(std::string fileName, std::string fucntionName, DWORD errorCode, 
 	exit(1);
 }
 
+/**
+ * @brief A function that clears the console.
+*/
 void clearConsole()
 {
 	COORD topLeft = { 0, 0 };
@@ -68,6 +97,11 @@ void clearConsole()
 	goToXY(topLeft.X, topLeft.Y);
 }
 
+/**
+ * @brief A funtion that puts the cursor to a specific position.
+ * @param x A x coordinate.
+ * @param y A y coordinate.
+*/
 void goToXY(short x, short y)
 {
 	HANDLE STD_OUTPUT = getOutputHandle();
@@ -81,6 +115,12 @@ void goToXY(short x, short y)
 	}
 }
 
+/**
+ * @brief A function that print the option from the vector, passed as parameter, and ask the user to choose a option.
+ * @param menuOptions A vector that holds all the options.
+ * @param selectedOption A int variable that represent the selected function.
+ * @param opt A pointer to function.
+*/
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt)
 {
 	//Output the names of the functions 
@@ -116,16 +156,29 @@ void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Oper
 	}
 }
 
+/**
+ * @brief A function to start the game.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed? 
+*/
 void startGame(int selectedOption, bool printLogo)
 {
 	std::cout << "New game goes here";
 }
 
+/**
+ * @brief A function to load the game.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed?
+*/
 void loadGame(int selectedOption, bool printLogo)
 {
 	std::cout << "Load old game";
 }
 
+/**
+ * @brief Funtion that prints the settings logo.
+*/
 void printSettingsLogo()
 {
 	std::cout << "    ===========================================================" << std::endl;
@@ -138,6 +191,11 @@ void printSettingsLogo()
 	std::cout << "    ===========================================================" << std::endl << std::endl << std::endl;
 }
 
+/**
+ * @brief Funtion that print the settings.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed?
+*/
 void printSettings(int selectedOption, bool printLogo)
 {
 
@@ -172,6 +230,9 @@ void printSettings(int selectedOption, bool printLogo)
 	printOptions(menuOptions, selectedOption, printSettings);
 }
 
+/**
+ * @brief Funtion that prints the how to play logo.
+*/
 void printHowToPlayLogo()
 {
 	std::cout << "    ==================================================" << std::endl;
@@ -189,6 +250,11 @@ void printHowToPlayLogo()
 	std::cout << "    ==================================================" << std::endl << std::endl << std::endl;
 }
 
+/**
+ * @brief Funtion that print the How to play section.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed?
+*/
 void printHowToPlay(int selectedOption, bool printLogo)
 {
 	if (printLogo)
@@ -218,6 +284,9 @@ void printHowToPlay(int selectedOption, bool printLogo)
 	printOptions(menuOptions, selectedOption, printHowToPlay);
 }
 
+/**
+ * @brief Funtion that print About Us logo.
+*/
 void printAboutUsLogo()
 {
 	std::cout << "    ==========================================" << std::endl;
@@ -230,6 +299,11 @@ void printAboutUsLogo()
 	std::cout << "    ==========================================" << std::endl << std::endl << std::endl;
 }
 
+/**
+ * @brief Funtion that print the About Us section.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed?
+*/
 void printAboutUs(int selectedOption, bool printLogo)
 {
 	if (printLogo)
@@ -259,6 +333,9 @@ void printAboutUs(int selectedOption, bool printLogo)
 	printOptions(menuOptions, selectedOption, printAboutUs);
 }
 
+/**
+ * @brief Funtion that prints the main logo.
+*/
 void printMainLogo()
 {
 	std::cout << R"(    ============================================)" << std::endl;
@@ -271,11 +348,21 @@ void printMainLogo()
 	std::cout << R"(    ============================================)" << std::endl << std::endl << std::endl;
 }
 
+/**
+ * @brief Funtion that exit the app.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed?
+*/
 void exitApp(int selectedOption, bool printLogo)
 {
 	exit(0);
 }
 
+/**
+ * @brief Funtion that print the main menu.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed?
+*/
 void printMainMenu(int selectedOption, bool printLogo)
 {
 	if (printLogo)
@@ -318,6 +405,11 @@ void printMainMenu(int selectedOption, bool printLogo)
 	printOptions(menuOptions, selectedOption, printMainMenu);
 }
 
+/**
+ * @brief A funtion that starts the game and spawn a player in a room.
+ * @param selectedOption The number of selected option.
+ * @param printLogo Should the logo be printed?
+*/
 void move(int selectedOption, bool printLogo)
 {
 	short rowPlayer = 1, colPlayer = 1, moves = 0;
@@ -418,6 +510,12 @@ void move(int selectedOption, bool printLogo)
 	}
 } 
 
+/**
+ * @brief A function that print a room on the screen.
+ * @param board A pointer to dynamic two-dimensional array of strings.
+ * @param rowRoom The number of rows.
+ * @param colRoom The number of collomns.
+*/
 void drawRoom(std::string** board, short rowRoom, short colRoom)
 {
 	for (int i = 0; i < rowRoom; i++)

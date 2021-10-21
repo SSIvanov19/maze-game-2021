@@ -1,7 +1,14 @@
+/*! @file maze-game-2021.cpp
+*   @brief The main source file of the program.
+*/
+
 #include "front-end.h"
 #include "back-end.h"
 #include "logs.h"
 
+/**
+ * @brief Function that initializes the game.
+*/
 void initializeTheGame()
 {
 	Logger logger;

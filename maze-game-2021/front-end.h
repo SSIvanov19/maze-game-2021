@@ -1,3 +1,39 @@
+/*! @file front-end.h
+*   @brief A header file for the presentation layer.
+*/
+
+/*! @def ESCAPE_BUTTON
+*	@brief A macro that return the ASCII code of the escape buttoon.
+*/
+
+/*! @def KEY_ENTER
+*	@brief A macro that return the ASCII code of the enter buttoon.
+*/
+
+/*! @def ARROW_LEFT
+*	@brief A macro that return the ASCII code of the left arrow buttoon.
+*/
+
+/*! @def ARROW_RIGHT
+*	@brief A macro that return the ASCII code of the right arrow buttoon.
+*/
+
+/*! @def ARROW_UP
+*	@brief A macro that return the ASCII code of the upper arrow buttoon.
+*/
+
+/*! @def ARROW_DOWN
+*	@brief A macro that return the ASCII code of the down arrow buttoon.
+*/
+
+/*! @def COLOR_MAIN
+*	@brief A macro that return the code of the main color.
+*/
+
+/*!	@var typedef void (*Operation)(int option, bool option2);
+	@brief A type definition for a function pointer in a MenuOptions stuct.
+*/
+
 #pragma once
 
 //Include libraries
@@ -24,7 +60,7 @@ struct MenuOptions;
 
 //Functions
 
-//Handle and console releated functions
+//Handle and console releated function
 void goToXY(short x, short y);
 bool checkForInvalidHandle();
 HANDLE getOutputHandle();
