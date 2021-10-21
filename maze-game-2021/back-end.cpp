@@ -3,7 +3,7 @@
 #include <Windows.h>
 
 std::string** generateRoom(short rowRoom, short colRoom)
-{ // bug
+{ 
     std::string** room = new std::string * [rowRoom];
 
     for (int i = 0; i < rowRoom; i++)
