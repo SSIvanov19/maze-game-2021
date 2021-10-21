@@ -25,7 +25,7 @@ HANDLE getOutputHandle()
 }
 
 /**
- * @brief Check if the output that was returned from checkForInvalidHandle() is INVALID_HANDLE_VALUE.
+ * @brief Check if the output that was returned from getOutputHandle() is INVALID_HANDLE_VALUE.
  * @return bool
 */
 bool checkForInvalidHandle()
