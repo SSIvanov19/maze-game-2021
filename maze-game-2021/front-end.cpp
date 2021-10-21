@@ -23,14 +23,14 @@ void setConsoleColorTo(int color)
 	HANDLE STD_OUTPUT = getOutputHandle();
 	if (SetConsoleTextAttribute(STD_OUTPUT, color) == 0)
 	{
-		showError("Faile to set console text attributes");
+		showError("front-end.cpp", "setConsoleColorTo -> SetConsoleTextAttribute", GetLastError(), "Failed to set console text attributes");
 	}
 }
 
-void showError(std::string msg)
+void showError(std::string fileName, std::string fucntionName, DWORD errorCode, std::string msg)
 {
 	Logger logger;
-	logger.err("File: front-end " + msg);
+	logger.err("File: " + fileName + ", Function: " + fucntionName + ", Error code: " + std::to_string(errorCode) + ", Message: " + msg);
 
 	clearConsole();
 	std::cout << msg + "\nThe program is going to close itself!\nSee the log file for more information";
@@ -47,14 +47,14 @@ void clearConsole()
 
 	if (GetConsoleScreenBufferInfo(console, &screen) == 0)
 	{
-		showError("Failed to get console screen buffer info");
+		showError("front-end.cpp", "clearConsole -> GetConsoleScreenBufferInfo", GetLastError(), "Failed to get console screen buffer info");
 	}
 
 	if (FillConsoleOutputCharacterA(
 		console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written
 	) == 0)
 	{
-		showError("Failed to writes a character to the console screen buffer");
+		showError("front-end.cpp", "clearConsole -> FillConsoleOutputCharacterA", GetLastError(), "Failed to writes a character to the console screen buffer");
 	}
 
 	if (FillConsoleOutputAttribute(
@@ -62,7 +62,7 @@ void clearConsole()
 		screen.dwSize.X * screen.dwSize.Y, topLeft, &written
 	) == 0)
 	{
-		showError("Failed to set the character attributes");
+		showError("front-end.cpp", "clearConsole -> FillConsoleOutputAttribute", GetLastError(), "Failed to set the character attributes");
 	}
 
 	goToXY(topLeft.X, topLeft.Y);
@@ -77,7 +77,7 @@ void goToXY(short x, short y)
 
 	if (SetConsoleCursorPosition(STD_OUTPUT, cords) == 0)
 	{
-		showError("Can't set cursor position");
+		showError("front-end.cpp", "goToXY -> SetConsoleCursorPosition", GetLastError(), "Can't set cursor position");
 	}
 }
 

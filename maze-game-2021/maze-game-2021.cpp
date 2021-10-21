@@ -1,24 +1,27 @@
 #include "front-end.h"
 #include "back-end.h"
+#include "logs.h"
 
 void initializeTheGame()
 {
-    if (checkForInvalidHandle())
-    {
-        showError("Failed to get STD_OUTPUT_HANDLE!");
-    }
+	Logger logger;
+	logger.log("The game is initializeing");
 
-    //Set the console output to the main color (White)
-    setConsoleColorTo(COLOR_MAIN);
+	if (checkForInvalidHandle())
+	{
+		showError("maze-game.cpp", "initializeTheGame -> checkForInvalidHandle", GetLastError(), "Failed to get STD_OUTPUT_HANDLE!");
+	}
 
+	//Set the console output to the main color (White)
+	setConsoleColorTo(COLOR_MAIN);
 }
 
 int main()
 {
-    initializeTheGame();
-    
-    while (true)
-    {
-        printMainMenu(1, true);
-    }
+	initializeTheGame();
+
+	while (true)
+	{
+		printMainMenu(1, true);
+	}
 }

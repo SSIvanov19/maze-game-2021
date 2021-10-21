@@ -5,6 +5,7 @@
 #include <iostream>
 #include <conio.h>
 #include <vector>
+#include <string>
 
 //Defines
 #define ESCAPE_BUTTON 27
@@ -29,7 +30,7 @@ bool checkForInvalidHandle();
 HANDLE getOutputHandle();
 void setConsoleColorTo(int color);
 void clearConsole();
-void showError(std::string msg);
+void showError(std::string fileName, std::string fucntionName, DWORD errorCode, std::string msg);
 
 //Menu releated functions
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt);
