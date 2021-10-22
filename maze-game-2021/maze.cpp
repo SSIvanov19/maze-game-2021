@@ -65,9 +65,11 @@ string** room() {
 			if (i == rowRoom - 1 && j != 0) {
 				room[i][j] = "|";
 			}
+			/*
 			if (i == 0 && j == 1) {
 				room[i][j] = " ";
 			}
+			*/
 		}
 	}
 
@@ -78,6 +80,18 @@ void draw() {
 	board = room();
 	for (int i = 0; i < rowRoom; i++) {
 		for (int j = 0; j < colRoom; j++) {
+			if (direction != 0) {
+				board = maze;
+				if (board[i][j] == "#") {
+					gotoxy(i, j);
+					cout << "#";
+				}
+
+				if (board[i][j] == ".") {
+					gotoxy(i, j);
+					cout << ".";
+				}
+			}
 			if (board[i][j] == "|") {
 				gotoxy(i, j);
 				cout << "|";
@@ -86,19 +100,6 @@ void draw() {
 		cout << endl;
 	}
 
-	if (direction != 0) {
-		board = maze;
-
-		for (int i = 1; i < rowRoom - 1; i++) {
-			for (int j = 1; j < colRoom - 1; j++) {
-				if (board[i][j] == "#") {
-					gotoxy(i, j);
-					cout << "#";
-				}
-			}
-			cout << endl;
-		}
-	}
 }
 
 bool mazeImposible(string** maze, short row, short col, short direction) {
@@ -128,23 +129,23 @@ bool mazeImposible(string** maze, short row, short col, short direction) {
 }
 
 void mazeBuilder(string** maze, short row, short col, short direction) {
-	if (maze[row - 1][col + 1] == " " && direction == 1) {
+	if (maze[row - 1][col + 1] == "." && direction == 1) {
 		maze[row - 1][col] = "#";
 		if (maze[row - 1][col + 1] == "#")
 			maze[row - 2][col] = "#";
 	}
-	if (maze[row + 1][col + 1] == " " && direction == 2) {
+	if (maze[row + 1][col + 1] == "." && direction == 2) {
 		maze[row][col - 1] = "#";
 		if (maze[row - 1][col - 2] == "#")
 			maze[row][col - 2] = "#";
 
 	}
-	if (maze[row - 1][col - 1] == " " && direction == 3) {
+	if (maze[row - 1][col - 1] == "." && direction == 3) {
 		maze[row - 1][col] = "#";
 		if (maze[row - 2][col - 1] == "#")
 			maze[row - 2][col] = "#";
 	}
-	if (maze[row + 1][col - 1] == " " && direction == 4) {
+	if (maze[row + 1][col - 1] == "." && direction == 4) {
 		maze[row][col - 1] = "#";
 		if (maze[row + 1][col - 1] == "#")
 			maze[row][col - 2] = "#";
@@ -158,49 +159,53 @@ void mazeCreate() {
 	srand(time(NULL));
 	bool full = true;
 	while (full) {
-
+		gotoxy(i, j);
+		cout << "x";
 		draw();
-		cout << endl << "Pick direction: ";
-		cin >> direction;// = rand() % 4 + 1; // 1 - up, 2 - right, 3 - down, 4 - left
-
+		cout << "Row = " << i << " Col = " << j << endl;
+		direction = rand() % 4 + 1; // 1 - up, 2 - right, 3 - down, 4 - left
+		cout << "Direction choise: ";
+		switch (direction) {
+		case 1: cout << "up" << endl;  break;
+		case 2: cout << "rigth" << endl; break;
+		case 3: cout << "down" << endl; break;
+		case 4: cout << "left" << endl; break;
+		}
+		Sleep(1500);
 		switch (direction) {
 		case 1: // up
 			if (mazeImposible(maze, i, j - 1, 1)) {
 				j--;
 				mazeBuilder(maze, i, j, 1);
-				maze[i][j] = " ";
-				cout << "x";
+				maze[i][j] = ".";
 			}
 			break;
 		case 2: // rigth
 			if (mazeImposible(maze, i + 1, j, 2)) {
 				i++;
 				mazeBuilder(maze, i, j, 2);
-				maze[i][j] = " ";
-				cout << "x";
+				maze[i][j] = ".";
 			}
 			break;
 		case 3: // down
 			if (mazeImposible(maze, i, j + 1, 3)) {
 				j++;
 				mazeBuilder(maze, i, j, 3);
-				maze[i][j] = " ";
-				cout << "x";
+				maze[i][j] = ".";
 			}
 			break;
 		case 4: // left
 			if (mazeImposible(maze, i - 1, j, 4)) {
 				i--;
 				mazeBuilder(maze, i, j, 4);
-				maze[i][j] = " ";
-				cout << "x";
+				maze[i][j] = ".";
 			}
 			break;
 		default:
 			break;
 		}
 		clear();
-		if (i == rowRoom - 1 && j == colRoom - 1) {
+		if (i == rowRoom - 2 && j == colRoom - 2) {
 			full = false;
 		}
 	}
