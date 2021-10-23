@@ -11,6 +11,8 @@
 */
 void initializeTheGame()
 {
+	system("chcp 437");
+
 	Logger logger;
 	logger.log("The game is initializeing");
 

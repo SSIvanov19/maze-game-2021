@@ -16,6 +16,19 @@ struct MenuOptions
 };
 
 /**
+ * @brief A struct for room.
+*/
+struct Room
+{
+	bool visited;
+	bool top;
+	bool bot;
+	bool left;
+	bool right;
+	char show;
+};
+
+/**
  * @brief A funtion that get the output handle.
  * @return HANDLE
 */
@@ -163,7 +176,10 @@ void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Oper
 */
 void startGame(int selectedOption, bool printLogo)
 {
-	std::cout << "New game goes here";
+	//clearConsole();
+	//drawBoard();
+	move();
+	//exit(0);
 }
 
 /**
@@ -217,7 +233,7 @@ void printSettings(int selectedOption, bool printLogo)
 	const std::vector<MenuOptions> menuOptions
 	{
 		{
-			"Setting 1", startGame
+			"Setting 1", loadGame
 		},
 		{
 			"Setting 2", loadGame
@@ -262,7 +278,6 @@ void printHowToPlay(int selectedOption, bool printLogo)
 		//Clear the screen
 		clearConsole();
 
-		//TODO: Find a way to print only once
 		printHowToPlayLogo();
 	}
 	else
@@ -310,8 +325,7 @@ void printAboutUs(int selectedOption, bool printLogo)
 	{
 		//Clear the screen
 		clearConsole();
-
-		//TODO: Find a way to print only once
+		
 		printAboutUsLogo();
 	}
 	else
@@ -383,7 +397,7 @@ void printMainMenu(int selectedOption, bool printLogo)
 	const std::vector<MenuOptions> menuOptions
 	{
 		{
-			"New game", move
+			"New game", startGame
 		},
 		{
 			"Resume game", loadGame
@@ -405,20 +419,86 @@ void printMainMenu(int selectedOption, bool printLogo)
 	printOptions(menuOptions, selectedOption, printMainMenu);
 }
 
+//In progress
 /**
- * @brief A funtion that starts the game and spawn a player in a room.
- * @param selectedOption The number of selected option.
- * @param printLogo Should the logo be printed?
+ * @brief A function for drawing the UI of the game
 */
-void move(int selectedOption, bool printLogo)
+void drawBoard()
 {
+	//First row
+	std::cout << char(218);
+	for (int i = 0; i < 8; i++)
+	{
+		std::cout << char(196);
+	}
+	std::cout << char(194);
+	for (int i = 0; i < 43; i++)
+	{
+		std::cout << char(196);
+	}
+	std::cout << char(191) << std::endl;
+	
+	//End First row
+	//Second, Fifth, Seventh, Tenth, Twelvth, fifteenth, Seventeenth, Twentieth Row
+	for (int i = 0; i < 19; i++)
+	{
+		std::cout << char(179);
+		for (int i = 0; i < 8; i++)
+		{
+			std::cout << ' ';
+		}
+		std::cout << char(179);
+		for (int i = 0; i < 43; i++)
+		{
+			std::cout << ' ';
+		}
+		std::cout << char(179) << std::endl;
+
+	}
+}
+
+/**
+ * @brief Spawn a player in a room and allow the user to move the player. 
+*/
+void move()
+{
+	Room** Maze = new Room* [LENGTH];
+
+	for (int i = 0; i < LENGTH; ++i)
+	{
+		Maze[i] = new Room[LENGTH];
+	}
+
+
+	clearConsole();
+	//Room Maze[LENGTH][LENGTH];
+	bool playing = false;
+	while (!playing) {
+		set(Maze);
+		//drawRoom(Maze);
+
+		generator(Maze);
+		drawRoom(Maze);
+		
+		char input;
+		std::cout << "Close? (Y): ";
+		std::cin >> input;
+
+		if ((input != 'y') && (input != 'Y'))
+			std::cout << "Invalid option" << std::endl;
+		else if ((input == 'Y') || (input == 'y')) {
+			std::cout << "Good bye!" << std::endl;
+			break;
+		}
+	}
+
+	/*
 	short rowPlayer = 1, colPlayer = 1, moves = 0;
 	char input;
 	bool running = true;
 	short rowRoom = 22, colRoom = 11; // size of the rooms
 	std::string **board = generateRoom(rowRoom, colRoom);
 	
-	clearConsole();
 
 	drawRoom(board, rowRoom, colRoom);
 
@@ -508,6 +588,7 @@ void move(int selectedOption, bool printLogo)
 				break;
 		}
 	}
+	*/
 } 
 
 /**
@@ -516,18 +597,14 @@ void move(int selectedOption, bool printLogo)
  * @param rowRoom The number of rows.
  * @param colRoom The number of collomns.
 */
-void drawRoom(std::string** board, short rowRoom, short colRoom)
+void drawRoom(Room** Maze)
 {
-	for (int i = 0; i < rowRoom; i++)
+	for (int i = 0; i < LENGTH; i++) 
 	{
-		for (int j = 0; j < colRoom; j++)
-		{
-			if (board[i][j] == "#")
-			{
-				goToXY(i, j);
-				std::cout << "#";
-			}
-		}
 		std::cout << std::endl;
+		for (int j = 0; j < LENGTH; j++)
+		{
+			std::cout << " " << Maze[i][j].show;
+		}
 	}
 }
