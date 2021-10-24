@@ -31,7 +31,7 @@
 */
 
 /*! @def LENGTH
-*	@brief A macro that return the lenfth of the maze.
+*	@brief A macro that return the length of the maze.
 */
 
 /*!	@var typedef void (*Operation)(int option, bool option2);
@@ -65,15 +65,15 @@ struct Room;
 
 //Functions
 
-//Handle and console releated function
+//Handle and console related function
 void goToXY(short x, short y);
 bool checkForInvalidHandle();
 HANDLE getOutputHandle();
 void setConsoleColorTo(int color);
 void clearConsole();
-void showError(std::string fileName, std::string fucntionName, DWORD errorCode, std::string msg);
+void showError(std::string fileName, std::string functionName, DWORD errorCode, std::string msg);
 
-//Menu releated functions
+//Menu related functions
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt);
 void printMainLogo();
 void printMainMenu(int selectedOption, bool printLogo);
@@ -82,7 +82,7 @@ void printSettings(int selectedOption, bool printLogo);
 void printHowToPlayLogo();
 void printHowToPlay(int selectedOption, bool printLogo);
 
-//Game releated functions
+//Game related functions
 void move();
 void drawRoom(Room** Maze);
 void drawBoard();

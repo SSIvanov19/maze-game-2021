@@ -1,5 +1,9 @@
-#include "back-end.h"
+/*! @file back-end.cpp
+*   @brief A source file for the logic layer.
+*/
 
+
+#include "back-end.h"
 
 /**
  * @brief A struct for room.
@@ -14,10 +18,16 @@ struct Room
 	char show;
 };
 
+/**
+ * @brief A function for settign up the maze
+ * @param Maze The maze
+*/
 void set(Room** Maze)
 {
-	for (int i = 0; i < LENGTH; i++) {
-		for (int j = 0; j < LENGTH; j++) {
+	for (int i = 0; i < LENGTH; i++) 
+	{
+		for (int j = 0; j < LENGTH; j++) 
+		{
 			Maze[i][j].show = '#';
 			Maze[i][j].visited = false;
 			Maze[i][j].top = true;
@@ -26,8 +36,11 @@ void set(Room** Maze)
 			Maze[i][j].right = true;
 		}
 	}
-	for (int i = 1; i < LENGTH - 1; i++) {
-		for (int j = 1; j < LENGTH - 1; j++) {
+
+	for (int i = 1; i < LENGTH - 1; i++) 
+	{
+		for (int j = 1; j < LENGTH - 1; j++) 
+		{
 			// Border Cells have fewer accessible walls
 			Maze[1][j].top = false;
 			Maze[LENGTH - 2][j].bot = false;
@@ -38,8 +51,22 @@ void set(Room** Maze)
 
 }
 
-void generator(Room** Maze)
+/**
+ * @brief Generate a maze
+ * @param maze The maze
+*/
+void generator(Room** maze)
 {
+	Room Maze[LENGTH][LENGTH];
+
+	for (int i = 0; i < LENGTH; i++)
+	{
+		for (int j = 0; j < LENGTH; j++)
+		{
+			Maze[i][j] = maze[i][j];
+		}
+	}
+
 	srand((unsigned)time(NULL)); // Pick random start cell
 	int random = 0;
 	int times = 0;
@@ -49,7 +76,8 @@ void generator(Room** Maze)
 	int totalCells = ((LENGTH - 1) / 2) * ((LENGTH - 1) / 2);
 	int percent = 0;
 	std::stack<int> back_trackX, back_trackY; 						// Stack is used to trace the reverse path
-	if (times == 0) {
+	if (times == 0) 
+	{
 		times++;
 		col = 1;
 		row = 1;
@@ -67,8 +95,10 @@ void generator(Room** Maze)
 			random = (rand() % 4) + 1;		// Pick a random wall 1-4 to knock down
 
 			 // GO UP
-			if ((random == 1) && (col > 1)) {
-				if (Maze[col - 2][row].visited == false) {	// If not visited
+			if ((random == 1) && (col > 1)) 
+			{
+				if (Maze[col - 2][row].visited == false) 
+				{	// If not visited
 					Maze[col - 1][row].show = ' ';	// Delete show
 					Maze[col - 1][row].visited = true;	// Mark cell as visited
 					Maze[col][row].top = false;	// Knock down wall
@@ -87,8 +117,10 @@ void generator(Room** Maze)
 			}
 
 			// GO DOWN
-			else if ((random == 2) && (col < LENGTH - 2)) {
-				if (Maze[col + 2][row].visited == false) {	// If not visited
+			else if ((random == 2) && (col < LENGTH - 2)) 
+			{
+				if (Maze[col + 2][row].visited == false) 
+				{	// If not visited
 					Maze[col + 1][row].show = ' ';	// Delete show
 					Maze[col + 1][row].visited = true;	// Mark cell as visited
 					Maze[col][row].bot = false;	// Knock down wall
@@ -107,8 +139,10 @@ void generator(Room** Maze)
 			}
 
 			// GO LEFT
-			else if ((random == 3) && (row > 1)) {
-				if (Maze[col][row - 2].visited == false) {	// If not visited
+			else if ((random == 3) && (row > 1)) 
+			{
+				if (Maze[col][row - 2].visited == false) 
+				{	// If not visited
 					Maze[col][row - 1].show = ' ';	// Delete show
 					Maze[col][row - 1].visited = true;	// Mark cell as visited
 					Maze[col][row].left = false;	// Knock down wall
@@ -127,8 +161,10 @@ void generator(Room** Maze)
 			}
 
 			// GO RIGHT
-			else if ((random == 4) && (row < LENGTH - 2)) {
-				if (Maze[col][row + 2].visited == false) {	// If not visited
+			else if ((random == 4) && (row < LENGTH - 2)) 
+			{
+				if (Maze[col][row + 2].visited == false) 
+				{	// If not visited
 					Maze[col][row + 1].show = ' ';	// Delete show
 					Maze[col][row + 1].visited = true;	// Mark cell as visited
 					Maze[col][row].right = false;	// Knock down wall
@@ -158,30 +194,34 @@ void generator(Room** Maze)
 			col = back_trackY.top();
 			back_trackY.pop();
 		}
-
-		/*
-		Clear();
-		Draw(Maze);
-		*/
 	}
 
 	Maze[LENGTH - 2][LENGTH - 2].show = 'E';
 
-	/*
-	system("cls");
-	Clear();
-	Draw(Maze);
-	*/
+	for (int i = 0; i < LENGTH; i++)
+	{
+		for (int j = 0; j < LENGTH; j++)
+		{
+			maze[i][j] = Maze[i][j];
+		}
+	}
 }
 
-bool isMovePossible(std::string **board, short row, short col) 
+/**
+ * @brief A function for checking if a move is possible
+ * @param board The maze
+ * @param row The row coordinate
+ * @param col The column coordinate
+ * @return bool value
+*/
+bool isMovePossible(Room **board, short row, short col) 
 {
     if (row == -1 || col == -1)
     {
         return false;
     }
     
-    if (board[row][col] == "#")
+    if (board[col][row].show == '#')
     {
         return false;
     }

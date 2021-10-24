@@ -12,7 +12,7 @@
 struct MenuOptions
 {
 	std::string name; /*!< The name of the option*/
-	Operation opt; /*!< A pointer to function that will be caled whenever this option is selected */
+	Operation opt; /*!< A pointer to function that will be called whenever this option is selected */
 };
 
 /**
@@ -29,7 +29,7 @@ struct Room
 };
 
 /**
- * @brief A funtion that get the output handle.
+ * @brief A function that get the output handle.
  * @return HANDLE
 */
 HANDLE getOutputHandle()
@@ -62,14 +62,14 @@ void setConsoleColorTo(int color)
 /**
  * @brief A function that displays error and logs it to the browser.
  * @param fileName The name of the file.
- * @param fucntionName The name of the function.
+ * @param functionName The name of the function.
  * @param errorCode The error code.
  * @param msg The message shown by the error.
 */
-void showError(std::string fileName, std::string fucntionName, DWORD errorCode, std::string msg)
+void showError(std::string fileName, std::string functionName, DWORD errorCode, std::string msg)
 {
 	Logger logger;
-	logger.err("File: " + fileName + ", Function: " + fucntionName + ", Error code: " + std::to_string(errorCode) + ", Message: " + msg);
+	logger.err("File: " + fileName + ", Function: " + functionName + ", Error code: " + std::to_string(errorCode) + ", Message: " + msg);
 
 	clearConsole();
 	std::cout << msg + "\nThe program is going to close itself!\nSee the log file for more information";
@@ -111,7 +111,7 @@ void clearConsole()
 }
 
 /**
- * @brief A funtion that puts the cursor to a specific position.
+ * @brief A function that puts the cursor to a specific position.
  * @param x A x coordinate.
  * @param y A y coordinate.
 */
@@ -177,7 +177,7 @@ void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Oper
 void startGame(int selectedOption, bool printLogo)
 {
 	//clearConsole();
-	//drawBoard();
+	//drawBoard();	
 	move();
 	//exit(0);
 }
@@ -193,7 +193,7 @@ void loadGame(int selectedOption, bool printLogo)
 }
 
 /**
- * @brief Funtion that prints the settings logo.
+ * @brief function that prints the settings logo.
 */
 void printSettingsLogo()
 {
@@ -208,7 +208,7 @@ void printSettingsLogo()
 }
 
 /**
- * @brief Funtion that print the settings.
+ * @brief function that print the settings.
  * @param selectedOption The number of selected option.
  * @param printLogo Should the logo be printed?
 */
@@ -229,7 +229,7 @@ void printSettings(int selectedOption, bool printLogo)
 		goToXY(0, 11);
 	}
 	
-	//Intialise a vector that holds all of the options for this menu
+	//Initialise a vector that holds all of the options for this menu
 	const std::vector<MenuOptions> menuOptions
 	{
 		{
@@ -247,7 +247,7 @@ void printSettings(int selectedOption, bool printLogo)
 }
 
 /**
- * @brief Funtion that prints the how to play logo.
+ * @brief function that prints the how to play logo.
 */
 void printHowToPlayLogo()
 {
@@ -267,7 +267,7 @@ void printHowToPlayLogo()
 }
 
 /**
- * @brief Funtion that print the How to play section.
+ * @brief Function that print the How to play section.
  * @param selectedOption The number of selected option.
  * @param printLogo Should the logo be printed?
 */
@@ -288,7 +288,7 @@ void printHowToPlay(int selectedOption, bool printLogo)
 
 	std::cout << "    Lorem ipsum" << std::endl << std::endl;
 
-	//Intialise a vector that holds all of the options for this menu
+	//Initialise a vector that holds all of the options for this menu
 	const std::vector<MenuOptions> menuOptions
 	{
 		{
@@ -300,7 +300,7 @@ void printHowToPlay(int selectedOption, bool printLogo)
 }
 
 /**
- * @brief Funtion that print About Us logo.
+ * @brief Function that print About Us logo.
 */
 void printAboutUsLogo()
 {
@@ -315,7 +315,7 @@ void printAboutUsLogo()
 }
 
 /**
- * @brief Funtion that print the About Us section.
+ * @brief Function that print the About Us section.
  * @param selectedOption The number of selected option.
  * @param printLogo Should the logo be printed?
 */
@@ -336,7 +336,7 @@ void printAboutUs(int selectedOption, bool printLogo)
 
 	std::cout << "    Lorem ipsum" << std::endl << std::endl;
 
-	//Intialise a vector that holds all of the options for this menu
+	//Initialise a vector that holds all of the options for this menu
 	const std::vector<MenuOptions> menuOptions
 	{
 		{
@@ -348,7 +348,7 @@ void printAboutUs(int selectedOption, bool printLogo)
 }
 
 /**
- * @brief Funtion that prints the main logo.
+ * @brief Function that prints the main logo.
 */
 void printMainLogo()
 {
@@ -363,7 +363,7 @@ void printMainLogo()
 }
 
 /**
- * @brief Funtion that exit the app.
+ * @brief Function that exit the app.
  * @param selectedOption The number of selected option.
  * @param printLogo Should the logo be printed?
 */
@@ -373,7 +373,7 @@ void exitApp(int selectedOption, bool printLogo)
 }
 
 /**
- * @brief Funtion that print the main menu.
+ * @brief Function that print the main menu.
  * @param selectedOption The number of selected option.
  * @param printLogo Should the logo be printed?
 */
@@ -393,7 +393,7 @@ void printMainMenu(int selectedOption, bool printLogo)
 		goToXY(0, 11);
 	}
 
-	//Intialise a vector that holds all of the options for this menu
+	//Initialise a vector that holds all of the options for this menu
 	const std::vector<MenuOptions> menuOptions
 	{
 		{
@@ -439,7 +439,7 @@ void drawBoard()
 	std::cout << char(191) << std::endl;
 	
 	//End First row
-	//Second, Fifth, Seventh, Tenth, Twelvth, fifteenth, Seventeenth, Twentieth Row
+	//Second, Fifth, Seventh, Tenth, Twelfth, fifteenth, Seventeenth, Twentieth Row
 	for (int i = 0; i < 19; i++)
 	{
 		std::cout << char(179);
@@ -462,6 +462,10 @@ void drawBoard()
 */
 void move()
 {
+	char input;
+	bool playing = false;
+	short rowPlayer = 1, colPlayer = 1, moves = 0;
+
 	Room** Maze = new Room* [LENGTH];
 
 	for (int i = 0; i < LENGTH; ++i)
@@ -469,142 +473,102 @@ void move()
 		Maze[i] = new Room[LENGTH];
 	}
 
-
 	clearConsole();
-	//Room Maze[LENGTH][LENGTH];
-	bool playing = false;
-	while (!playing) {
-		set(Maze);
-		//drawRoom(Maze);
-
-		generator(Maze);
-		drawRoom(Maze);
-		
-		char input;
-		std::cout << "Close? (Y): ";
-		std::cin >> input;
-
-		if ((input != 'y') && (input != 'Y'))
-			std::cout << "Invalid option" << std::endl;
-		else if ((input == 'Y') || (input == 'y')) {
-			std::cout << "Good bye!" << std::endl;
-			break;
-		}
-	}
-
-	/*
-	short rowPlayer = 1, colPlayer = 1, moves = 0;
-	char input;
-	bool running = true;
-	short rowRoom = 22, colRoom = 11; // size of the rooms
-	std::string **board = generateRoom(rowRoom, colRoom);
+	set(Maze);
+	generator(Maze);
+	drawRoom(Maze);
 	
-
-	drawRoom(board, rowRoom, colRoom);
-
-	//programs main loop
-	while (running)
+	goToXY(rowPlayer, colPlayer);
+	std::cout << "x";
+	
+	while (!playing) 
 	{
-		goToXY(rowPlayer, colPlayer);
-		std::cout << "x";
-
 		switch ((input = _getch()))
 		{
 			case ARROW_LEFT:
 			case 'a':
 			case 'A':
-				rowPlayer--;
-
-				if (!isMovePossible(board, rowPlayer, colPlayer))
+				if (isMovePossible(Maze, rowPlayer - 1, colPlayer))
 				{
-					rowPlayer++;
+					goToXY(rowPlayer, colPlayer);
+					std::cout << " ";
+
+					rowPlayer--;
+
+					goToXY(rowPlayer, colPlayer);
+					std::cout << "x";
 				}
-
-				goToXY(rowPlayer + 1, colPlayer);
-				std::cout << " ";
-
-				goToXY(rowPlayer, colPlayer);
-				std::cout << "x";
 
 				break;
 			case ARROW_RIGHT:
 			case 'd':
 			case 'D':
-				rowPlayer++;
-
-				if (!isMovePossible(board, rowPlayer, colPlayer))
+				if (isMovePossible(Maze, rowPlayer + 1, colPlayer))
 				{
-					rowPlayer--;
+					goToXY(rowPlayer, colPlayer);
+					std::cout << " ";
+
+					rowPlayer++;
+
+					goToXY(rowPlayer, colPlayer);
+					std::cout << "x";
 				}
-
-				goToXY(rowPlayer - 1, colPlayer);
-				std::cout << " ";
-
-				goToXY(rowPlayer, colPlayer);
-				std::cout << "x";
 
 				break;
 			case ARROW_UP:
 			case 'w':
 			case 'W':
-				colPlayer--;
-
-				if (!isMovePossible(board, rowPlayer, colPlayer))
+				if (isMovePossible(Maze, rowPlayer, colPlayer - 1))
 				{
-					colPlayer++;
+					goToXY(rowPlayer, colPlayer);
+					std::cout << " ";
+
+					colPlayer--;
+
+					goToXY(rowPlayer, colPlayer);
+					std::cout << "x";
 				}
-
-				goToXY(rowPlayer, colPlayer + 1);
-				std::cout << " ";
-
-				goToXY(rowPlayer, colPlayer);
-				std::cout << "x";
 
 				break;
 			case ARROW_DOWN:
 			case 's':
 			case 'S':
-				colPlayer++;
-
-				if (!isMovePossible(board, rowPlayer, colPlayer))
+				if (isMovePossible(Maze, rowPlayer, colPlayer + 1))
 				{
-					colPlayer--;
+					goToXY(rowPlayer, colPlayer);
+					std::cout << " ";
+
+					colPlayer++;
+					
+					goToXY(rowPlayer, colPlayer);
+					std::cout << "x";
 				}
 
-				goToXY(rowPlayer, colPlayer - 1);
-				std::cout << " ";
-
-				goToXY(rowPlayer, colPlayer);
-				std::cout << "x";
-
 				break;
-			// if any arrow key was pressed go to these cordinates
+				// if any arrow key was pressed go to these cordinates
 			case ESCAPE_BUTTON: // if escape key was pressed end program loop
-				//cout << " escape key pressed.\n";
-				running = false;
+				playing = false;
 				break;
 			default:  // no handled cases where pressed 
-				//cout << "dont press other buttons.\n";
 				break;
 		}
 	}
-	*/
 } 
 
 /**
  * @brief A function that print a room on the screen.
  * @param board A pointer to dynamic two-dimensional array of strings.
  * @param rowRoom The number of rows.
- * @param colRoom The number of collomns.
+ * @param colRoom The number of columns.
 */
 void drawRoom(Room** Maze)
 {
 	for (int i = 0; i < LENGTH; i++) 
 	{
-		std::cout << std::endl;
 		for (int j = 0; j < LENGTH; j++)
 		{
-			std::cout << " " << Maze[i][j].show;
+			std::cout << Maze[i][j].show;
 		}
+		std::cout << std::endl;
 	}
 }
