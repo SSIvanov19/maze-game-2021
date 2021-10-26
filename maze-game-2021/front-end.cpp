@@ -463,25 +463,20 @@ void drawBoard()
 void move()
 {
 	char input;
-	bool playing = false;
+	bool playing = true;
 	short rowPlayer = 1, colPlayer = 1, moves = 0;
-
-	Room** Maze = new Room* [LENGTH];
-
-	for (int i = 0; i < LENGTH; ++i)
-	{
-		Maze[i] = new Room[LENGTH];
-	}
-
+	int mazeSize = 21;
+	
 	clearConsole();
-	set(Maze);
-	generator(Maze);
-	drawRoom(Maze);
+
+	//Generate maze and display it
+	Room** Maze = generator(mazeSize);
+	drawRoom(Maze, mazeSize);
 	
 	goToXY(rowPlayer, colPlayer);
 	std::cout << "x";
 	
-	while (!playing) 
+	while (playing) 
 	{
 		switch ((input = _getch()))
 		{
@@ -556,16 +551,15 @@ void move()
 } 
 
 /**
- * @brief A function that print a room on the screen.
- * @param board A pointer to dynamic two-dimensional array of strings.
- * @param rowRoom The number of rows.
- * @param colRoom The number of columns.
+ * @brief A function a Maze on the screen.
+ * @param Maze A pointer to dynamic two-dimensional array of Room
+ * @param length The size of the maze
 */
-void drawRoom(Room** Maze)
+void drawRoom(Room** Maze, int length)
 {
-	for (int i = 0; i < LENGTH; i++) 
+	for (int i = 0; i < length; i++)
 	{
-		for (int j = 0; j < LENGTH; j++)
+		for (int j = 0; j < length; j++)
 		{
 			std::cout << Maze[i][j].show;
 		}

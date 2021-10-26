@@ -30,10 +30,6 @@
 *	@brief A macro that return the code of the main color.
 */
 
-/*! @def LENGTH
-*	@brief A macro that return the length of the maze.
-*/
-
 /*!	@var typedef void (*Operation)(int option, bool option2);
 	@brief A type definition for a function pointer in a MenuOptions stuct.
 */
@@ -55,7 +51,6 @@
 #define ARROW_DOWN 80
 #define COLOR_MAIN 15
 #define KEY_ENTER 13
-#define LENGTH 21
 
 typedef void (*Operation)(int option, bool option2);
 
@@ -84,5 +79,5 @@ void printHowToPlay(int selectedOption, bool printLogo);
 
 //Game related functions
 void move();
-void drawRoom(Room** Maze);
+void drawRoom(Room** Maze, int length);
 void drawBoard();
