@@ -480,10 +480,13 @@ void move(/*Data* role, Data* item*/)
 	char input;
 	bool playing = true;
 	short rowPlayer = 1, colPlayer = 1, moves = 0;
-	int mazeSize = 21;
+	int mazeSize = 25;
 	
 	clearConsole();
+
+	//Generate normal room
 	//drawBoard(role, item);
+	
 	//Generate maze and display it
 
 	Room** Maze = generator(mazeSize);
@@ -587,15 +590,13 @@ void drawRoom(Room** Maze, int length)
 // normal room
 /*
 void drawBoard(Data* role, Data* item) {
-	for (int i = 0; i < rowRoom; i++) {
-		for (int j = 0; j < colRoom; j++) {
-			if ((i == 0 && j == 0) || (i == 0 && j != 0) || (j == 0 && i != 0) || (j == colRoom - 1 && i != rowRoom - 1) || (i == rowRoom - 1 && j != 0)) {
-				room[i][j] = '#';
-			}
-			else {
-				room[i][j] = ' ';
-			}
-		}
-	}
+	board = room(role, item);
+    for (int i = 0; i < rowRoom; i++) {
+        for (int j = 0; j < colRoom; j++) {
+                gotoxy(i, j);
+                cout << board[i][j];
+        }
+        cout << endl;
+    }
 }
 */

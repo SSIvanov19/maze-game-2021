@@ -62,6 +62,25 @@ void set(Room** Maze, int length)
 	}
 
 }
+/*
+char** room(Data* role, Data* item) {
+	char** room = new char* [rowRoom];
+	for (int i = 0; i < rowRoom; i++)
+		room[i] = new char[colRoom];
+
+	for (int i = 0; i < rowRoom; i++) {
+		for (int j = 0; j < colRoom; j++) {
+			if ((i == 0 && j == 0) || (i == 0 && j != 0) || (j == 0 && i != 0) || (j == colRoom - 1 && i != rowRoom - 1) || (i == rowRoom - 1 && j != 0)) {
+				room[i][j] = '#';
+			}
+			else {
+				room[i][j] = ' ';
+			}
+		}
+	}
+	return room;
+}
+*/
 
 /**
  * @brief Generate a maze
@@ -107,6 +126,8 @@ Room** generator(int length)
 		col = 1;
 		row = 1;
 	}						
+
+	Maze[col][row].visited = true;
 
 	while (visitedCells < totalCells)
 	{
@@ -279,12 +300,22 @@ Room** generator(int length)
  * @param col The column coordinate
  * @return bool value
 */
-bool isMovePossible(Room **board, short row, short col) 
+bool isMovePossible(Room **board, short row, short col/*, Data* role, Data* item, , bool game*/)
 {
-		if (board[col][row].show == '#')
-		{
-			return false;
-		}
+	/*
+	for (int i = 0; i < 6; i++) {
+		if (board[row][col] == role[i].person)
+			atack(role, i, game);
+	}
+	for (int i = 0; i < 4; i++) {
+		if (board[row][col] == item[i].person)
+			shop(role, item, i);
+	}
+	*/
+	if (board[col][row].show == '#')
+	{
+		return false;
+	}
 
     return true;
 }
@@ -349,3 +380,55 @@ void GameRules() {
 	item[3].keys = 1;
 	item[3].money = 100;
 }
+/*
+void atack(Data* role, short index, bool game) {
+	if (role[index].person != 'D') {
+		role[index].healt -= role[0].atack;
+		if (role[index].healt <= 0) {
+			role[0].money += role[index].money;
+			role[index].person = 'D';
+		}
+
+		if (role[index].person != ' ' && role[index].person != 'D') {
+			role[0].healt -= role[index].atack;
+			if (role[0].healt <= 0)
+				game = false;
+		}
+	}
+}
+
+void shop(Data* role, Data* item, short index) {
+	switch (index) {
+	case 0:
+		// Healt
+		if (role[0].money >= item[0].money) {
+			role[0].money -= item[0].money;
+			role[0].healt = 100;
+		}
+		break;
+	case 1:
+		// Sword
+		if (role[0].money >= item[1].money) {
+			role[0].money -= item[1].money;
+			role[0].atack += 5;
+		}
+		break;
+	case 2:
+		// Armor
+		if (role[0].money >= item[2].money) {
+			role[0].money -= item[2].money;
+			role[0].armor += 10;
+		}
+		break;
+	case 3:
+		// Key
+		if (role[0].money >= item[3].money) {
+			role[0].money -= item[3].money;
+			role[0].keys += 1;
+		}
+		break;
+	default:
+		break;
+	}
+}
+*/
