@@ -28,6 +28,18 @@ struct Room
 	char show;
 };
 
+
+
+struct Data
+{
+	char person;
+	short healt;
+	short armor;
+	short atack;
+	short money;
+	short keys;
+};
+
 /**
  * @brief A function that get the output handle.
  * @return HANDLE
@@ -178,7 +190,10 @@ void startGame(int selectedOption, bool printLogo)
 {
 	//clearConsole();
 	//drawBoard();	
-	move();
+	Data role[6];
+	Data item[4];
+	GameRules();
+	move(/*role, item*/);
 	//exit(0);
 }
 
@@ -460,7 +475,7 @@ void drawBoard()
 /**
  * @brief Spawn a player in a room and allow the user to move the player. 
 */
-void move()
+void move(/*Data* role, Data* item*/)
 {
 	char input;
 	bool playing = true;
@@ -468,11 +483,12 @@ void move()
 	int mazeSize = 21;
 	
 	clearConsole();
-
+	//drawBoard(role, item);
 	//Generate maze and display it
+
 	Room** Maze = generator(mazeSize);
 	drawRoom(Maze, mazeSize);
-	
+
 	goToXY(rowPlayer, colPlayer);
 	std::cout << "x";
 	
@@ -566,3 +582,20 @@ void drawRoom(Room** Maze, int length)
 		std::cout << std::endl;
 	}
 }
+
+
+// normal room
+/*
+void drawBoard(Data* role, Data* item) {
+	for (int i = 0; i < rowRoom; i++) {
+		for (int j = 0; j < colRoom; j++) {
+			if ((i == 0 && j == 0) || (i == 0 && j != 0) || (j == 0 && i != 0) || (j == colRoom - 1 && i != rowRoom - 1) || (i == rowRoom - 1 && j != 0)) {
+				room[i][j] = '#';
+			}
+			else {
+				room[i][j] = ' ';
+			}
+		}
+	}
+}
+*/

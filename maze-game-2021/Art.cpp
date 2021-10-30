@@ -6,6 +6,7 @@ int main() {
        //Click Cancel, and then choose Save As on the File menu. From the Save drop-down list, choose Save with Encoding.
        //In the Advanced Save Options dialog choose, the encoding appropriate for your file.
        // US-ASCII- Codepage 20127
+
        char i = 1;
         int num = 1;
         while (num < 256) {

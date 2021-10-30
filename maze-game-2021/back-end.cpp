@@ -8,6 +8,7 @@
 /**
  * @brief A struct for room.
 */
+
 struct Room
 {
 	bool visited;
@@ -16,6 +17,16 @@ struct Room
 	bool left;
 	bool right;
 	char show;
+};
+
+struct Data
+{
+	char person;
+	short healt;
+	short armor;
+	short atack;
+	short money;
+	short keys;
 };
 
 /**
@@ -95,12 +106,7 @@ Room** generator(int length)
 		times++;
 		col = 1;
 		row = 1;
-	}
-
-	// Set S as the start cell
-	Maze[col][row].show = 'S';
-	// Set start cell as visited;
-	Maze[col][row].visited = true;						
+	}						
 
 	while (visitedCells < totalCells)
 	{
@@ -275,15 +281,71 @@ Room** generator(int length)
 */
 bool isMovePossible(Room **board, short row, short col) 
 {
-    if (row == -1 || col == -1)
-    {
-        return false;
-    }
-    
-    if (board[col][row].show == '#')
-    {
-        return false;
-    }
+		if (board[col][row].show == '#')
+		{
+			return false;
+		}
 
     return true;
+}
+
+void GameRules() {
+	Data role[6];
+	Data item[4];
+	// player
+	role[0].person = 'x';
+	role[0].healt = 100;
+	role[0].armor = 0;
+	role[0].atack = 10;
+	role[0].money = 0;
+	role[0].keys = 0;
+
+	// first enemie
+	//role[1].person = 253;
+	role[1].healt = 15;
+	role[1].atack = 5;
+	role[1].money = 1;
+
+	// second enemie
+	//role[2].person = 248;
+	role[2].healt = 25;
+	role[2].atack = 10;
+	role[2].money = 3;
+
+	// third enemie
+	//role[3].person = 176;
+	role[3].healt = 50;
+	role[3].atack = 20;
+	role[2].money = 6;
+
+	// fourth enemie
+	//role[4].person = 177;
+	role[4].healt = 75;
+	role[4].atack = 25;
+	role[2].money = 10;
+
+	// boss
+	//role[5].person = 201;
+	role[5].healt = 500;
+	role[5].atack = 0;
+
+	// heart recovers
+	//item[0].person = 3;
+	item[0].healt = 0;
+	item[0].money = 20;
+
+	// sword
+	//item[1].person = 216;
+	item[1].atack = 5;
+	item[1].money = 10;
+
+	// armor
+	//item[2].person = 1;
+	item[2].armor = 10;
+	item[2].money = 15;
+
+	// key
+	//item[3].person = 12;
+	item[3].keys = 1;
+	item[3].money = 100;
 }

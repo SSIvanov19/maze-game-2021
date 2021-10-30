@@ -57,6 +57,7 @@ typedef void (*Operation)(int option, bool option2);
 //Structures
 struct MenuOptions;
 struct Room;
+struct Data;
 
 //Functions
 

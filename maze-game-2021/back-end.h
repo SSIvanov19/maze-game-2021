@@ -16,3 +16,4 @@ struct Room;
 bool isMovePossible(Room** board, short row, short col);
 Room** generator(int length);
 void set(Room** Maze, int length);
+void GameRules();
