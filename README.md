@@ -1,14 +1,13 @@
-<center>
-<p align = "center">
-  <img src = "https://cdn.discordapp.com/attachments/898503404589031449/905151739894833232/bigLogo.png" alt="logo"> 
-</p>
-<p align = "center">
+<div align = "center">
+  <img src = "https://raw.githubusercontent.com/SSIvanov19/maze-game-2021/master/img/bigLogo.png?token=APGEKWCVGYGZ475OQKPJMRLBRN4BW" alt="logo"> 
+</div>
+<div align = "center">
   <img src = "https://img.shields.io/github/languages/count/SSIvanov19/maze-game-2021?style=for-the-badge">
   <img src = "https://img.shields.io/github/contributors/SSIvanov19/maze-game-2021?style=for-the-badge">
   <img src = "https://img.shields.io/github/repo-size/SSIvanov19/maze-game-2021?style=for-the-badge">
   <img src = "https://img.shields.io/github/last-commit/SSIvanov19/maze-game-2021?style=for-the-badge">
   <img src = "https://img.shields.io/github/languages/top/SSIvanov19/maze-game-2021?style=for-the-badge">
-</p>
+</div>
 
 <hr>
 <p align = "center" style = "font-size:4em">
@@ -16,7 +15,6 @@
   A Dungeon Crawler like game made in vanilla C++.
   </strong>
 </p>
-</center>
 <hr>
 <h1>💻 About  </h1>
 <p>
