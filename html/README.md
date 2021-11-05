@@ -26,9 +26,6 @@
 <img src  = "gifts/index.gif" alt="demo gif">
 <img src  = "gifts/index.img" alt="demo img">
 
-<h1><a href="https://github.com">📄 Online Documentation</a></h1>
-<h1><a href="https://github.com">📄 Presentation</a></h1>
-
 <h1>⌨️ How it works</h1>
 <p><strong>Our work can be split on 2 main things :</p></strong>
 <ol>
