@@ -46,16 +46,24 @@ struct Data
 */
 HANDLE getOutputHandle()
 {
-	return GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	if (checkForInvalidHandle(handle))
+	{
+		showError("maze-game.cpp", "initializeTheGame -> checkForInvalidHandle", GetLastError(), "Failed to get STD_OUTPUT_HANDLE!");
+	}
+
+	return handle;
 }
 
 /**
  * @brief Check if the output that was returned from getOutputHandle() is INVALID_HANDLE_VALUE.
+ * @param handle 
  * @return bool
 */
-bool checkForInvalidHandle()
+bool checkForInvalidHandle(HANDLE handle)
 {
-	return getOutputHandle() == INVALID_HANDLE_VALUE;
+	return handle == INVALID_HANDLE_VALUE;
 }
 
 /**
@@ -173,7 +181,7 @@ void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Oper
 			selectedOption == menuOptions.size() ? opt(1, false) : opt(selectedOption + 1, false);
 			break;
 		case KEY_ENTER:
-			menuOptions[selectedOption - 1].opt(1, true);
+			menuOptions[--selectedOption].opt(1, true);
 			break;
 		default:
 			opt(selectedOption, false);

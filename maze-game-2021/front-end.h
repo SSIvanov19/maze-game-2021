@@ -63,7 +63,7 @@ struct Data;
 
 //Handle and console related function
 void goToXY(short x, short y);
-bool checkForInvalidHandle();
+bool checkForInvalidHandle(HANDLE handle);
 HANDLE getOutputHandle();
 void setConsoleColorTo(int color);
 void clearConsole();

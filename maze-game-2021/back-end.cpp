@@ -348,7 +348,7 @@ Room** generator(int length)
 	}
 
 	// Pick random start cell
-	srand((unsigned)time(NULL)); 
+	srand(time_t(NULL)); 
 	int random = 0;
 	int times = 0;
 	// Generate a random odd number between 1 and length
