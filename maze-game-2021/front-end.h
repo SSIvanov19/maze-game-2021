@@ -51,6 +51,17 @@
 #define ARROW_DOWN 80
 #define COLOR_MAIN 15
 #define KEY_ENTER 13
+#define SPACE 32
+#define VERTICAL_LINE 179
+#define VERTICAL_LEFT_LINE 180
+#define UPPER_RIGHT_CORNER 191
+#define LOWER_LEFT_CORNER 192
+#define HORIZONTAL_UP_LINE 193
+#define HORIZONTAL_DOWN_LINE 194
+#define VERTICAL_RIGHT_LINE 195
+#define HORIZONTAL_LINE 196
+#define LOWER_RIGHT_CORNER 217
+#define UPPER_LEFT_CORNER 218
 
 typedef void (*Operation)(int option, bool option2);
 
@@ -79,6 +90,8 @@ void printHowToPlayLogo();
 void printHowToPlay(int selectedOption, bool printLogo);
 
 //Game related functions
-void move();
+void game();
 void drawRoom(Room** Maze, int length);
 void drawBoard();
+void printPlayerData();
+void printMessage(std::string msg);

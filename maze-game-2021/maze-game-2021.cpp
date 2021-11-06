@@ -16,8 +16,6 @@ void initializeTheGame()
 	Logger logger;
 	logger.log("The game is initializeing");
 
-	
-
 	//Set the console output to the main color (White)
 	setConsoleColorTo(COLOR_MAIN);
 }
