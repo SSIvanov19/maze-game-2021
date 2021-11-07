@@ -140,12 +140,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="back-end.cpp" />
+    <ClCompile Include="dialogue.cpp" />
     <ClCompile Include="front-end.cpp" />
     <ClCompile Include="logs.cpp" />
     <ClCompile Include="maze-game-2021.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="back-end.h" />
+    <ClInclude Include="Bulgarify.h" />
+    <ClInclude Include="dialogue.h" />
     <ClInclude Include="front-end.h" />
     <ClInclude Include="logs.h" />
   </ItemGroup>

@@ -5,6 +5,7 @@
 #include "front-end.h"
 #include "back-end.h"
 #include "logs.h"
+#include "Bulgarify.h"
 
 /**
  * @brief Function that initializes the game.
@@ -16,17 +17,33 @@ void initializeTheGame()
 	Logger logger;
 	logger.log("The game is initializeing");
 
+	setCursor(false);
+
 	//Set the console output to the main color (White)
 	setConsoleColorTo(COLOR_MAIN);
 }
 
+//Wild Bulgarian starts here
+целочислен_тип главен()
+{
+	булев_тип игратаВърви = вярно;
+	инцилизирайИгра();
+
+	докато (игратаВърви)
+	{
+		изпечатайГлавноМеню(1, вярно);
+	}
+}
+
+/*
 int main()
 {
-	bool runing = true;
+	bool running = true;
 	initializeTheGame();
 
-	while (runing)
+	while (running)
 	{
 		printMainMenu(1, true);
 	}
 }
+*/
