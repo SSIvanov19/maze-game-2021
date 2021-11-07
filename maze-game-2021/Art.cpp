@@ -36,7 +36,9 @@ int main() {
     char bossSPart = 178;
     char bossTPart = 201;
     char bossFoPart = 184;
+    char chest = 127;
 
+    cout << chest << " = Chest = 127 (ASCII number)" << endl;
     cout << money << " = Money = 36 (ASCII number)" << endl;
     cout << uSword << " = up part sword = 179 (ASCII number)" << endl;
     cout << dSword << " = down part sword = 216 (ASCII number)" << endl;
@@ -56,4 +58,140 @@ int main() {
     cout << endl;
     cout << " " << bossFPart << endl;
     cout << bossTPart << bossSPart << bossFoPart << " ~BOSS " << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+    char healthMoney1 = 50;
+    char healthMoney2 = 48;
+    char armorMoney = 49;
+    char swordMoney = 53;
+
+
+    int rowRoom = 11;
+    int colRoom = 41;
+    for (int i = 0; i < rowRoom; i++) {
+        for (int j = 0; j < colRoom; j++) {
+            if (i > 0 && j > 0 && i < rowRoom - 1 && j < colRoom - 1)
+            {
+                if (i == 2 && j == 20) {
+                    cout << wizard;
+                }
+                else if (i == 4 && j == 13) {
+                    cout << healthMoney1;
+                }
+                else if (i == 4 && j == 14) {
+                    cout << healthMoney2;
+                }
+                else if (i == 4 && j == 15) {
+                    cout << money;
+                }
+                else if (i == 5 && j == 14) {
+                    cout << health;
+                }
+                else if (i == 4 && j == 19) {
+                    cout << armorMoney;
+                }
+                else if (i == 4 && j == 20) {
+                    cout << healthMoney2;
+                }
+                else if (i == 4 && j == 21) {
+                    cout << money;
+                }
+                else if (i == 5 && j == 20) {
+                    cout << armor;
+                }
+                else if (i == 4 && j == 26) {
+                    cout << swordMoney;
+                }
+                else if (i == 4 && j == 27) {
+                    cout << money;
+                }
+                else if (i == 5 && j == 26) {
+                    cout << uSword;
+                }
+                else if (i == 6 && j == 26) {
+                    cout << dSword;
+                }
+                else {
+                    cout << " ";
+                }
+            }
+            else {
+                cout << "#";
+            }
+        }
+        cout << endl;
+    }
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+
+    char bush = 157;
+    char rock = 240;
+    char holegl = 201;
+    char holegd = 187;
+    char holedl = 200;
+    char holedd = 188;
+    char holesr1 = 205;
+    char holesr2 = 186;
+
+    for (int i = 0; i < rowRoom; i++) {
+        for (int j = 0; j < colRoom; j++) {
+            if (i > 0 && j > 0 && i < rowRoom - 1 && j < colRoom - 1)
+            {
+                if (i == 4 && j == 3) {
+                    cout << bush;
+                }
+                else if (i == 4 && j == 4) {
+                    cout << bush;
+                }
+                else if (i == 4 && j == 5) {
+                    cout << bush;
+                }
+                else if (i == 3 && j == 14) {
+                    cout << rock;
+                }
+                else if (i == 5 && j == 15) {
+                    cout << holegl;
+                }
+                else if (i == 5 && j == 16) {
+                    cout << holesr1;
+                }
+                else if (i == 5 && j == 17) {
+                    cout << holegd;
+                }
+                else if (i == 6 && j == 15) {
+                    cout << holesr2;
+                }
+                else if (i == 6 && j == 17) {
+                    cout << holesr2;
+                }
+                else if (i == 7 && j == 15) {
+                    cout << holedl;
+                }
+                else if (i == 7 && j == 16) {
+                    cout << holesr1;
+                }
+                else if (i == 7 && j == 17) {
+                    cout << holedd;
+                }
+                else {
+                    cout << " ";
+                }
+            }
+            else {
+                cout << "#";
+            }
+        }
+        cout << endl;
+    }
 }
