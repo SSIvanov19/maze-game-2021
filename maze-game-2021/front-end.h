@@ -73,9 +73,11 @@ struct Data;
 //Functions
 
 //Handle and console related function
+void setCursor(bool shown);
 void goToXY(short x, short y);
 bool checkForInvalidHandle(HANDLE handle);
 HANDLE getOutputHandle();
+COORD GetConsoleCursorPosition();
 void setConsoleColorTo(int color);
 void clearConsole();
 void showError(std::string fileName, std::string functionName, DWORD errorCode, std::string msg);
@@ -95,3 +97,4 @@ void drawRoom(Room** Maze, int length);
 void drawBoard();
 void printPlayerData();
 void printMessage(std::string msg);
+void clearMessage(std::string msg);
