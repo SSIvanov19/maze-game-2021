@@ -305,6 +305,58 @@ int main() {
         }
         cout << endl;
     }
+    /*
+    room[3][4] = bush;
+        room[4][4] = bush;
+        room[5][4] = bush;
+        room[25][6] = bush;
+        room[25][7] = bush;
+        room[26][7] = bush;
+        room[15][11] = bush;
+        room[15][12] = bush;
+        room[14][12] = bush;
+        room[13][12] = bush;
+
+        room[14][1] = rock;
+        room[15][1] = rock;
+        room[16][1] = rock;
+        room[16][2] = rock;
+        room[35][15] = rock;
+        room[36][15] = rock;
+        room[37][15] = rock;
+        room[38][15] = rock;
+        room[38][14] = rock;
+        room[1][13] = rock;
+        room[1][14] = rock;
+        room[1][15] = rock;
+        room[2][14] = rock;
+        room[2][15] = rock;
+
+        room[15][5] = holegl;
+        room[16][5] = holesr1;
+        room[17][5] = holegd;
+        room[15][6] = holesr2;
+        room[17][6] = holesr2;
+        room[15][7] = holedl;
+        room[16][7] = holesr1;
+        room[17][7] = holedd;
+        room[28][2] = holegl;
+        room[29][2] = holesr1;
+        room[30][2] = holegd;
+        room[28][3] = holesr2;
+        room[30][3] = holesr2;
+        room[28][4] = holedl;
+        room[29][4] = holesr1;
+        room[30][4] = holedd;
+        room[26][10] = holegl;
+        room[27][10] = holesr1;
+        room[27][12] = holesr1;
+        room[28][10] = holegd;
+        room[28][11] = holesr2;
+        room[26][11] = holesr2;
+        room[26][12] = holedl;
+        room[28][12] = holedd;
+    */
 
 
     cout << endl;
@@ -587,4 +639,94 @@ int main() {
         }
         cout << endl;
     }
+    /*
+    room[8][4] = holegl;
+    room[9][4] = holesr1;
+    room[10][4] = holesr1;
+    room[11][4] = holesr1;
+    room[12][4] = holesr1;
+    room[13][4] = holesr1;
+    room[14][4] = holesr1;
+    room[15][4] = holesr1;
+    room[16][4] = holesr1;
+    room[17][4] = holesr1;
+    room[18][4] = holesr1;
+    room[19][4] = holesr1;
+    room[20][4] = holesr1;
+    room[21][4] = holesr1;
+    room[22][4] = holesr1;
+    room[23][4] = holesr1;
+    room[24][4] = holesr1;
+    room[25][4] = holesr1;
+    room[26][4] = holesr1;
+    room[27][4] = holesr1;
+    room[28][4] = holesr1;
+    room[29][4] = holesr1;
+    room[30][4] = holesr1;
+    room[31][4] = holesr1;
+    room[9][11] = holesr1;
+    room[10][11] = holesr1;
+    room[11][11] = holesr1;
+    room[12][11] = holesr1;
+    room[13][11] = holesr1;
+    room[14][11] = holesr1;
+    room[15][11] = holesr1;
+    room[16][11] = holesr1;
+    room[17][11] = holesr1;
+    room[18][11] = holesr1;
+    room[19][11] = holesr1;
+    room[20][11] = holesr1;
+    room[21][11] = holesr1;
+    room[22][11] = holesr1;
+    room[23][11] = holesr1;
+    room[24][11] = holesr1;
+    room[25][11] = holesr1;
+    room[26][11] = holesr1;
+    room[27][11] = holesr1;
+    room[28][11] = holesr1;
+    room[29][11] = holesr1;
+    room[30][11] = holesr1;
+    room[31][11] = holesr1;
+    room[32][4] = holegd;
+    room[32][5] = holesr2;
+    room[32][6] = holesr2;
+    room[32][7] = holesr2;
+    room[32][8] = holesr2;
+    room[32][9] = holesr2;
+    room[32][6] = holesr2;
+    room[32][10] = holesr2;
+    room[8][5] = holesr2;
+    room[8][6] = holesr2;
+    room[8][7] = holesr2;
+    room[8][8] = holesr2;
+    room[8][9] = holesr2;
+    room[8][10] = holesr2;
+    room[8][11] = holedl;
+    room[32][11] = holedd;
+
+    room[1][2] = bush;
+    room[1][1] = bush;
+    room[2][1] = bush;
+    room[35][5] = bush;
+    room[35][6] = bush;
+    room[1][15] = bush;
+    room[2][15] = bush;
+    room[3][15] = bush;
+    room[4][15] = bush;
+    room[1][14] = bush;
+    room[18][12] = bush;
+    room[19][12] = bush;
+    room[20][12] = bush;
+
+    room[35][15] = rock;
+    room[36][15] = rock;
+    room[37][15] = rock;
+    room[38][15] = rock;
+    room[39][15] = rock;
+    room[39][14] = rock;
+    room[33][2] = rock;
+    room[32][2] = rock;
+    room[31][2] = rock;
+    room[30][2] = rock;
+    */
 }
