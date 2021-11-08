@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <Windows.h>
 
 /**
  * @brief A struct that holds the functions for logging.
@@ -70,3 +71,6 @@ struct Logger
 		std::clog.rdbuf(clogbuff);
 	}
 };
+
+//Functions
+std::string GetLastErrorAsString(DWORD errorCode);
