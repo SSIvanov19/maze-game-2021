@@ -63,6 +63,35 @@
 #define LOWER_RIGHT_CORNER 217
 #define UPPER_LEFT_CORNER 218
 
+/* ART
+
+char uSword = 179;
+char dSword = 216;
+char key = 12;
+char healthShop = 3;
+char armorShop = 233;
+char wizard = 30;
+char money = 36;
+char firstMonster = 254;
+char secondMonster = 4;
+char fPartThirdMonster = 203;
+char sPartThirdMonster = 176;
+char fPartFourthMonster = 209;
+char sPartFourthMonster = 215;
+char bossFPart = 206;
+char bossSPart = 178;
+char bossTPart = 201;
+char bossFoPart = 184;
+char chest = 127;
+char bush = 157;
+char rock = 240;
+char holegl = 201;
+char holegd = 187;
+char holedl = 200;
+char holedd = 188;
+char holesr1 = 205;
+char holesr2 = 186;
+*/
 typedef void (*Operation)(int option, bool option2);
 
 //Structures
@@ -94,8 +123,8 @@ void printHowToPlay(int selectedOption, bool printLogo);
 
 //Game related functions
 void game();
-void drawRoom(Room** Maze, int length);
 void drawBoard();
 void printPlayerData();
 void printMessage(std::string msg);
 void clearMessage(std::string msg);
+void drawRoom(Data** role, Data* item, char** board, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
