@@ -84,6 +84,7 @@ void showError(std::string fileName, std::string functionName, DWORD errorCode, 
 
 //Menu related functions
 void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Operation opt);
+void printBossOnMenu();
 void printMainLogo();
 void printMainMenu(int selectedOption, bool printLogo);
 void printSettingsLogo();
