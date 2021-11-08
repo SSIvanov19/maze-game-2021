@@ -90,14 +90,18 @@ std::string getWord()
 				COORD coordOfCursor = GetConsoleCursorPosition();
 				goToXY(coordOfCursor.X - 1, coordOfCursor.Y);
 				std::cout << " ";
+				std::cout << c;
 			}
 		}
 		else
 		{
-			word.push_back(c);
+			if (c > 64 && c < 91 || c > 96 && c < 123)
+			{
+				word.push_back(c);
+				std::cout << c;
+			}
 		}
 
-		std::cout << c;
 		c = _getch();
 	}
 	std::cout << c;

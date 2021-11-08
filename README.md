@@ -18,7 +18,7 @@
 <hr>
 <h1>💻 About  </h1>
 <p>
-  A mighty but shady wizard hires you to kill Djamal Sehdi Albadas Pethi III, lord of the dungeons in Middle-earth! Welcome to Braven a dungeon crawler rogue-like game, where you navigate trough rooms and mazes, killing enemies and helping wizard.
+  A mighty but shady wizard hires you to kill Djamal Sehdi Albadas Pethi III, lord of the dungeons in Middle-earth! Welcome to Braven a dungeon crawler rogue-like game, where you navigate trough rooms and mazes, killing enemies while helping wizard.
 </p>
 <h1>🎥 Demo of our project </h1>
 <img src  = "gifts/index.gif" alt="demo gif">
@@ -63,4 +63,4 @@
 <p>Stoyan Ivanov - <a href = "https://github.com/SSIvanov19"> SSIvanov19</a> - Scrum trainer </p>
 <p>Stas Uzunov - <a href = "https://github.com/SSUzunov19"> SSUzunov19</a> - Back-end Developer </p>
 <p>Viktor Kirov - <a href = "https://github.com/vrkirov19"> VRKirov19 </a> - Front-end Developer </p>
-<p>Teodor Karchev - <a href = "https://github.com/TTKarchev19"> ТТКarchev19 </a> - QA  </p>
+<p>Teodor Karchev - <a href = "https://github.com/TTKarchev19"> ТТКarchev19 </a> - QA Engineer </p>

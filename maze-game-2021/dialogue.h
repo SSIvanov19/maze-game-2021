@@ -11,7 +11,7 @@
 typedef void (*dialgueOption)();
 
 //Structures
-struct line
+struct Line
 {
 	std::string nameOfCharacter;
 	std::string words;
@@ -20,7 +20,7 @@ struct line
 
 struct Dialogue
 {
-	std::vector<line> lines;
+	std::vector<Line> lines;
 };
 
 //Functions
