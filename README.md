@@ -18,7 +18,7 @@
 <hr>
 <h1>💻 About  </h1>
 <p>
-  A mighty but shadowy wizard hires you to kill Djamal Sehdi Albadas Pethi III, lord of the dungeons in Middle-earth! Welcome to Braven a dungeon crawler rogue-like game, where you navigate trough rooms and mazes, killing enemies and helping wizard.
+  A mighty but shady wizard hires you to kill Djamal Sehdi Albadas Pethi III, lord of the dungeons in Middle-earth! Welcome to Braven a dungeon crawler rogue-like game, where you navigate trough rooms and mazes, killing enemies and helping wizard.
 </p>
 <h1>🎥 Demo of our project </h1>
 <img src  = "gifts/index.gif" alt="demo gif">
@@ -51,7 +51,10 @@
   </li>
 </ol>
 <h1>🖱️ Usage </h1>
-<p> You can move with WASD or with the arrows keys on the keyboard. You interact with objects, just by walking past them. </p>
+  <p> You can move with WASD or with the arrows keys on the keyboard. </p>
+  <img src="https://raw.githubusercontent.com/SSIvanov19/maze-game-2021/master/img/controls.png?token=APGEKWGHEH7JFB3NLWTILY3BSJCEK" alt="control" width = 130px> 
+  <p> You interact with objects, just by walking past them. </p>
+  <p> To flick trough the dialogue you just press any button. </p>
 <h1> 📥 Installing </h1>
 <p> To install our project on your machine you just need to clone it. This can be done by : </p>
 <pre>git clone https://github.com/SSIvanov19/maze-game-2021.git</pre>
