@@ -67,8 +67,14 @@ std::string getWord()
 {
 	std::string word;
 	char c = _getch();
-	while (!std::isspace(c))
+
+	while (c != 13)
 	{
+		if (c == 32)
+		{
+			c = _getch();
+			continue;
+		}
 		//If c == backspase remove char from string
 		//else add char
 		if (c == 8)

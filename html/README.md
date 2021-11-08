@@ -20,7 +20,7 @@
 <hr>
 <h1>💻 About  </h1>
 <p>
-  About our project. 
+  A mighty but shadowy wizard hires you to kill Djamal Sehdi Albadas Pethi III, lord of the dungeons in Middle-earth! Welcome to Braven a dungeon crawler rogue-like game, where you navigate trough rooms and mazes, killing enemies and helping wizard.
 </p>
 <h1>🎥 Demo of our project </h1>
 <img src  = "gifts/index.gif" alt="demo gif">
