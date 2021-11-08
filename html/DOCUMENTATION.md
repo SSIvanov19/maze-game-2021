@@ -7,7 +7,7 @@ Our game generates a maze that is different each time and you have to go to the 
 Stoyan Ivanov - [SSIvanov19](https://github.com/SSIvanov19) - Scrum trainer  
 Stas Uzunov - [SSUzunov19](https://github.com/SSUzunov19) - Back-end Developer  
 Viktor Kirov - [VRKirov19](https://github.com/vrkirov19) - Front-end Developer  
-Teodor Karchev - [ТТКarchev19](https://github.com/TTKarchev19) - QA
+Teodor Karchev - [ТТКarchev19](https://github.com/TTKarchev19) - QA Engineer
 
 ### Introduction
 #### What is the product?
