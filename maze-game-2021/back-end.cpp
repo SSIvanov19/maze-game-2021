@@ -50,21 +50,21 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	static int nextLevel = 0;
 	static int ChoiseShopX[2];
 	static int ChoiseShopY[2];
-	static int *levelOfEnemies1;
-	static int *levelOfEnemies2;
-	static int *levelSize;
+	static int levelOfEnemies1;
+	static int levelOfEnemies2;
+	static int levelSize;
 	static bool BossIshere = false;
 	static bool shopIsHere = false;
 
-	char** room = new char * [ROW_ROOM];
+	char** room = new char * [ROW_ROOM + 4];
 
-	for (int i = 0; i < ROW_ROOM; i++)
+	for (int i = 0; i < ROW_ROOM + 4; i++)
 	{
-		room[i] = new char[COL_ROOM];
+		room[i] = new char[COL_ROOM + 4];
 	}
 
-	for (int i = 0; i < ROW_ROOM; i++) {
-		for (int j = 0; j < COL_ROOM; j++) {
+	for (int i = 0; i < ROW_ROOM + 4; i++) {
+		for (int j = 0; j < COL_ROOM + 4; j++) {
 			room[i][j] = ' ';
 		}
 	}
@@ -87,8 +87,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					// right
 					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
 						room[x][y] = '#';
@@ -129,8 +129,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
 						room[x][y] = '#';
 						hall++;
@@ -181,8 +181,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
 						room[x][y] = '#';
 						hall++;
@@ -222,8 +222,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					// right
 					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
 						room[x][y] = '#';
@@ -275,8 +275,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					// down
 					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
 						room[x][y] = '#';
@@ -321,8 +321,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					// down
 					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
 						room[x][y] = '#';
@@ -374,8 +374,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					// left 
 					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) {
 						room[x][y] = '#';
@@ -419,8 +419,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					// right
 					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
 						room[x][y] = '#';
@@ -469,8 +469,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		int hall = 0;
 		int temp2 = -2, help = 2;
 		do {
-			for (int x = 0; x < ROW_ROOM; x++) {
-				for (int y = 0; y < COL_ROOM; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) {
+				for (int y = 0; y < COL_ROOM + 4; y++) {
 					// right
 					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
 						room[x][y] = '#';
@@ -537,7 +537,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 					shopIsHere = false;
 				}
 				randomSizeOfEnemies = 1; rand() % 4 + 1;
-				tempE += randomSizeOfEnemies;
+				*tempE += randomSizeOfEnemies;
 				bool ready;
 				nextLevel++;
 				for (counterOfEnemies = 0; counterOfEnemies < randomSizeOfEnemies; counterOfEnemies++) {
@@ -598,45 +598,45 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 				/* RULES */
 				// before 15
 				if (role[0][0].attack < 15) {
-					*levelSize = 4;
-					*levelOfEnemies1 = 1;
-					*levelOfEnemies2 = 1;
+					levelSize = 4;
+					levelOfEnemies1 = 1;
+					levelOfEnemies2 = 1;
 				}
 				// after 15 and before 20
 				else if (role[0][0].attack == 15) {
-					*levelSize = 1;
-					*levelOfEnemies1 = 1;
-					*levelOfEnemies2 = 2;
+					levelSize = 1;
+					levelOfEnemies1 = 1;
+					levelOfEnemies2 = 2;
 				}
 				// after 20 and before 25
 				else if (role[0][0].attack == 20) {
-					*levelSize = 3;
-					*levelOfEnemies1 = 1;
-					*levelOfEnemies2 = 2;
+					levelSize = 3;
+					levelOfEnemies1 = 1;
+					levelOfEnemies2 = 2;
 				}
 				// after 25 and before 45
 				else if (role[0][0].attack >= 25 && role[0][0].attack < 45) {
-					*levelSize = 1;
-					*levelOfEnemies1 = 2;
-					*levelOfEnemies2 = 3;
+					levelSize = 1;
+					levelOfEnemies1 = 2;
+					levelOfEnemies2 = 3;
 				}
 				// after 45 and before 60
 				else if (role[0][0].attack >= 45 && role[0][0].attack < 60) {
-					*levelSize = 3;
-					*levelOfEnemies1 = 2;
-					*levelOfEnemies2 = 3;
+					levelSize = 3;
+					levelOfEnemies1 = 2;
+					levelOfEnemies2 = 3;
 				}
 				// after 60 and before 75
 				else if (role[0][0].attack >= 60 && role[0][0].attack < 75) {
-					*levelSize = 2;
-					*levelOfEnemies1 = 3;
-					*levelOfEnemies2 = 4;
+					levelSize = 2;
+					levelOfEnemies1 = 3;
+					levelOfEnemies2 = 4;
 				}
 				// after 75
 				else if (role[0][0].attack >= 75) {
-					*levelSize = 4;
-					*levelOfEnemies1 = 4;
-					*levelOfEnemies2 = 4;
+					levelSize = 4;
+					levelOfEnemies1 = 4;
+					levelOfEnemies2 = 4;
 				}
 
 			}
@@ -668,7 +668,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 				room[25][11] = dSword;
 
 				// block
-				if (counterDead != tempE) {
+				if (*counterDead != *tempE) {
 					// up
 					for (int i1 = 12; i1 < 28; i1++) {
 						room[i1][5] = holesr1;
@@ -713,30 +713,30 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 					room[28][13] = ' '; // _|
 				}
 			}
-			if (i < *levelSize) {
-				if (*levelOfEnemies2 == 3) {
+			if (i < levelSize) {
+				if (levelOfEnemies2 == 3) {
 					room[tempX[i]][tempY[i] - 1] = fPartThirdMonster;
-					room[tempX[i]][tempY[i]] = role[*levelOfEnemies2][i].person;
+					room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
 				}
-				else if (*levelOfEnemies2 == 4) {
+				else if (levelOfEnemies2 == 4) {
 					room[tempX[i]][tempY[i] - 1] = fPartFourthMonster;
-					room[tempX[i]][tempY[i]] = role[*levelOfEnemies2][i].person;
+					room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
 				}
 				else {
-					room[tempX[i]][tempY[i]] = role[*levelOfEnemies2][i].person;
+					room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
 				}
 			}
-			else if (i >= *levelSize) {
-				if (*levelOfEnemies1 == 3) {
+			else if (i >= levelSize) {
+				if (levelOfEnemies1 == 3) {
 					room[tempX[i]][tempY[i] - 1] = fPartThirdMonster;
-					room[tempX[i]][tempY[i]] = role[*levelOfEnemies1][i].person;
+					room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
 				}
-				else if (*levelOfEnemies1 == 4) {
+				else if (levelOfEnemies1 == 4) {
 					room[tempX[i]][tempY[i] - 1] = fPartFourthMonster;
-					room[tempX[i]][tempY[i]] = role[*levelOfEnemies1][i].person;
+					room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
 				}
 				else {
-					room[tempX[i]][tempY[i]] = role[*levelOfEnemies1][i].person;
+					room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
 				}
 			}
 		}
@@ -745,7 +745,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 
 	}
 
-	if (counterDead == tempE) {
+	if (*counterDead == *tempE) 
+	{
 		switch (mapRoom) {
 		case 1:
 			// down door
@@ -881,7 +882,7 @@ void attack(Data** role, int index, bool game, int idEnemies, int* counterDead)
 				role[0][0].money += role[index][idEnemies].money;
 				role[index][idEnemies].money = 0;
 				role[index][idEnemies].person = 'D';
-				*counterDead++;
+				(*counterDead)++;
 			}
 
 			if (role[index][idEnemies].person != ' ' && role[index][idEnemies].person != 'D') 
@@ -1071,6 +1072,10 @@ void set(Room** Maze, int length)
 
 }
 
+/* TODO: Make isMovePossible to return vector of two bools:
+* first one - Show if the move is possible
+* second one - Show if the board needs to be cleared and printed again
+*/
 bool isMovePosible(short row, short col, Data** role, Data* item, bool game, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX)
 {
 	static bool levelUp = false;
@@ -1097,7 +1102,7 @@ bool isMovePosible(short row, short col, Data** role, Data* item, bool game, int
 		if (board[row][col] == item[i].person)
 			shop(role, item, i);
 	}
-	if ((board[row][col] == bossFPart) || (board[row][col] == bossSPart) || (board[row][col] == bossSPart) || (board[row][col] == bossSPart)) {
+	if ((board[row][col] == bossFPart) || (board[row][col] == bossSPart) || (board[row][col] == bossTPart) || (board[row][col] == bossFoPart)) {
 		indexOfEnemie = 5;
 		idEnemies = 0;
 		attack(role, indexOfEnemie, game, idEnemies, counterDead);
@@ -1106,36 +1111,36 @@ bool isMovePosible(short row, short col, Data** role, Data* item, bool game, int
 	for (int i = 17; i < 24; i++) {
 		if (row == i && col == 17) {
 			//teleport(role, row, col);
-			*level++;
+			(*level)++;
 			levelUp = true;
-			*mapY++;
+			(*mapY)++;
 			return false;
 		}
 	}
 	for (int i = 7; i < 10; i++) {
 		if (row == 41 && col == i) {
 			//teleport(role, row, col);
-			*level++;
+			(*level)++;
 			levelUp = true;
-			*mapX++;
+			(*mapX)++;
 			return false;
 		}
 	}
 	for (int i = 17; i < 24; i++) {
 		if (row == i && col == 0) {
 			//teleport(role, row, col);
-			*level++;
+			(*level)++;
 			levelUp = true;
-			*mapY--;
+			(*mapY)--;
 			return false;
 		}
 	}
 	for (int i = 7; i < 10; i++) {
 		if (row == 0 && col == i) {
 			//teleport(role, row, col);
-			*level++;
+			(*level)++;
 			levelUp = true;
-			*mapX--;
+			(*mapX)--;
 			return false;
 		}
 	}
