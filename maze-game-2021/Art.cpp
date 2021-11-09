@@ -953,4 +953,391 @@ int main() {
         room[30][3] = rock;
         room[31][3] = rock;
     */
+
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+    for (int i = 0; i < rowRoom; i++) {
+        for (int j = 0; j < colRoom; j++) {
+            if (i > 0 && j > 0 && i < rowRoom - 1 && j < colRoom - 1)
+            {
+                if (i == 3 && j == 5) {
+                    cout << holegl;
+                }
+                else if (i == 3 && j == 6) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 7) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 8) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 9) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 6) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 7) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 8) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 9) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 10) {
+                    cout << holegd;
+                }
+                else if (i == 4 && j == 5) {
+                    cout << holesr2;
+                }
+                else if (i == 5 && j == 5) {
+                    cout << holesr2;
+                }
+                else if (i == 4 && j == 10) {
+                    cout << holesr2;
+                }
+                else if (i == 5 && j == 10) {
+                    cout << holesr2;
+                }
+                else if (i == 6 && j == 5) {
+                    cout << holedl;
+                }
+                else if (i == 6 && j == 10) {
+                    cout << holedd;
+                }
+
+
+                else if (i == 3 && j == 30) {
+                    cout << holegl;
+                }
+                else if (i == 3 && j == 31) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 32) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 33) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 34) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 31) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 32) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 33) {
+                    cout << holesr1;
+                }
+                else if (i == 6 && j == 34) {
+                    cout << holesr1;
+                }
+                else if (i == 3 && j == 35) {
+                    cout << holegd;
+                }
+                else if (i == 4 && j == 30) {
+                    cout << holesr2;
+                }
+                else if (i == 5 && j == 30) {
+                    cout << holesr2;
+                }
+                else if (i == 4 && j == 35) {
+                    cout << holesr2;
+                }
+                else if (i == 5 && j == 35) {
+                    cout << holesr2;
+                }
+                else if (i == 6 && j == 30) {
+                    cout << holedl;
+                }
+                else if (i == 6 && j == 35) {
+                    cout << holedd;
+                }
+
+
+                else if (i == 10 && j == 30) {
+                    cout << holegl;
+                }
+                else if (i == 10 && j == 31) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 32) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 33) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 34) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 31) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 32) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 33) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 34) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 35) {
+                    cout << holegd;
+                }
+                else if (i == 11 && j == 30) {
+                    cout << holesr2;
+                }
+                else if (i == 12 && j == 30) {
+                    cout << holesr2;
+                }
+                else if (i == 11 && j == 35) {
+                    cout << holesr2;
+                }
+                else if (i == 12 && j == 35) {
+                    cout << holesr2;
+                }
+                else if (i == 13 && j == 30) {
+                    cout << holedl;
+                }
+                else if (i == 13 && j == 35) {
+                    cout << holedd;
+                }
+
+
+                else if (i == 10 && j == 5) {
+                    cout << holegl;
+                }
+                else if (i == 10 && j == 6) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 7) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 8) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 9) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 6) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 7) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 8) {
+                    cout << holesr1;
+                }
+                else if (i == 13 && j == 9) {
+                    cout << holesr1;
+                }
+                else if (i == 10 && j == 10) {
+                    cout << holegd;
+                }
+                else if (i == 11 && j == 5) {
+                    cout << holesr2;
+                }
+                else if (i == 12 && j == 5) {
+                    cout << holesr2;
+                }
+                else if (i == 11 && j == 10) {
+                    cout << holesr2;
+                }
+                else if (i == 12 && j == 10) {
+                    cout << holesr2;
+                }
+                else if (i == 13 && j == 5) {
+                    cout << holedl;
+                }
+                else if (i == 13 && j == 10) {
+                    cout << holedd;
+                }
+
+
+                else if (i == 1 && j == 1) {
+                    cout << bush;
+                }
+                else if (i == 1 && j == 2) {
+                    cout << bush;
+                }
+                else if (i == 2 && j == 1) {
+                    cout << bush;
+                }
+                else if (i == 15 && j == 1) {
+                    cout << bush;
+                }
+                else if (i == 15 && j == 2) {
+                    cout << bush;
+                }
+                else if (i == 14 && j == 1) {
+                    cout << bush;
+                }
+                else if (i == 1 && j == 39) {
+                    cout << bush;
+                }
+                else if (i == 2 && j == 39) {
+                    cout << bush;
+                }
+                else if (i == 1 && j == 38) {
+                    cout << bush;
+                }
+                else if (i == 1 && j == 37) {
+                    cout << bush;
+                }
+                else if (i == 15 && j == 39) {
+                    cout << bush;
+                }
+                else if (i == 14 && j == 39) {
+                    cout << bush;
+                }
+                else if (i == 15 && j == 38) {
+                    cout << bush;
+                }
+                else if (i == 15 && j == 37) {
+                    cout << bush;
+                }
+
+
+
+                else if (i == 1 && j == 19) {
+                    cout << rock;
+                }
+                else if (i == 1 && j == 20) {
+                    cout << rock;
+                }
+                else if (i == 1 && j == 21) {
+                    cout << rock;
+                }
+                else if (i == 2 && j == 18) {
+                    cout << rock;
+                }
+                else if (i == 2 && j == 22) {
+                    cout << rock;
+                }
+                else if (i == 14 && j == 19) {
+                    cout << rock;
+                }
+                else if (i == 15 && j == 20) {
+                    cout << rock;
+                }
+                else if (i == 14 && j == 21) {
+                    cout << rock;
+                }
+
+
+                else {
+                    cout << " ";
+                }
+            }
+            else {
+                cout << "#";
+            }
+        }
+        cout << endl;
+    }
+
+    /*
+    room[5][3] = holegl;
+    room[6][3] = holesr1;
+    room[7][3] = holesr1;
+    room[8][3] = holesr1;
+    room[9][3] = holesr1;
+    room[6][6] = holesr1;
+    room[7][6] = holesr1;
+    room[8][6] = holesr1;
+    room[9][6] = holesr1;
+    room[10][3] = holegd;
+    room[5][4] = holesr2;
+    room[5][5] = holesr2;
+    room[10][4] = holesr2;
+    room[10][5] = holesr2;
+    room[5][6] = holedl;
+    room[10][6] = holedd;
+
+    room[30][3] = holegl;
+    room[31][3] = holesr1;
+    room[32][3] = holesr1;
+    room[33][3] = holesr1;
+    room[34][3] = holesr1;
+    room[31][6] = holesr1;
+    room[32][6] = holesr1;
+    room[33][6] = holesr1;
+    room[34][6] = holesr1;
+    room[35][3] = holegd;
+    room[30][4] = holesr2;
+    room[30][5] = holesr2;
+    room[35][4] = holesr2;
+    room[35][5] = holesr2;
+    room[30][6] = holedl;
+    room[35][6] = holedd;
+
+    room[30][10] = holegl;
+    room[31][10] = holesr1;
+    room[32][10] = holesr1;
+    room[33][10] = holesr1;
+    room[34][10] = holesr1;
+    room[31][13] = holesr1;
+    room[32][13] = holesr1;
+    room[33][13] = holesr1;
+    room[34][13] = holesr1;
+    room[35][10] = holegd;
+    room[30][11] = holesr2;
+    room[30][12] = holesr2;
+    room[35][11] = holesr2;
+    room[35][12] = holesr2;
+    room[30][13] = holedl;
+    room[35][13] = holedd;
+
+    room[5][10] = holegl;
+    room[6][10] = holesr1;
+    room[7][10] = holesr1;
+    room[8][10] = holesr1;
+    room[9][10] = holesr1;
+    room[6][13] = holesr1;
+    room[7][13] = holesr1;
+    room[8][13] = holesr1;
+    room[9][13] = holesr1;
+    room[10][10] = holegd;
+    room[5][11] = holesr2;
+    room[5][12] = holesr2;
+    room[10][11] = holesr2;
+    room[10][12] = holesr2;
+    room[5][13] = holedl;
+    room[10][13] = holedd;
+
+    room[1][1] = bush;
+    room[2][1] = bush;
+    room[1][2] = bush;
+    room[1][15] = bush;
+    room[2][15] = bush;
+    room[1][14] = bush;
+    room[39][1] = bush;
+    room[39][2] = bush;
+    room[38][1] = bush;
+    room[37][1] = bush;
+    room[39][15] = bush;
+    room[39][14] = bush;
+    room[38][15] = bush;
+    room[37][15] = bush;
+
+    room[19][1] = rock;
+    room[20][1] = rock;
+    room[21][1] = rock;
+    room[18][2] = rock;
+    room[22][2] = rock;
+    room[19][14] = rock;
+    room[20][15] = rock;
+    room[21][14] = rock;
+    */
 }
