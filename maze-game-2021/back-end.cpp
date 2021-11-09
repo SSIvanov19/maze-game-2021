@@ -1076,13 +1076,14 @@ void set(Room** Maze, int length)
 * first one - Show if the move is possible
 * second one - Show if the board needs to be cleared and printed again
 */
-bool isMovePosible(short row, short col, Data** role, Data* item, bool game, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX)
+
+bool isMovePosible(bool *showBoard, short row, short col, Data** role, Data* item, bool game, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX)
 {
 	static bool levelUp = false;
 
 	int idEnemies, indexOfEnemie = 0;
 	char** board = room(role, item, tempE, level, tempX, tempY, counterDead, mapY, mapX);
-
+	*showBoard = false;
 	for (idEnemies = 0; idEnemies < *tempE; idEnemies++) {
 		if (row == tempX[idEnemies] && col == tempY[idEnemies]) {
 			if (board[row][col] == firstMonster)
@@ -1148,6 +1149,7 @@ bool isMovePosible(short row, short col, Data** role, Data* item, bool game, int
 		return false;
 	if (board[row][col] != ' ')
 		return false;
+	*showBoard = true;
 	return true;
 }
 
