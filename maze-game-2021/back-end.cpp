@@ -2,7 +2,7 @@
 *   @brief A source file for the logic layer.
 */
 #include "back-end.h"
-
+#include "front-end.h"
 
 struct Room
 {
@@ -536,7 +536,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 				else {
 					shopIsHere = false;
 				}
-				randomSizeOfEnemies = 1; rand() % 4 + 1;
+				randomSizeOfEnemies = 1 + rand() % 4 + 1;
 				*tempE += randomSizeOfEnemies;
 				bool ready;
 				nextLevel++;
@@ -869,7 +869,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	return room;
 }
 
-void attack(Data** role, int index, bool game, int idEnemies, int* counterDead) 
+void attack(Data** role, int index, bool game, int idEnemies, int* counterDead, bool* showBoard)
 {
 	if (index != 5) 
 	{
@@ -883,6 +883,7 @@ void attack(Data** role, int index, bool game, int idEnemies, int* counterDead)
 				role[index][idEnemies].money = 0;
 				role[index][idEnemies].person = 'D';
 				(*counterDead)++;
+				*showBoard = true;
 			}
 
 			if (role[index][idEnemies].person != ' ' && role[index][idEnemies].person != 'D') 
@@ -970,6 +971,8 @@ void shop(Data** role, Data* item, short index) {
 		default:
 			break;
 	}
+
+	printPlayerData(role);
 }
 
 void GameRules(Data** role, Data* item) 
@@ -1072,12 +1075,7 @@ void set(Room** Maze, int length)
 
 }
 
-/* TODO: Make isMovePossible to return vector of two bools:
-* first one - Show if the move is possible
-* second one - Show if the board needs to be cleared and printed again
-*/
-
-bool isMovePosible(bool *showBoard, short row, short col, Data** role, Data* item, bool game, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX)
+bool isMovePosible(bool *showBoard, short* row, short* col, Data** role, Data* item, bool game, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX)
 {
 	static bool levelUp = false;
 
@@ -1085,71 +1083,79 @@ bool isMovePosible(bool *showBoard, short row, short col, Data** role, Data* ite
 	char** board = room(role, item, tempE, level, tempX, tempY, counterDead, mapY, mapX);
 	*showBoard = false;
 	for (idEnemies = 0; idEnemies < *tempE; idEnemies++) {
-		if (row == tempX[idEnemies] && col == tempY[idEnemies]) {
-			if (board[row][col] == firstMonster)
+		if (*row == tempX[idEnemies] && *col == tempY[idEnemies]) {
+			if (board[*row][*col] == firstMonster)
 				indexOfEnemie = 1;
-			if (board[row][col] == secondMonster)
+			if (board[*row][*col] == secondMonster)
 				indexOfEnemie = 2;
-			if ((board[row][col] == sPartThirdMonster) || (board[row][col] == fPartThirdMonster))
+			if ((board[*row][*col] == sPartThirdMonster) || (board[*row][*col] == fPartThirdMonster))
 				indexOfEnemie = 3;
-			if ((board[row][col] == sPartFourthMonster) || (board[row][col] == fPartFourthMonster))
+			if ((board[*row][*col] == sPartFourthMonster) || (board[*row][*col] == fPartFourthMonster))
 				indexOfEnemie = 4;
-			if (board[row][col] != 'D')
-				attack(role, indexOfEnemie, game, idEnemies, counterDead);
+			if (board[*row][*col] != 'D')
+			{
+				attack(role, indexOfEnemie, game, idEnemies, counterDead, showBoard);
+				printPlayerData(role);
+			}
 			break;
 		}
 	}
 	for (int i = 0; i < 4; i++) {
-		if (board[row][col] == item[i].person)
+		if (board[*row][*col] == item[i].person)
 			shop(role, item, i);
 	}
-	if ((board[row][col] == bossFPart) || (board[row][col] == bossSPart) || (board[row][col] == bossTPart) || (board[row][col] == bossFoPart)) {
+	if ((board[*row][*col] == bossFPart) || (board[*row][*col] == bossSPart) || (board[*row][*col] == bossTPart) || (board[*row][*col] == bossFoPart)) {
 		indexOfEnemie = 5;
 		idEnemies = 0;
-		attack(role, indexOfEnemie, game, idEnemies, counterDead);
+		attack(role, indexOfEnemie, game, idEnemies, counterDead, showBoard);
+		*showBoard = true;
+		printPlayerData(role);
 	}
 	//stats(role, item, idEnemies);
 	for (int i = 17; i < 24; i++) {
-		if (row == i && col == 17) {
-			//teleport(role, row, col);
+		if (*row == i && *col == 17) {
+			teleport(role, board, row, col, 3);
 			(*level)++;
 			levelUp = true;
 			(*mapY)++;
+			*showBoard = true;
 			return false;
 		}
 	}
 	for (int i = 7; i < 10; i++) {
-		if (row == 41 && col == i) {
-			//teleport(role, row, col);
+		if (*row == 41 && *col == i) {
+			teleport(role, board, row, col, 2);
 			(*level)++;
 			levelUp = true;
 			(*mapX)++;
+			*showBoard = true;
 			return false;
 		}
 	}
 	for (int i = 17; i < 24; i++) {
-		if (row == i && col == 0) {
-			//teleport(role, row, col);
+		if (*row == i && *col == 0) {
+			teleport(role, board, row, col, 1);
 			(*level)++;
 			levelUp = true;
 			(*mapY)--;
+			*showBoard = true;
 			return false;
 		}
 	}
 	for (int i = 7; i < 10; i++) {
-		if (row == 0 && col == i) {
-			//teleport(role, row, col);
+		if (*row == 0 && *col == i) {
+			teleport(role, board, row, col, 4);
 			(*level)++;
 			levelUp = true;
 			(*mapX)--;
+			*showBoard = true;
 			return false;
 		}
 	}
-	if (row == -1 || col == -1)
+	if (*row == -1 || *col == -1)
 		return false;
-	if (board[row][col] != ' ')
+	if (board[*row][*col] != ' ')
 		return false;
-	*showBoard = true;
 	return true;
 }
 

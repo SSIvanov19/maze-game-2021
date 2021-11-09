@@ -31,10 +31,10 @@ struct Data
 
 //Functions
 char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
-void attack(Data** role, int index, bool game, int idEnemies, int* counterDead);
+void attack(Data** role, int index, bool game, int idEnemies, int* counterDead, bool* showBoard);
 void shop(Data** role, Data* item, short index);
 bool isMazeMovePossible(Room** board, short row, short col/*, Data* role, Data* item, , bool game*/);
-bool isMovePosible(bool* showBoard, short row, short col, Data** role, Data* item, bool game, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
+bool isMovePosible(bool* showBoard, short* row, short* col, Data** role, Data* item, bool game, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
 void GameRules(Data** role, Data* item);
 
 /*

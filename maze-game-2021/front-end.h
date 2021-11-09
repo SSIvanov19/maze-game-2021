@@ -124,7 +124,8 @@ void printHowToPlay(int selectedOption, bool printLogo);
 //Game related functions
 void game();
 void drawBoard();
-void printPlayerData();
+void printPlayerData(Data** role);
 void printMessage(std::string msg);
 void clearMessage(std::string msg);
 void drawRoom(Data** role, Data* item, char** board, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
+void teleport(Data** role, char** board, short* row, short* col, int direction);
