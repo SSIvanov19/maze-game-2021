@@ -42,6 +42,7 @@
 #include <conio.h>
 #include <vector>
 #include <string>
+#include <stack>
 
 //Defines
 #define ESCAPE_BUTTON 27
@@ -127,5 +128,7 @@ void drawBoard();
 void printPlayerData(Data** role);
 void printMessage(std::string msg);
 void clearMessage(std::string msg);
-void drawRoom(Data** role, Data* item, char** board, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
+void drawRoom(Data** role, Data* item, char** board, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int& keyChest);
 void teleport(Data** role, char** board, short* row, short* col, int direction);
+void drawMaze(Room** Maze, int length);
+void moveInMaze(bool firstTimeInAMaze);

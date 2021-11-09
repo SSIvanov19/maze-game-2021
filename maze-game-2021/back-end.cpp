@@ -30,8 +30,8 @@ char sPartFourthMonster = 215;
 char bossFPart = 206;
 char bossSPart = 178;
 char bossTPart = 201;
-char bossFoPart = 184;
-char chest = 127;
+char bossFoPart = 187;
+char chest = 219;
 char bush = 157;
 char rock = 240;
 char holegl = 201;
@@ -43,23 +43,13 @@ char holesr2 = 186;
 
 int times = 0;
 
-#define LENGTH 20 // length of maze
-
-struct Room
-{
-	bool visited;
-	bool top;
-	bool bot;
-	bool left;
-	bool right;
-	char show;
-};
+#define LENGTH 17 // length of maze
 
 /**
  * @brief A function for settign up the maze
  * @param Maze The maze
 */
-void set(Room** Maze)
+void setMaze(Room** Maze)
 {
 	for (int i = 0; i < LENGTH; i++)
 	{
@@ -85,14 +75,13 @@ void set(Room** Maze)
 			Maze[i][LENGTH - 2].right = false;
 		}
 	}
-
 }
 
 /**
  * @brief Generate a maze
  * @param maze The maze
 */
-void generator(Room** maze)
+void generateMaze(Room** maze)
 {
 	Room Maze[LENGTH][LENGTH];
 
@@ -233,7 +222,7 @@ void generator(Room** maze)
 		}
 	}
 
-	Maze[LENGTH - 2][LENGTH - 2].show = 'E';
+	Maze[LENGTH - 2][LENGTH - 2].show = chest;
 
 	for (int i = 0; i < LENGTH; i++)
 	{
@@ -251,8 +240,15 @@ void generator(Room** maze)
  * @param col The column coordinate
  * @return bool value
 */
-bool isMovePossible(Room** board, short row, short col)
+bool isMovePossible(Room** board, short row, short col, bool &isChest)
 {
+	isChest = false;
+
+	if (board[col][row].show == chest)
+	{
+		isChest = true;
+	}
+
 	if (row == -1 || col == -1)
 	{
 		return false;
@@ -266,114 +262,14 @@ bool isMovePossible(Room** board, short row, short col)
 	return true;
 }
 
-/*
-void drawRoom(Room** Maze)
-{
-	for (int i = 0; i < LENGTH; i++)
-	{
-		for (int j = 0; j < LENGTH; j++)
-		{
-			std::cout << Maze[i][j].show;
-		}
-		std::cout << std::endl;
-	}
-}
-
-void playMaze() {
-	char input;
-	bool playing = false;
-	short rowPlayer = 1, colPlayer = 1, moves = 0;
-
-	Room** Maze = new Room * [LENGTH];
-
-	for (int i = 0; i < LENGTH; ++i)
-	{
-		Maze[i] = new Room[LENGTH];
-	}
-
-	clear();
-	set(Maze);
-	generator(Maze);
-	drawRoom(Maze);
-
-	gotoxy(rowPlayer, colPlayer);
-	std::cout << "x";
-
-	while (!playing)
-	{
-		GetNumberOfConsoleInputEvents(rhnd, &Events);
-
-		if (Events != 0) { // if something happened we will handle the events we want
-		  // create event buffer the size of how many Events
-			INPUT_RECORD* eventBuffer = new INPUT_RECORD[Events];
-
-			// fills the event buffer with the events and saves count in EventsRead
-			ReadConsoleInput(rhnd, eventBuffer, Events, &EventsRead);
-
-			// loop through the event buffer using the saved count
-			for (DWORD i = 0; i < EventsRead; ++i) {
-				// check if event[i] is a key event && if so is a press not a release
-				if (eventBuffer[i].EventType == KEY_EVENT && eventBuffer[i].Event.KeyEvent.bKeyDown) {
-
-					clear();
-					moves++;
-					// check if the key press was an arrow key
-
-					switch (eventBuffer[i].Event.KeyEvent.wVirtualKeyCode) {
-					case VK_LEFT:
-						rowPlayer++;
-						if (isMovePossible(Maze, rowPlayer - 1, colPlayer))
-							rowPlayer--;
-						gotoxy(rowPlayer, colPlayer);
-						std::cout << "x";
-						break;
-					case VK_RIGHT:
-						rowPlayer--;
-						if (isMovePossible(Maze, rowPlayer + 1, colPlayer))
-							rowPlayer++;
-						gotoxy(rowPlayer, colPlayer);
-						std::cout << "x";
-						break;
-					case VK_UP:
-						colPlayer++;
-						if (isMovePossible(Maze, rowPlayer, colPlayer - 1))
-							colPlayer--;
-						gotoxy(rowPlayer, colPlayer);
-						std::cout << "x";
-						break;
-					case VK_DOWN:
-						colPlayer--;
-						if (isMovePossible(Maze, rowPlayer, colPlayer + 1))
-							colPlayer++;
-						gotoxy(rowPlayer, colPlayer);
-						std::cout << "x";
-						break;
-
-						// if any arrow key was pressed go to these cordinates
-					case VK_ESCAPE: // if escape key was pressed end program loop
-						playing = false;
-						break;
-
-					default:        // no handled cases where pressed
-						break;
-					}
-				}
-
-			} // end EventsRead loop
-
-		} // end of events
-	}
-}
-*/
-
-
-char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX)
+char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int &keyChest)
 {
 	static int mapRoom;
 	static int drawArt;
 	static int randomSizeOfEnemies;
 	static int counterOfEnemies;
 	static int nextLevel = 0;
+	static int openChests = 0;
 	static int choiseShopX[2];
 	static int choiseShopY[2];
 	static int choiseMazeX[4]; 
@@ -384,6 +280,9 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	static bool BossIshere = false;
 	static bool shopIsHere = false;
 	static bool mazeIsHere = false;
+	static int indexOfMaze;
+	static bool wizardTalking = false;
+	static bool haveKey = false;
 
 	char** room = new char * [ROW_ROOM + 4];
 
@@ -839,8 +738,47 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 
 	if (*level == nextLevel) {
 		srand(time(NULL));
-		if (*mapX != 3 && *mapY != 3) {
-			if (*mapX == 0 && *mapY == 0) {
+		if (*mapX == 3 && *mapY == 3 && haveKey) {
+			role[0][0].keys--;
+			for (int i = 0; i < 4; i++) {
+						for (int j = 1; j <= 4; j++) {
+							if (role[j][i].person == 'D') {
+								if (j == 1) {
+									role[j][i].person = firstMonster;
+									role[j][i].health = 15;
+									role[j][i].money = 1;
+								}
+								if (j == 2) {
+									role[j][i].person = secondMonster;
+									role[j][i].health = 25;
+									role[j][i].money = 3;
+								}
+								if (j == 3) {
+									role[j][i].person = sPartThirdMonster;
+									role[j][i].health = 50;
+									role[j][i].money = 6;
+								}
+								if (j == 4) {
+									role[j][i].person = sPartFourthMonster;
+									role[j][i].health = 75;
+									role[j][i].money = 10;
+								}
+							}
+						}
+					}
+
+			// BOSS IS HERE
+			tempX[0] = 19;
+			tempY[0] = 9;
+			*tempE = 1;
+			room[20][8] = bossFPart;
+			room[20][9] = bossSPart;
+			room[19][9] = bossTPart;
+			room[21][9] = bossFoPart;
+		}
+		else { 
+			if (*mapX == 0 && *mapY == 0 && !wizardTalking) {
+				wizardTalking = true;
 				room[20][8] = wizard;
 				nextLevel++;
 				bool notReadyCordinates = false;
@@ -854,6 +792,10 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 						if (choiseShopX[i] == 0 && choiseShopY[i] == 0)
 							notReadyCordinates = true;
 						if (choiseShopX[i] == 3 && choiseShopY[i] == 3)
+							notReadyCordinates = true;
+						if (choiseShopX[i] == 2 && choiseShopY[i] == 3)
+							notReadyCordinates = true;
+						if (choiseShopX[i] == 3 && choiseShopY[i] == 2)
 							notReadyCordinates = true;
 					} while (notReadyCordinates);
 				}
@@ -884,8 +826,10 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 			}
 			else {
 				for (int i = 0; i < 4; i++) {
-					if ((*mapX == choiseMazeX[i] && *mapY == choiseMazeY[i]))
+					if ((*mapX == choiseMazeX[i] && *mapY == choiseMazeY[i])) {
 						mazeIsHere = true;
+						indexOfMaze = i;
+					}
 				}
 				if (!mazeIsHere) {
 					if (((*mapX == choiseShopX[0] && *mapY == choiseShopY[0]) || (*mapX == choiseShopX[1] && *mapY == choiseShopY[1]))) {
@@ -894,7 +838,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 					else {
 						shopIsHere = false;
 					}
-					randomSizeOfEnemies = 1 + rand() % 4 + 1;
+					randomSizeOfEnemies = rand() % 4 + 1;
 					*tempE += randomSizeOfEnemies;
 					bool ready;
 					nextLevel++;
@@ -998,18 +942,26 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 					}
 				}
 				else {
-					//playMaze();
+					moveInMaze(false);
+					nextLevel++;
+					openChests++;
+					choiseMazeX[indexOfMaze] = 5;
+					choiseMazeY[indexOfMaze] = 5;
+					
+					if (openChests == keyChest)
+					{
+						role[0][0].keys++;
+						haveKey = true;
+					}
+					else
+					{
+						role[0][0].money += 15;
+					}
+
+					mazeIsHere = false;
+					printPlayerData(role);
 				}
 			}
-		}
-		else { // BOSS IS HERE
-		tempX[0] = 19;
-		tempY[0] = 9;
-		*tempE = 1;
-			room[20][8] = bossFPart;
-			room[20][9] = bossSPart;
-			room[19][9] = bossTPart;
-			room[21][9] = bossFoPart;
 		}
 	}
 
@@ -1357,7 +1309,7 @@ void GameRules(Data** role, Data* item)
 	role[0][0].armor = 10;
 	role[0][0].attack = 15;
 	role[0][0].money = 200;
-	role[0][0].keys = 0;
+	role[0][0].keys = 3;
 
 	// first type enemie | counter of enemy
 	for (int i = 0; i < 4; i++) {
@@ -1414,12 +1366,12 @@ void GameRules(Data** role, Data* item)
 
 }
 
-bool isMovePosible(bool *showBoard, short* row, short* col, Data** role, Data* item, bool &game, bool& bossIsDead,int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX)
+bool isMovePossible(bool* showBoard, short* row, short* col, Data** role, Data* item, bool& game, bool& bossIsDead, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int &keyChest)
 {
 	static bool levelUp = false;
 
 	int idEnemies, indexOfEnemie = 0;
-	char** board = room(role, item, tempE, level, tempX, tempY, counterDead, mapY, mapX);
+	char** board = room(role, item, tempE, level, tempX, tempY, counterDead, mapY, mapX, keyChest);
 	*showBoard = false;
 	for (idEnemies = 0; idEnemies < *tempE; idEnemies++) {
 		if (*row == tempX[idEnemies] && *col == tempY[idEnemies]) {
@@ -1435,6 +1387,8 @@ bool isMovePosible(bool *showBoard, short* row, short* col, Data** role, Data* i
 			if (board[*row][*col] == bossTPart) {
 				indexOfEnemie = 5;
 				idEnemies = 0;
+				*showBoard = true;
+				printPlayerData(role);
 			}
 			if (board[*row][*col] != 'D')
 			{
@@ -1448,13 +1402,7 @@ bool isMovePosible(bool *showBoard, short* row, short* col, Data** role, Data* i
 		if (board[*row][*col] == item[i].person)
 			shop(role, item, i);
 	}
-	if ((board[*row][*col] == bossFPart) || (board[*row][*col] == bossSPart) || (board[*row][*col] == bossTPart) || (board[*row][*col] == bossFoPart)) {
-		indexOfEnemie = 5;
-		idEnemies = 0;
-		attack(role, indexOfEnemie, game, idEnemies, counterDead, showBoard);
-		*showBoard = true;
-		printPlayerData(role);
-	}
+
 	//stats(role, item, idEnemies);
 	for (int i = 17; i < 24; i++) {
 		if (*row == i && *col == 17) {

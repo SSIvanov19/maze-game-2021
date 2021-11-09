@@ -57,4 +57,29 @@ The aim of the presentation is to be short and tell everything important about t
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id sollicitudin mi, ac ultricies est. Donec tristique elit metus, sit amet scelerisque tellus suscipit non. Nunc ornare velit in mi dictum, eget viverra elit accumsan. Sed congue condimentum erat ut gravida. Donec non posuere dolor, quis commodo erat. Morbi sit amet sem sed urna ullamcorper viverra vitae non turpis. Suspendisse ut faucibus turpis. Aliquam suscipit orci sodales interdum egestas. Quisque pulvinar odio in luctus ullamcorper. Cras nulla nunc, sodales suscipit consectetur non, facilisis et lectus. Donec nec ornare orci. Duis pellentesque porttitor leo at condimentum.
 
 ## Front-end developer
-Aenean tincidunt vitae erat sit amet fermentum. Duis ac lacinia risus. Aenean felis urna, elementum eget fringilla vitae, fermentum ac enim. Etiam sit amet dui enim. Ut in pellentesque sem, nec sodales nisi. Donec varius pharetra consectetur. Maecenas at consectetur tortor. Morbi convallis pulvinar erat ut finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+The task of our front-end developer was to make the game look good and to make it more interactive. For this purpose, he used different ASCII characters that you can see just under this text.
+### Here you can see what ASCII characters are used and what they represent 
+▲ = Wizard  
+⌂ = Chest  
+$ = Money  
+│ = upper part sword  
+╪ = down part sword  
+♀ = Key  
+♥ = Health  
+Θ = Armour  
+■ = First monster  
+♦ = Second monster  
+╦ = First part third monster  
+░ = Second part third monster  
+╤ = First part fourth monster  
+╫ = Second part fourth monster  
+╬ = First part fourth boss  
+▓ = Second part fourth boss  
+╔ = Third part fourth boss  
+╕ = Fourth part fourth boss  
+¥ = bush  
+≡ = rock  
+╔ = hole up-left  
+╗ = hole up-right  
+═ = hole mid part (Horizontal)  
+║ = hole mid part (Vertical)  

@@ -30,19 +30,11 @@ struct Data
 };
 
 //Functions
-char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
-void attack(Data** role, int index, bool game, int idEnemies, int* counterDead, bool* showBoard);
+char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int& keyChest);
+void attack(Data** role, int index, bool& game, int idEnemies, int* counterDead, bool* showBoard, bool& bossIsDead);
 void shop(Data** role, Data* item, short index);
-bool isMazeMovePossible(Room** board, short row, short col/*, Data* role, Data* item, , bool game*/);
-bool isMovePosible(bool* showBoard, short* row, short* col, Data** role, Data* item, bool game, bool bossIsDead, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX);
+bool isMovePossible(Room** board, short row, short col, bool& isChest);
+bool isMovePossible(bool* showBoard, short* row, short* col, Data** role, Data* item, bool& game, bool& bossIsDead, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int& keyChest);
 void GameRules(Data** role, Data* item);
-
-/*
-void set(Room** Maze, int length);
-//char** room(Data* role, Data* item);
-Room** generator(int length);
-bool isMovePossible(Room** board, short row, short col);
-void GameRules();
-//void atack(Data* role, short index, bool game);
-//void shop(Data* role, Data* item, short index);
-*/
+void setMaze(Room** Maze);
+void generateMaze(Room** maze);

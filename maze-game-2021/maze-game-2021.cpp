@@ -1,4 +1,4 @@
-/*! @file maze-game-2021.cpp
+﻿/*! @file maze-game-2021.cpp
 *   @brief The main source file of the program.
 */
 
@@ -12,6 +12,7 @@
 */
 void initializeTheGame()
 {
+
 	system("chcp 437");
 
 	Logger logger;
@@ -26,10 +27,10 @@ void initializeTheGame()
 //Wild Bulgarian starts here
 целочислен_тип главен()
 {
-	булев_тип игратаВърви = вярно;
+	булев_тип игратаВърви е вярно;
 	инцилизирайИгра();
 
-	докато (игратаВърви)
+	докато (игратаВърви е_равно_на вярно)
 	{
 		изпечатайГлавноМеню(1, вярно);
 	}
