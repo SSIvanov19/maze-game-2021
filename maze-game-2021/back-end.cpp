@@ -389,7 +389,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 
 	// |_
 	if (*mapX == 0 && *mapY == 3) {
-		mapRoom = 2;
+		mapRoom = 3;
 		for (int i = 0; i < ROW_ROOM; i++) {
 			for (int j = 0; j < COL_ROOM; j++) {
 				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM) {
@@ -775,6 +775,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 			room[20][9] = bossSPart;
 			room[19][9] = bossTPart;
 			room[21][9] = bossFoPart;
+			BossIshere = true;
 		}
 		else { 
 			if (*mapX == 0 && *mapY == 0 && !wizardTalking) {
@@ -1309,7 +1310,7 @@ void GameRules(Data** role, Data* item)
 	role[0][0].armor = 10;
 	role[0][0].attack = 15;
 	role[0][0].money = 200;
-	role[0][0].keys = 3;
+	role[0][0].keys = 0;
 
 	// first type enemie | counter of enemy
 	for (int i = 0; i < 4; i++) {
@@ -1347,7 +1348,8 @@ void GameRules(Data** role, Data* item)
 
 	role[5][0].person = 201;
 	role[5][0].health = 500;
-	role[5][0].attack = 0;
+	role[5][0].attack = 30;
+	role[5][0].money = 1;
 
 	// heart recovers
 	item[0].person = healthShop;
