@@ -15,6 +15,7 @@
 //Defines
 #define ROW_ROOM 41
 #define COL_ROOM 17
+#define LENGTH 17
 
 //Structures
 struct Room

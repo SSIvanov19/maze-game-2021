@@ -5,37 +5,6 @@
 #include "front-end.h"
 #include "dialogue.h"
 
-char uSword = 179;
-char dSword = 216;
-char key = 12;
-char healthShop = 3;
-char armorShop = 233;
-char wizard = 30;
-char money = 36;
-char firstMonster = 254;
-char secondMonster = 4;
-char fPartThirdMonster = 203;
-char sPartThirdMonster = 176;
-char fPartFourthMonster = 209;
-char sPartFourthMonster = 215;
-char bossFPart = 206;
-char bossSPart = 178;
-char bossTPart = 201;
-char bossFoPart = 187;
-char chest = 219;
-char bush = 157;
-char rock = 240;
-char holegl = 201;
-char holegd = 187;
-char holedl = 200;
-char holedd = 188;
-char holesr1 = 205;
-char holesr2 = 186;
-
-int times = 0;
-
-#define LENGTH 17 // length of maze
-
 /**
  * @brief A function for settign up the maze
  * @param Maze The maze
@@ -70,7 +39,7 @@ void setMaze(Room** Maze)
 
 /**
  * @brief Generate a maze
- * @param maze The maze
+ * @param maze The maze to be generate
 */
 void generateMaze(Room** maze)
 {
@@ -84,23 +53,30 @@ void generateMaze(Room** maze)
 		}
 	}
 
-	srand((unsigned)time(NULL)); // Pick random start cell
+	// Pick random start cell
+	srand(time(NULL));
 	int random = 0;
 	int times = 0;
-	int row = ((2 * rand()) + 1) % (LENGTH - 1); // Generate a random odd number between 1 and LENGTH
-	int col = ((2 * rand()) + 1) % (LENGTH - 1); // Generate a random odd number between 1 and LENGTH
+	// Generate a random odd number between 1 and LENGTH
+	int row = ((2 * rand()) + 1) % (LENGTH - 1); 
+	// Generate a random odd number between 1 and LENGTH
+	int col = ((2 * rand()) + 1) % (LENGTH - 1); 
 	int visitedCells = 1;
 	int totalCells = ((LENGTH - 1) / 2) * ((LENGTH - 1) / 2);
 	int percent = 0;
-	std::stack<int> back_trackX, back_trackY; 						// Stack is used to trace the reverse path
+	// Stack is used to trace the reverse path
+	std::stack<int> back_trackX, back_trackY; 		
+
 	if (times == 0)
 	{
 		times++;
 		col = 1;
 		row = 1;
 	}
-	Maze[col][row].show = 'S';						// Set S as the start cell
-	Maze[col][row].visited = true;						// Set start cell as visited;
+	// Set S as the start cell
+	Maze[col][row].show = 'S';		
+	// Set start cell as visited;
+	Maze[col][row].visited = true;						
 
 	while (visitedCells < totalCells)
 	{
@@ -109,102 +85,151 @@ void generateMaze(Room** maze)
 			((Maze[col][row - 2].visited == false) && (Maze[col][row].left == true && Maze[col][row - 2].right == true)) ||
 			((Maze[col][row + 2].visited == false) && (Maze[col][row].right == true && Maze[col][row + 2].left == true)))
 		{
-			random = (rand() % 4) + 1;		// Pick a random wall 1-4 to knock down
+			// Pick a random wall 1-4 to knock down
+			random = (rand() % 4) + 1;		
 
 			 // GO UP
 			if ((random == 1) && (col > 1))
 			{
+				// If not visited
 				if (Maze[col - 2][row].visited == false)
-				{	// If not visited
-					Maze[col - 1][row].show = ' ';	// Delete show
-					Maze[col - 1][row].visited = true;	// Mark cell as visited
-					Maze[col][row].top = false;	// Knock down wall
+				{	
+					// Delete show
+					Maze[col - 1][row].show = ' ';	
+					// Mark cell as visited
+					Maze[col - 1][row].visited = true;	
+					// Knock down wall
+					Maze[col][row].top = false;	
 
-					back_trackX.push(row); 			// Push X for back track
-					back_trackY.push(col);			// Push Y for back track
+					// Push X for back track
+					back_trackX.push(row); 			
+					// Push Y for back track
+					back_trackY.push(col);			
 
-					col -= 2;					// Move to next cell
-					Maze[col][row].visited = true;		// Mark cell moved to as visited
-					Maze[col][row].show = ' ';		// Update path
-					Maze[col][row].bot = false;	// Knock down wall
-					visitedCells++;					// Increase visitedCells counter
+					// Move to next cell
+					col -= 2;					
+					// Mark cell moved to as visited
+					Maze[col][row].visited = true;		
+					// Update path
+					Maze[col][row].show = ' ';		
+					// Knock down wall
+					Maze[col][row].bot = false;	
+					// Increase visitedCells counter
+					visitedCells++;
 				}
 				else
+				{
 					continue;
+				}
 			}
 
 			// GO DOWN
 			else if ((random == 2) && (col < LENGTH - 2))
 			{
+				// If not visited
 				if (Maze[col + 2][row].visited == false)
-				{	// If not visited
-					Maze[col + 1][row].show = ' ';	// Delete show
-					Maze[col + 1][row].visited = true;	// Mark cell as visited
-					Maze[col][row].bot = false;	// Knock down wall
+				{	
+					// Delete show
+					Maze[col + 1][row].show = ' ';	
+					// Mark cell as visited
+					Maze[col + 1][row].visited = true;	
+					// Knock down wall
+					Maze[col][row].bot = false;	
 
-					back_trackX.push(row); 			// Push X for back track
-					back_trackY.push(col);			// Push Y for back track
+					// Push X for back track
+					back_trackX.push(row); 			
+					// Push Y for back track
+					back_trackY.push(col);			
 
-					col += 2;					// Move to next cell
-					Maze[col][row].visited = true;		// Mark cell moved to as visited
-					Maze[col][row].show = ' ';		// Update path
-					Maze[col][row].top = false;	// Knock down wall
-					visitedCells++;					// Increase visitedCells counter
+					// Move to next cell
+					col += 2;					
+					// Mark cell moved to as visited
+					Maze[col][row].visited = true;		
+					// Update path
+					Maze[col][row].show = ' ';		
+					// Knock down wall
+					Maze[col][row].top = false;	
+					// Increase visitedCells counter
+					visitedCells++;					
 				}
 				else
+				{
 					continue;
+				}
 			}
 
 			// GO LEFT
 			else if ((random == 3) && (row > 1))
 			{
+				// If not visited
 				if (Maze[col][row - 2].visited == false)
-				{	// If not visited
-					Maze[col][row - 1].show = ' ';	// Delete show
-					Maze[col][row - 1].visited = true;	// Mark cell as visited
-					Maze[col][row].left = false;	// Knock down wall
+				{	
+					// Delete show
+					Maze[col][row - 1].show = ' ';	
+					// Mark cell as visited
+					Maze[col][row - 1].visited = true;	
+					// Knock down wall
+					Maze[col][row].left = false;	
 
-					back_trackX.push(row); 			// Push X for back track
-					back_trackY.push(col);			// Push Y for back track
+					// Push X for back track
+					back_trackX.push(row); 			
+					// Push Y for back track
+					back_trackY.push(col);			
 
-					row -= 2;					// Move to next cell
-					Maze[col][row].visited = true;		// Mark cell moved to as visited
-					Maze[col][row].show = ' ';		// Update path
-					Maze[col][row].right = false;	// Knock down wall
-					visitedCells++;					// Increase visitedCells counter
+					// Move to next cell
+					row -= 2;				
+					// Mark cell moved to as visited
+					Maze[col][row].visited = true;		
+					// Update path
+					Maze[col][row].show = ' ';		
+					// Knock down wall
+					Maze[col][row].right = false;	
+					// Increase visitedCells counter
+					visitedCells++;					
 				}
 				else
+				{
 					continue;
+				}
 			}
 
 			// GO RIGHT
 			else if ((random == 4) && (row < LENGTH - 2))
 			{
+				// If not visited
 				if (Maze[col][row + 2].visited == false)
-				{	// If not visited
-					Maze[col][row + 1].show = ' ';	// Delete show
-					Maze[col][row + 1].visited = true;	// Mark cell as visited
-					Maze[col][row].right = false;	// Knock down wall
+				{	
+					// Delete show
+					Maze[col][row + 1].show = ' ';	
+					// Mark cell as visited
+					Maze[col][row + 1].visited = true;	
+					// Knock down wall
+					Maze[col][row].right = false;	
 
-					back_trackX.push(row); 			// Push X for back track
-					back_trackY.push(col);			// Push Y for back track
-
-					row += 2;					// Move to next cell
-					Maze[col][row].visited = true;		// Mark cell moved to as visited
-					Maze[col][row].show = ' ';		// Update path
-					Maze[col][row].left = false;	// Knock down wall
-					visitedCells++;					// Increase visitedCells counter
+					// Push X for back track
+					back_trackX.push(row); 			
+					// Push Y for back track
+					back_trackY.push(col);			
+					
+					// Move to next cell
+					row += 2;			
+					// Mark cell moved to as visited
+					Maze[col][row].visited = true;		
+					// Update path
+					Maze[col][row].show = ' ';		
+					// Knock down wall
+					Maze[col][row].left = false;	
+					// Increase visitedCells counter
+					visitedCells++;					
 				}
 				else
+				{
 					continue;
+				}
 			}
-
-			/*
-			percent = (visitedCells * 100 / totalCells * 100) / 100;		// Progress in percentage
-			std::cout << std::endl << "	Generating a Random Maze... " << percent << "%" << std::endl;
-			*/
 		}
-		else {
+		else 
+		{
 			row = back_trackX.top();
 			back_trackX.pop();
 
@@ -213,7 +238,7 @@ void generateMaze(Room** maze)
 		}
 	}
 
-	Maze[LENGTH - 2][LENGTH - 2].show = chest;
+	Maze[LENGTH - 2][LENGTH - 2].show = char(Art::CHEST);
 
 	for (int i = 0; i < LENGTH; i++)
 	{
@@ -235,7 +260,7 @@ bool isMovePossible(Room** board, short row, short col, bool& isChest)
 {
 	isChest = false;
 
-	if (board[col][row].show == chest)
+	if (board[col][row].show == char(Art::CHEST))
 	{
 		isChest = true;
 	}
@@ -253,6 +278,20 @@ bool isMovePossible(Room** board, short row, short col, bool& isChest)
 	return true;
 }
 
+/**
+ * @brief Function that generates the current room based on the parameters
+ * @param role All entities
+ * @param item All item rules
+ * @param tempE A varible for holding the number of enemies in one room
+ * @param level The current level
+ * @param tempX A varible for holding the X coordinates of the enemies
+ * @param tempY A varible for holding the Y coordinates of the enemies
+ * @param counterDead A counter for dead enemies
+ * @param mapY The Y coordinate of the room
+ * @param mapX The X coordinate of the room
+ * @param keyChest Is the key obtained
+ * @return A two dimensional array of char elements represending the visualusation of the board
+*/
 char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int& keyChest)
 {
 	static int mapRoom;
@@ -398,8 +437,10 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		room[i] = new char[COL_ROOM + 4];
 	}
 
-	for (int i = 0; i < ROW_ROOM + 4; i++) {
-		for (int j = 0; j < COL_ROOM + 4; j++) {
+	for (int i = 0; i < ROW_ROOM + 4; i++) 
+	{
+		for (int j = 0; j < COL_ROOM + 4; j++)
+		{
 			room[i][j] = ' ';
 		}
 	}
@@ -407,86 +448,137 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	drawArt = rand() % 2;
 
 	// |-
-	if (*mapX == 0 && *mapY == 0) {
+	if (*mapX == 0 && *mapY == 0) 
+	{
 		mapRoom = 1;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					room[i][j] = ' ';
 				}
-				else {
+				else 
+				{
 					room[i][j] = '#';
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
-		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
+		
+		do 
+		{
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
 					// right
-					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// down
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
 	}
 
 	// | <-
-	if (*mapX == 0 && (*mapY == 1 || *mapY == 2)) {
+	if (*mapX == 0 && (*mapY == 1 || *mapY == 2)) 
+	{
 		mapRoom = 2;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					room[i][j] = ' ';
 				}
-				else {
+				else 
+				{
 					if (j == 0)
+					{
 						room[i][j] = ' ';
+					}
 					else
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
-		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
-					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
+		
+		do 
+		{
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
+					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
+					}
+
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) {
+					}
+
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
@@ -495,356 +587,580 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	}
 
 	// |_
-	if (*mapX == 0 && *mapY == 3) {
+	if (*mapX == 0 && *mapY == 3) 
+	{
 		mapRoom = 3;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM) 
+				{
 					if (j == COL_ROOM - 2 || j == COL_ROOM - 1)
+					{
 						room[i][j] = '#';
+					}
 					else
+					{
 						room[i][j] = ' ';
+					}
 				}
-				else {
+				else 
+				{
 					if (j == 0)
+					{
 						room[i][j] = ' ';
+					}
 					else
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
-		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
-					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
+
+		do 
+		{
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
+					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) {
+					}
+
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
+		
 		//drawArtRoom(drawArt, role, item);
 	}
 
 	// -
-	if ((*mapX == 1 || *mapX == 2) && *mapY == 0) {
+	if ((*mapX == 1 || *mapX == 2) && *mapY == 0) 
+	{
 		mapRoom = 4;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					room[i][j] = ' ';
 				}
-				else {
+				else 
+				{
 					if (i == 0)
+					{
 						room[i][j] = ' ';
+					}
 					else
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
+
 		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
 					// right
-					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// down
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// left 
-					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
+		
 		//drawArtRoom(drawArt, role, item);
 	}
 
 	// -|
-	if (*mapX == 3 && *mapY == 0) {
+	if (*mapX == 3 && *mapY == 0) 
+	{
 		mapRoom = 5;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					if (i == ROW_ROOM - 2)
+					{
 						room[i][j] = '#';
+					}
 					else
+					{
 						room[i][j] = ' ';
+					}
 				}
-				else {
+				else 
+				{
 					if (i == 0)
+					{
 						room[i][j] = ' ';
-					else
+					}
+					else 
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
-		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
+
+		do 
+		{
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
 					// down
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 					// left 
-					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
+		
 		//drawArtRoom(drawArt, role, item);
 	}
 
 	// -> | 
-	if (*mapX == 3 && (*mapY == 1 || *mapY == 2)) {
+	if (*mapX == 3 && (*mapY == 1 || *mapY == 2)) 
+	{
 		mapRoom = 6;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					if (i == ROW_ROOM - 2)
+					{
 						room[i][j] = '#';
+					}
 					else
+					{
 						room[i][j] = ' ';
+					}
 				}
-				else {
+				else 
+				{
 					if (i == 0 || j == 0)
+					{
 						room[i][j] = ' ';
+					}
 					else
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
-		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
+		
+		do 
+		{
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
 					// down
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// left 
-					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// up 
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
+		
 		//drawArtRoom(drawArt, role, item);
 	}
 
 	// _|
-	if (*mapX == 3 && *mapY == 3) {
+	if (*mapX == 3 && *mapY == 3) 
+	{
 		mapRoom = 7;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					if (i == ROW_ROOM - 2 || j == COL_ROOM - 2)
+					{
 						room[i][j] = '#';
+					}
 					else
+					{
 						room[i][j] = ' ';
+					}
 				}
-				else {
+				else 
+				{
 					if (i == 0 || j == 0)
+					{
 						room[i][j] = ' ';
+					}
 					else
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
-		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
+		
+		do 
+		{
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
 					// left 
-					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 					// up 
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
 	}
 
 	// _
-	if ((*mapX == 1 || *mapX == 2) && *mapY == 3) {
+	if ((*mapX == 1 || *mapX == 2) && *mapY == 3) 
+	{
 		mapRoom = 8;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					if (j == COL_ROOM - 2)
+					{
 						room[i][j] = '#';
+					}
 					else
+					{
 						room[i][j] = ' ';
+					}
 				}
-				else {
+				else 
+				{
 					if (i == 0 || j == 0)
+					{
 						room[i][j] = ' ';
+					}
 					else
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
+		
 		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
 					// right
-					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// left 
-					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// up 
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
+		
 		//drawArtRoom(drawArt, role, item);
 	}
 
 	// all
-	if (*mapX >= 1 && *mapX < 3 && *mapY >= 1 && *mapY < 3) {
+	if (*mapX >= 1 && *mapX < 3 && *mapY >= 1 && *mapY < 3) 
+	{
 		mapRoom = 9;
-		for (int i = 0; i < ROW_ROOM; i++) {
-			for (int j = 0; j < COL_ROOM; j++) {
-				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) {
+
+		for (int i = 0; i < ROW_ROOM; i++) 
+		{
+			for (int j = 0; j < COL_ROOM; j++) 
+			{
+				if (i > 1 && j > 1 && i < ROW_ROOM - 1 && j < COL_ROOM - 1) 
+				{
 					room[i][j] = ' ';
 				}
-				else {
+				else 
+				{
 					if (i == 0 || j == 0)
+					{
 						room[i][j] = ' ';
+					}
 					else
+					{
 						room[i][j] = '#';
+					}
 				}
 			}
 		}
+
 		int hall = 0;
 		int temp2 = -2, help = 2;
-		do {
-			for (int x = 0; x < ROW_ROOM + 4; x++) {
-				for (int y = 0; y < COL_ROOM + 4; y++) {
+		
+		do 
+		{
+			for (int x = 0; x < ROW_ROOM + 4; x++) 
+			{
+				for (int y = 0; y < COL_ROOM + 4; y++) 
+				{
 					// right
-					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == ROW_ROOM && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// down
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == COL_ROOM) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// left 
-					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) {
+					if (x == 0 && y == (COL_ROOM - 1) / 2 + temp2) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
+
 					// up 
-					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) {
+					if (x == (ROW_ROOM - 1) / 2 + temp2 * 2 && y == 0) 
+					{
 						room[x][y] = '#';
 						hall++;
 					}
+
 					if (hall == 5)
+					{
 						hall = 0;
+					}
 				}
 			}
+
 			temp2 = 2;
 			help--;
 		} while (help);
+		
 		//drawArtRoom(drawArt, role, item);
 	}
 
 
-	if (*level == nextLevel) {
+	if (*level == nextLevel) 
+	{
 		srand(time(NULL));
+
 		if (*mapX == 3 && *mapY == 3)
 		{
 			if (haveKey)
@@ -856,26 +1172,37 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 				}
 
 				role[0][0].keys--;
-				for (int i = 0; i < 4; i++) {
-					for (int j = 1; j <= 4; j++) {
-						if (role[j][i].person == 'D') {
-							if (j == 1) {
-								role[j][i].person = firstMonster;
+
+				for (int i = 0; i < 4; i++) 
+				{
+					for (int j = 1; j <= 4; j++) 
+					{
+						if (role[j][i].person == 'D') 
+						{
+							if (j == 1) 
+							{
+								role[j][i].person = char(Art::FIRST_MONSTER);
 								role[j][i].health = 15;
 								role[j][i].money = 1;
 							}
-							if (j == 2) {
-								role[j][i].person = secondMonster;
+
+							if (j == 2) 
+							{
+								role[j][i].person = char(Art::SECOND_MONSTER);
 								role[j][i].health = 25;
 								role[j][i].money = 3;
 							}
-							if (j == 3) {
-								role[j][i].person = sPartThirdMonster;
+
+							if (j == 3) 
+							{
+								role[j][i].person = char(Art::S_PART_THIRD_MONSTER);
 								role[j][i].health = 50;
 								role[j][i].money = 6;
 							}
-							if (j == 4) {
-								role[j][i].person = sPartFourthMonster;
+
+							if (j == 4) 
+							{
+								role[j][i].person = char(Art::S_PART_FOURTH_MONSTER);
 								role[j][i].health = 75;
 								role[j][i].money = 10;
 							}
@@ -887,10 +1214,10 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 				tempX[0] = 19;
 				tempY[0] = 9;
 				*tempE = 1;
-				room[20][8] = bossFPart;
-				room[20][9] = bossSPart;
-				room[19][9] = bossTPart;
-				room[21][9] = bossFoPart;
+				room[20][8] = char(Art::BOSS_F_PART);
+				room[20][9] = char(Art::BOSS_S_PART);
+				room[19][9] = char(Art::BOSS_T_PART);
+				room[21][9] = char(Art::BOSS_FO_PART);
 				BossIshere = true;
 			}
 			else
@@ -898,173 +1225,248 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 				startDialogue(noKey);
 			}
 		}
-		else {
-			if (*mapX == 0 && *mapY == 0 && !wizardTalking) {
+		else 
+		{
+			if (*mapX == 0 && *mapY == 0 && !wizardTalking) 
+			{
 				wizardTalking = true;
-				room[20][8] = wizard;
+				room[20][8] = char(Art::WIZARD);
 				randomSizeOfEnemies = 1;
 				*tempE += randomSizeOfEnemies;
 				bool ready;
 				nextLevel++;
-				for (counterOfEnemies = 0; counterOfEnemies < randomSizeOfEnemies; counterOfEnemies++) {
-					do {
+
+				for (counterOfEnemies = 0; counterOfEnemies < randomSizeOfEnemies; counterOfEnemies++) 
+				{
+					do 
+					{
 						ready = false;
 						tempX[counterOfEnemies] = 30;
 						tempY[counterOfEnemies] = 10;
-
 					} while (ready);
 				}
 
 				/* RULES */
 				// before 15
-				if (role[0][0].attack < 15) {
+				if (role[0][0].attack < 15) 
+				{
 					levelSize = 4;
 					levelOfEnemies1 = 1;
 					levelOfEnemies2 = 1;
 				}
 				// after 15 and before 20
-				else if (role[0][0].attack == 15) {
+				else if (role[0][0].attack == 15) 
+				{
 					levelSize = 1;
 					levelOfEnemies1 = 1;
 					levelOfEnemies2 = 2;
 				}
 				// after 20 and before 25
-				else if (role[0][0].attack == 20) {
+				else if (role[0][0].attack == 20) 
+				{
 					levelSize = 3;
 					levelOfEnemies1 = 1;
 					levelOfEnemies2 = 2;
 				}
 				// after 25 and before 45
-				else if (role[0][0].attack >= 25 && role[0][0].attack < 45) {
+				else if (role[0][0].attack >= 25 && role[0][0].attack < 45) 
+				{
 					levelSize = 1;
 					levelOfEnemies1 = 2;
 					levelOfEnemies2 = 3;
 				}
 				// after 45 and before 60
-				else if (role[0][0].attack >= 45 && role[0][0].attack < 60) {
+				else if (role[0][0].attack >= 45 && role[0][0].attack < 60) 
+				{
 					levelSize = 3;
 					levelOfEnemies1 = 2;
 					levelOfEnemies2 = 3;
 				}
 				// after 60 and before 75
-				else if (role[0][0].attack >= 60 && role[0][0].attack < 75) {
+				else if (role[0][0].attack >= 60 && role[0][0].attack < 75) 
+				{
 					levelSize = 2;
 					levelOfEnemies1 = 3;
 					levelOfEnemies2 = 4;
 				}
 				// after 75
-				else if (role[0][0].attack >= 75) {
+				else if (role[0][0].attack >= 75) 
+				{
 					levelSize = 4;
 					levelOfEnemies1 = 4;
 					levelOfEnemies2 = 4;
 				}
-				for (int i = 0; i < 4; i++) {
-					for (int j = 1; j <= 4; j++) {
-						if (role[j][i].person == 'D') {
-							if (j == 1) {
-								role[j][i].person = firstMonster;
+
+				for (int i = 0; i < 4; i++) 
+				{
+					for (int j = 1; j <= 4; j++) 
+					{
+						if (role[j][i].person == 'D') 
+						{
+							if (j == 1) 
+							{
+								role[j][i].person = char(Art::FIRST_MONSTER);
 								role[j][i].health = 15;
 								role[j][i].money = 1;
 							}
-							if (j == 2) {
-								role[j][i].person = secondMonster;
+							if (j == 2) 
+							{
+								role[j][i].person = char(Art::SECOND_MONSTER);
 								role[j][i].health = 25;
 								role[j][i].money = 3;
 							}
-							if (j == 3) {
-								role[j][i].person = sPartThirdMonster;
+							if (j == 3) 
+							{
+								role[j][i].person = char(Art::S_PART_THIRD_MONSTER);
 								role[j][i].health = 50;
 								role[j][i].money = 6;
 							}
-							if (j == 4) {
-								role[j][i].person = sPartFourthMonster;
+							if (j == 4) 
+							{
+								role[j][i].person = char(Art::S_PART_FOURTH_MONSTER);
 								role[j][i].health = 75;
 								role[j][i].money = 10;
 							}
 						}
 					}
 				}
+
 				bool notReadyCordinates = false;
-				do {
+
+				do 
+				{
 					int id = 0;
-					do {
+
+					do 
+					{
 						notReadyCordinates = false;
 						choiseShopX[id] = rand() % 4;
 						choiseShopY[id] = rand() % 4;
+
 						if (choiseShopX[id] == choiseShopX[id - 1] || choiseShopY[id] == choiseShopY[id - 1])
+						{
 							notReadyCordinates = true;
+						}
+
 						if (choiseShopX[id] == 0 && choiseShopY[id] == 0)
+						{
 							notReadyCordinates = true;
+						}
+
 						if (choiseShopX[id] == 3 && choiseShopY[id] == 3)
+						{
 							notReadyCordinates = true;
+						}
 						if (choiseShopX[id] == 2 && choiseShopY[id] == 3)
+						{
 							notReadyCordinates = true;
+						}
+
 						if (choiseShopX[id] == 3 && choiseShopY[id] == 2)
+						{
 							notReadyCordinates = true;
-						if ((choiseShopX[id] == 0 && choiseShopY[id] == 3) || (choiseShopX[id] == 1 && choiseShopY[id] == 2)) {
-							if (choiseShopX[id] == 1) {
+						}
+
+						if ((choiseShopX[id] == 0 && choiseShopY[id] == 3) || (choiseShopX[id] == 1 && choiseShopY[id] == 2)) 
+						{
+							if (choiseShopX[id] == 1) 
+							{
 								choiseShopX[id + 1] = 3;
 								choiseShopY[id + 1] = 0;
 							}
-							else {
+							else 
+							{
 								choiseShopX[id + 1] = 3;
 								choiseShopY[id + 1] = 1;
 							}
+
 							notReadyCordinates = false;
 						}
 					} while (notReadyCordinates);
 
-					for (int i = 0; i < 4; i++) {
-						do {
+					for (int i = 0; i < 4; i++) 
+					{
+						do 
+						{
 							notReadyCordinates = false;
 							choiseMazeX[i] = rand() % 4;
 							choiseMazeY[i] = rand() % 4;
+
 							if (choiseMazeX[i] == 0 && choiseMazeY[i] == 0)
+							{
 								notReadyCordinates = true;
+							}
+
 							if (choiseMazeX[i] == 3 && choiseMazeY[i] == 3)
+							{
 								notReadyCordinates = true;
-							for (int j = 0; j < 2; j++) {
+							}
+
+							for (int j = 0; j < 2; j++) 
+							{
 								if (choiseMazeX[i] == choiseShopX[j] && choiseMazeY[i] == choiseShopY[j])
+								{
 									notReadyCordinates = true;
+								}
 							}
 						} while (notReadyCordinates);
 					}
+
 					int i, j, k = 1;
-					for (i = 0; i < 4; i++, k++) {
-						for (j = k; j < 4; j++) {
+					
+					for (i = 0; i < 4; i++, k++) 
+					{
+						for (j = k; j < 4; j++) 
+						{
 							if (choiseMazeX[i] == choiseMazeX[j] || choiseMazeY[i] == choiseMazeY[j])
+							{
 								notReadyCordinates = true;
+							}
 						}
 					}
 				} while (notReadyCordinates);
 			}
-			else {
-				for (int i = 0; i < 4; i++) {
-					if ((*mapX == choiseMazeX[i] && *mapY == choiseMazeY[i])) {
+			else 
+{
+				for (int i = 0; i < 4; i++) 
+				{
+					if ((*mapX == choiseMazeX[i] && *mapY == choiseMazeY[i])) 
+					{
 						mazeIsHere = true;
 						indexOfMaze = i;
 					}
 				}
-				if (!mazeIsHere) {
-					if (((*mapX == choiseShopX[0] && *mapY == choiseShopY[0]) || (*mapX == choiseShopX[1] && *mapY == choiseShopY[1]))) {
+
+				if (!mazeIsHere) 
+				{
+					if (((*mapX == choiseShopX[0] && *mapY == choiseShopY[0]) || (*mapX == choiseShopX[1] && *mapY == choiseShopY[1]))) 
+					{
 						shopIsHere = true;
 					}
-					else {
+					else 
+					{
 						shopIsHere = false;
 					}
+
 					randomSizeOfEnemies = rand() % 4 + 1;
 					*tempE += randomSizeOfEnemies;
 					bool ready;
 					nextLevel++;
-					for (counterOfEnemies = 0; counterOfEnemies < randomSizeOfEnemies; counterOfEnemies++) {
-						do {
+
+					for (counterOfEnemies = 0; counterOfEnemies < randomSizeOfEnemies; counterOfEnemies++) 
+					{
+						do 
+						{
 							ready = false;
 							tempX[counterOfEnemies] = rand() % ROW_ROOM + 1;
 							tempY[counterOfEnemies] = rand() % COL_ROOM + 1;
 
-							if (shopIsHere) {
-								for (int i = 0; i < ROW_ROOM; i++) {
-									for (int j = 0; j < COL_ROOM; j++) {
+							if (shopIsHere) 
+							{
+								for (int i = 0; i < ROW_ROOM; i++) 
+								{
+									for (int j = 0; j < COL_ROOM; j++) 
+									{
 										if (tempX[counterOfEnemies] >= 12 && tempX[counterOfEnemies] <= 27)
 											if (tempY[counterOfEnemies] >= 5 && tempY[counterOfEnemies] <= 14)
 												ready = true;
@@ -1072,81 +1474,109 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 								}
 							}
 							if (tempX[counterOfEnemies] >= ROW_ROOM - 10 || tempX[counterOfEnemies] < 2)
-								ready = true;
-							if (tempY[counterOfEnemies] >= COL_ROOM - 6 || tempY[counterOfEnemies] < 2)
-								ready = true;
-							if (room[tempX[counterOfEnemies]][tempY[counterOfEnemies]] == '#') {
+							{
 								ready = true;
 							}
-							if (tempX[counterOfEnemies] == tempX[counterOfEnemies - 1] && tempY[counterOfEnemies] == tempY[counterOfEnemies - 1])
+
+							if (tempY[counterOfEnemies] >= COL_ROOM - 6 || tempY[counterOfEnemies] < 2)
+							{
 								ready = true;
+							}
+
+							if (room[tempX[counterOfEnemies]][tempY[counterOfEnemies]] == '#') 
+							{
+								ready = true;
+							}
+
+							if (tempX[counterOfEnemies] == tempX[counterOfEnemies - 1] && tempY[counterOfEnemies] == tempY[counterOfEnemies - 1])
+							{
+								ready = true;
+							}
 
 						} while (ready);
 					}
 
 					/* RULES */
 					// before 15
-					if (role[0][0].attack < 15) {
+					if (role[0][0].attack < 15) 
+					{
 						levelSize = 4;
 						levelOfEnemies1 = 1;
 						levelOfEnemies2 = 1;
 					}
 					// after 15 and before 20
-					else if (role[0][0].attack == 15) {
+					else if (role[0][0].attack == 15) 
+					{
 						levelSize = 1;
 						levelOfEnemies1 = 1;
 						levelOfEnemies2 = 2;
 					}
 					// after 20 and before 25
-					else if (role[0][0].attack == 20) {
+					else if (role[0][0].attack == 20) 
+					{
 						levelSize = 3;
 						levelOfEnemies1 = 1;
 						levelOfEnemies2 = 2;
 					}
 					// after 25 and before 45
-					else if (role[0][0].attack >= 25 && role[0][0].attack < 45) {
+					else if (role[0][0].attack >= 25 && role[0][0].attack < 45) 
+					{
 						levelSize = 1;
 						levelOfEnemies1 = 2;
 						levelOfEnemies2 = 3;
 					}
 					// after 45 and before 60
-					else if (role[0][0].attack >= 45 && role[0][0].attack < 60) {
+					else if (role[0][0].attack >= 45 && role[0][0].attack < 60) 
+					{
 						levelSize = 3;
 						levelOfEnemies1 = 2;
 						levelOfEnemies2 = 3;
 					}
 					// after 60 and before 75
-					else if (role[0][0].attack >= 60 && role[0][0].attack < 75) {
+					else if (role[0][0].attack >= 60 && role[0][0].attack < 75) 
+					{
 						levelSize = 2;
 						levelOfEnemies1 = 3;
 						levelOfEnemies2 = 4;
 					}
 					// after 75
-					else if (role[0][0].attack >= 75) {
+					else if (role[0][0].attack >= 75)
+					{
 						levelSize = 4;
 						levelOfEnemies1 = 4;
 						levelOfEnemies2 = 4;
 					}
-					for (int i = 0; i < 4; i++) {
-						for (int j = 1; j <= 4; j++) {
-							if (role[j][i].person == 'D') {
-								if (j == 1) {
-									role[j][i].person = firstMonster;
+
+					for (int i = 0; i < 4; i++) 
+					{
+						for (int j = 1; j <= 4; j++) 
+						{
+							if (role[j][i].person == 'D') 
+							{
+								if (j == 1) 
+								{
+									role[j][i].person = char(Art::FIRST_MONSTER);
 									role[j][i].health = 15;
 									role[j][i].money = 1;
 								}
-								if (j == 2) {
-									role[j][i].person = secondMonster;
+
+								if (j == 2) 
+								{
+									role[j][i].person = char(Art::SECOND_MONSTER);
 									role[j][i].health = 25;
 									role[j][i].money = 3;
 								}
-								if (j == 3) {
-									role[j][i].person = sPartThirdMonster;
+
+								if (j == 3) 
+								{
+									role[j][i].person = char(Art::S_PART_THIRD_MONSTER);
 									role[j][i].health = 50;
 									role[j][i].money = 6;
 								}
-								if (j == 4) {
-									role[j][i].person = sPartFourthMonster;
+
+								if (j == 4) 
+								{
+									role[j][i].person = char(Art::S_PART_FOURTH_MONSTER);
 									role[j][i].health = 75;
 									role[j][i].money = 10;
 								}
@@ -1154,7 +1584,8 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 						}
 					}
 				}
-				else {
+				else 
+				{
 					if (firstTimeInMaze)
 					{
 						startDialogue(firstTimeInMazeDialogue);
@@ -1184,10 +1615,14 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		}
 	}
 
-	if (!BossIshere) {
-		if (!mazeIsHere) {
-			for (int i = 0; i < randomSizeOfEnemies; i++) {
-				if (shopIsHere) {
+	if (!BossIshere) 
+	{
+		if (!mazeIsHere) 
+		{
+			for (int i = 0; i < randomSizeOfEnemies; i++) 
+			{
+				if (shopIsHere) 
+				{
 					//Start first dialogue
 					if (storeUnderAttackFirstTime)
 					{
@@ -1196,60 +1631,78 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 					}
 
 					// shop
-					room[20][7] = wizard;
+					room[20][7] = char(Art::WIZARD);
 					room[13][9] = '2';
 					room[14][9] = '0';
 					room[15][9] = '$';
-					room[14][10] = healthShop;
+					room[14][10] = char(Art::HEALTH_SHOP);
 					room[19][9] = '1';
 					room[20][9] = '0';
 					room[21][9] = '$';
-					room[20][10] = armorShop;
+					room[20][10] = char(Art::ARMOR_SHOP);
 					room[25][9] = '5';
 					room[26][9] = '$';
-					room[25][10] = uSword;
-					room[25][11] = dSword;
+					room[25][10] = char(Art::U_SWORD);
+					room[25][11] = char(Art::D_SWORD);
 
 					// block
-					if (*counterDead != *tempE) {
+					if (*counterDead != *tempE) 
+					{
 						// up
-						for (int i1 = 12; i1 < 28; i1++) {
-							room[i1][5] = holesr1;
+						for (int i1 = 12; i1 < 28; i1++) 
+						{
+							room[i1][5] = char(Art::HOLES_R1);
 						}
+
 						// down
-						for (int i1 = 12; i1 < 28; i1++) {
-							room[i1][13] = holesr1;
+						for (int i1 = 12; i1 < 28; i1++) 
+						{
+							room[i1][5] = char(Art::HOLES_R1);
 						}
+
 						// ->
-						for (int i1 = 6; i1 < 13; i1++) {
-							room[28][i1] = holesr2;
+						for (int i1 = 6; i1 < 13; i1++) 
+						{
+							room[28][i1] = char(Art::HOLES_R2);
 						}
 						// <-
-						for (int i1 = 6; i1 < 13; i1++) {
-							room[11][i1] = holesr2;
+
+						for (int i1 = 6; i1 < 13; i1++) 
+						{
+							room[11][i1] = char(Art::HOLES_R2);
 						}
-						room[11][5] = holegl; // |-
-						room[28][5] = holegd; // -|
-						room[11][13] = holedl; // |_
-						room[28][13] = holedd; // _|
+
+						room[11][5] = char(Art::HOLE_GL); // |-
+						room[28][5] = char(Art::HOLE_GD); // -|
+						room[11][13] = char(Art::HOLE_DL); // |_
+						room[28][13] = char(Art::HOLE_DD); // _|
 					}
-					else {
+					else 
+					{
 						// up
-						for (int i1 = 12; i1 < 28; i1++) {
+						for (int i1 = 12; i1 < 28; i1++) 
+						{
 							room[i1][5] = ' ';
 						}
+
 						// down
-						for (int i1 = 12; i1 < 28; i1++) {
+						for (int i1 = 12; i1 < 28; i1++) 
+						{
 							room[i1][13] = ' ';
 						}
+
 						// ->
-						for (int i1 = 6; i1 < 13; i1++) {
+						for (int i1 = 6; i1 < 13; i1++) 
+						{
 							room[28][i1] = ' ';
 						}
+
 						// <-
-						for (int i1 = 6; i1 < 13; i1++) {
+						for (int i1 = 6; i1 < 13; i1++) 
+						{
 							room[11][i1] = ' ';
 						}
+
 						room[11][5] = ' '; // |-
 						room[28][5] = ' '; // -|
 						room[11][13] = ' '; // |_
@@ -1262,45 +1715,42 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 						}
 					}
 				}
-				if (i < levelSize) {
-					if (levelOfEnemies2 == 3) {
-						room[tempX[i]][tempY[i] - 1] = fPartThirdMonster;
-						room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
-					}
-					else if (levelOfEnemies2 == 4) {
-						room[tempX[i]][tempY[i] - 1] = fPartFourthMonster;
-						room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
-					}
-					else {
-						room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
-					}
-				}
-				else if (i >= levelSize) {
-					if (levelOfEnemies1 == 3) {
-						room[tempX[i]][tempY[i] - 1] = fPartThirdMonster;
-						room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
-					}
-					else if (levelOfEnemies1 == 4) {
-						room[tempX[i]][tempY[i] - 1] = fPartFourthMonster;
-						room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
-					}
-					else {
-						room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
-					}
-				}
-			}
-		} // mazeIsHere
-		  /*
-		else {
-			for (int i = 0; i < 37; i++)
-			{
-				for (int j = 0; j < 13; j++)
+				if (i < levelSize) 
 				{
-					room[i][j] = maze[i][j].show;
+					if (levelOfEnemies2 == 3)
+					{
+						room[tempX[i]][tempY[i] - 1] = char(Art::F_PART_THIRD_MONSTER);
+						room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
+					}
+					else if (levelOfEnemies2 == 4) 
+					{
+						room[tempX[i]][tempY[i] - 1] = char(Art::F_PART_FOURTH_MONSTER);
+						room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
+					}
+					else 
+					{
+						room[tempX[i]][tempY[i]] = role[levelOfEnemies2][i].person;
+					}
+				}
+				else if (i >= levelSize) 
+				{
+					if (levelOfEnemies1 == 3) 
+					{
+						room[tempX[i]][tempY[i] - 1] = char(Art::F_PART_THIRD_MONSTER);
+						room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
+					}
+					else if (levelOfEnemies1 == 4) 
+					{
+						room[tempX[i]][tempY[i] - 1] = char(Art::F_PART_FOURTH_MONSTER);
+						room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
+					}
+					else 
+					{
+						room[tempX[i]][tempY[i]] = role[levelOfEnemies1][i].person;
+					}
 				}
 			}
 		}
-		*/
 	}
 	else 
 	{ 
@@ -1313,126 +1763,169 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 
 	if (*counterDead == *tempE)
 	{
-		switch (mapRoom) {
-		case 1:
-			// down door
-			for (int i = 17; i < 24; i++) {
-				room[i][16] = ' ';
-			}
-			// right door
-			for (int i = 7; i < 10; i++) {
-				room[40][i] = ' ';
-			}
-			break;
-		case 2:
-			// down door
-			for (int i = 17; i < 24; i++) {
-				room[i][16] = ' ';
-			}
-			// right door
-			for (int i = 7; i < 10; i++) {
-				room[40][i] = ' ';
-			}
-			// up door
-			for (int i = 17; i < 24; i++) {
-				room[i][1] = ' ';
-			}
-			break;
-		case 3:
-			// right door
-			for (int i = 7; i < 10; i++) {
-				room[40][i] = ' ';
-			}
-			// up door
-			for (int i = 17; i < 24; i++) {
-				room[i][1] = ' ';
-			}
-			break;
-		case 4:
-			// down door
-			for (int i = 17; i < 24; i++) {
-				room[i][16] = ' ';
-			}
-			// right door
-			for (int i = 7; i < 10; i++) {
-				room[40][i] = ' ';
-			}
-			// left door
-			for (int i = 7; i < 10; i++) {
-				room[1][i] = ' ';
-			}
-			break;
-		case 5:
-			// left door
-			for (int i = 7; i < 10; i++) {
-				room[1][i] = ' ';
-			}
-			// down door
-			for (int i = 17; i < 24; i++) {
-				room[i][16] = ' ';
-			}
-			break;
-		case 6:
-			// down door
-			for (int i = 17; i < 24; i++) {
-				room[i][16] = ' ';
-			}
-			// up door
-			for (int i = 17; i < 24; i++) {
-				room[i][1] = ' ';
-			}
-			// left door
-			for (int i = 7; i < 10; i++) {
-				room[1][i] = ' ';
-			}
-			break;
-		case 7: // Boss is here
-			if (!BossIshere)
-			{
+		switch (mapRoom) 
+		{
+			case 1:
+				// down door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][16] = ' ';
+				}
+
+				// right door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[40][i] = ' ';
+				}
+
+				break;
+			case 2:
+				// down door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][16] = ' ';
+				}
+
+				// right door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[40][i] = ' ';
+				}
+
 				// up door
-				for (int i = 17; i < 24; i++) {
+				for (int i = 17; i < 24; i++) 
+				{
 					room[i][1] = ' ';
 				}
+
+				break;
+			case 3:
+				// right door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[40][i] = ' ';
+				}
+
+				// up door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][1] = ' ';
+				}
+
+				break;
+			case 4:
+				// down door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][16] = ' ';
+				}
+
+				// right door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[40][i] = ' ';
+				}
 				// left door
-				for (int i = 7; i < 10; i++) {
+				for (int i = 7; i < 10; i++) 
+				{
 					room[1][i] = ' ';
 				}
-			}
-			break;
-		case 8:
-			// right door
-			for (int i = 7; i < 10; i++) {
-				room[40][i] = ' ';
-			}
-			// up door
-			for (int i = 17; i < 24; i++) {
-				room[i][1] = ' ';
-			}
-			// left door
-			for (int i = 7; i < 10; i++) {
-				room[1][i] = ' ';
-			}
-			break;
-		case 9:
-			// down door
-			for (int i = 17; i < 24; i++) {
-				room[i][16] = ' ';
-			}
-			// right door
-			for (int i = 7; i < 10; i++) {
-				room[40][i] = ' ';
-			}
-			// up door
-			for (int i = 17; i < 24; i++) {
-				room[i][1] = ' ';
-			}
-			// left door
-			for (int i = 7; i < 10; i++) {
-				room[1][i] = ' ';
-			}
-			break;
+
+				break;
+			case 5:
+				// left door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[1][i] = ' ';
+				}
+
+				// down door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][16] = ' ';
+				}
+
+				break;
+			case 6:
+				// down door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][16] = ' ';
+				}
+
+				// up door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][1] = ' ';
+				}
+
+				// left door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[1][i] = ' ';
+				}
+
+				break;
+			case 7: // Boss is here
+				if (!BossIshere)
+				{
+					// up door
+					for (int i = 17; i < 24; i++) 
+					{
+						room[i][1] = ' ';
+					}
+					// left door
+					for (int i = 7; i < 10; i++) 
+					{
+						room[1][i] = ' ';
+					}
+				}
+				break;
+			case 8:
+				// right door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[40][i] = ' ';
+				}
+
+				// up door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][1] = ' ';
+				}
+
+				// left door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[1][i] = ' ';
+				}
+				break;
+			case 9:
+				// down door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][16] = ' ';
+				}
+
+				// right door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[40][i] = ' ';
+				}
+
+				// up door
+				for (int i = 17; i < 24; i++) 
+				{
+					room[i][1] = ' ';
+				}
+
+				// left door
+				for (int i = 7; i < 10; i++) 
+				{
+					room[1][i] = ' ';
+				}
+				break;
 		}
-		// down door
 	}
 
 	return room;
@@ -1630,7 +2123,7 @@ void GameRules(Data** role, Data* item)
 
 	// first type enemie | counter of enemy
 	for (int i = 0; i < 4; i++) {
-		role[1][i].person = firstMonster;
+		role[1][i].person = char(Art::FIRST_MONSTER);
 		role[1][i].health = 15;
 		role[1][i].attack = 15;
 		role[1][i].money = 1;
@@ -1638,7 +2131,7 @@ void GameRules(Data** role, Data* item)
 
 	// second enemie
 	for (int i = 0; i < 4; i++) {
-		role[2][i].person = secondMonster;
+		role[2][i].person = char(Art::SECOND_MONSTER);
 		role[2][i].health = 25;
 		role[2][i].attack = 10;
 		role[2][i].money = 3;
@@ -1646,7 +2139,7 @@ void GameRules(Data** role, Data* item)
 
 	// third enemie
 	for (int i = 0; i < 4; i++) {
-		role[3][i].person = sPartThirdMonster;
+		role[3][i].person = char(Art::S_PART_THIRD_MONSTER);
 		role[3][i].health = 50;
 		role[3][i].attack = 20;
 		role[3][i].money = 6;
@@ -1654,7 +2147,7 @@ void GameRules(Data** role, Data* item)
 
 	// fourth enemie
 	for (int i = 0; i < 4; i++) {
-		role[4][i].person = sPartFourthMonster;
+		role[4][i].person = char(Art::S_PART_FOURTH_MONSTER);
 		role[4][i].health = 75;
 		role[4][i].attack = 25;
 		role[4][i].money = 10;
@@ -1668,17 +2161,17 @@ void GameRules(Data** role, Data* item)
 	role[5][0].money = 1;
 
 	// heart recovers
-	item[0].person = healthShop;
+	item[0].person = char(Art::HEALTH_SHOP);
 	item[0].health = 0;
 	item[0].money = 20;
 
 	// sword
-	item[1].person = dSword;
+	item[1].person = char(Art::D_SWORD);
 	item[1].attack = 5;
 	item[1].money = 10;
 
 	// armor
-	item[2].person = armorShop;
+	item[2].person = char(Art::ARMOR_SHOP);
 	item[2].armor = 10;
 	item[2].money = 15;
 
@@ -1693,16 +2186,16 @@ bool isMovePossible(bool* showBoard, short* row, short* col, Data** role, Data* 
 	*showBoard = false;
 	for (idEnemies = 0; idEnemies < *tempE; idEnemies++) {
 		if (*row == tempX[idEnemies] && *col == tempY[idEnemies]) {
-			if (board[*row][*col] == firstMonster)
+			if (board[*row][*col] == char(Art::FIRST_MONSTER))
 				indexOfEnemie = 1;
-			if (board[*row][*col] == secondMonster)
+			if (board[*row][*col] == char(Art::SECOND_MONSTER))
 				indexOfEnemie = 2;
-			if ((board[*row][*col] == sPartThirdMonster) || (board[*row][*col] == fPartThirdMonster))
+			if ((board[*row][*col] == char(Art::S_PART_THIRD_MONSTER)) || (board[*row][*col] == char(Art::F_PART_THIRD_MONSTER)))
 				indexOfEnemie = 3;
-			if ((board[*row][*col] == sPartFourthMonster) || (board[*row][*col] == fPartFourthMonster))
+			if ((board[*row][*col] == char(Art::S_PART_FOURTH_MONSTER)) || (board[*row][*col] == char(Art::F_PART_FOURTH_MONSTER)))
 				indexOfEnemie = 4;
 			//if (bossIsHere)
-			if (board[*row][*col] == bossTPart) {
+			if (board[*row][*col] == char(Art::BOSS_T_PART)) {
 				indexOfEnemie = 5;
 				idEnemies = 0;
 				*showBoard = true;
