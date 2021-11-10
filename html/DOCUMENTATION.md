@@ -54,13 +54,14 @@ Periodically made documentation describes the whole work and each application of
 The aim of the presentation is to be short and tell everything important about the project.
 
 ## Back-end developer
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id sollicitudin mi, ac ultricies est. Donec tristique elit metus, sit amet scelerisque tellus suscipit non. Nunc ornare velit in mi dictum, eget viverra elit accumsan. Sed congue condimentum erat ut gravida. Donec non posuere dolor, quis commodo erat. Morbi sit amet sem sed urna ullamcorper viverra vitae non turpis. Suspendisse ut faucibus turpis. Aliquam suscipit orci sodales interdum egestas. Quisque pulvinar odio in luctus ullamcorper. Cras nulla nunc, sodales suscipit consectetur non, facilisis et lectus. Donec nec ornare orci. Duis pellentesque porttitor leo at condimentum.
+The Back-end is the whole logic of our game, starting from the creation of a room and the monsters in it, to the maze we have to go through to continue the game. The rules of the game are designed to be balanced against whether the player is playing correctly or not
+All the room and everything that can fall into it, as well as the maze are randomly checked, which is also checked for errors. 
 
 ## Front-end developer
 The task of our front-end developer was to make the game look good and to make it more interactive. For this purpose, he used different ASCII characters that you can see just under this text.
 ### Here you can see what ASCII characters are used and what they represent 
 ▲ = Wizard  
-⌂ = Chest  
+█ = Chest  
 $ = Money  
 │ = upper part sword  
 ╪ = down part sword  
@@ -76,7 +77,7 @@ $ = Money
 ╬ = First part fourth boss  
 ▓ = Second part fourth boss  
 ╔ = Third part fourth boss  
-╕ = Fourth part fourth boss  
+╗ = Fourth part fourth boss  
 ¥ = bush  
 ≡ = rock  
 ╔ = hole up-left  

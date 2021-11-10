@@ -31,16 +31,14 @@
 <ol>
   <li>👨‍💻 Back end : 
     <ul>
-      <li>Thing 1.</li>
-      <li>Thing 2.</li>
-      <li>Thing 3.</li>
+      <li>The back-end is our logic layer.</li>
+      <li>It creates the mazes and rooms based on algorithms.</li>
     </ul>
   </li>
   <li> Front end :  
     <ul>
-      <li>Thing 1.</li>
-      <li>Thing 2.</li>
-      <li>Thing 3.</li>
+      <li>The front-end is our presentation layer.</li>
+      <li>It controls what the used is experiencing with the program.</li>
     </ul>
   </li>
   <li> <p>Here you can see how these two parts combines and create our project:</p>
