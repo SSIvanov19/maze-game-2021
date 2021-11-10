@@ -2,30 +2,6 @@
 *   @brief A header file for the presentation layer.
 */
 
-/*! @def ESCAPE_BUTTON
-*	@brief A macro that return the ASCII code of the escape buttoon.
-*/
-
-/*! @def KEY_ENTER
-*	@brief A macro that return the ASCII code of the enter buttoon.
-*/
-
-/*! @def ARROW_LEFT
-*	@brief A macro that return the ASCII code of the left arrow buttoon.
-*/
-
-/*! @def ARROW_RIGHT
-*	@brief A macro that return the ASCII code of the right arrow buttoon.
-*/
-
-/*! @def ARROW_UP
-*	@brief A macro that return the ASCII code of the upper arrow buttoon.
-*/
-
-/*! @def ARROW_DOWN
-*	@brief A macro that return the ASCII code of the down arrow buttoon.
-*/
-
 /*! @def COLOR_MAIN
 *	@brief A macro that return the code of the main color.
 */
@@ -44,55 +20,69 @@
 #include <string>
 #include <stack>
 
-//Defines
-#define ESCAPE_BUTTON 27
-#define ARROW_LEFT 75
-#define ARROW_RIGHT 77
-#define ARROW_UP 72
-#define ARROW_DOWN 80
+//Define
 #define COLOR_MAIN 15
-#define KEY_ENTER 13
-#define SPACE 32
-#define VERTICAL_LINE 179
-#define VERTICAL_LEFT_LINE 180
-#define UPPER_RIGHT_CORNER 191
-#define LOWER_LEFT_CORNER 192
-#define HORIZONTAL_UP_LINE 193
-#define HORIZONTAL_DOWN_LINE 194
-#define VERTICAL_RIGHT_LINE 195
-#define HORIZONTAL_LINE 196
-#define LOWER_RIGHT_CORNER 217
-#define UPPER_LEFT_CORNER 218
 
-/* ART
+//Enums
 
-char uSword = 179;
-char dSword = 216;
-char key = 12;
-char healthShop = 3;
-char armorShop = 233;
-char wizard = 30;
-char money = 36;
-char firstMonster = 254;
-char secondMonster = 4;
-char fPartThirdMonster = 203;
-char sPartThirdMonster = 176;
-char fPartFourthMonster = 209;
-char sPartFourthMonster = 215;
-char bossFPart = 206;
-char bossSPart = 178;
-char bossTPart = 201;
-char bossFoPart = 184;
-char chest = 127;
-char bush = 157;
-char rock = 240;
-char holegl = 201;
-char holegd = 187;
-char holedl = 200;
-char holedd = 188;
-char holesr1 = 205;
-char holesr2 = 186;
+/**
+ * @brief A enum for the Buttons pressed on the keyboard
 */
+enum class Buttons
+{
+	ESCAPE_BUTTON = 27, /*!< Escape button on the keyboard */
+	ARROW_LEFT = 75, /*!< Arrow left button on the keyboard */
+	ARROW_RIGHT = 77, /*!< Arrow right button on the keyboard */
+	ARROW_UP = 72, /*!< Arrow up button on the keyboard */
+	ARROW_DOWN = 80, /*!< Arrow down button on the keyboard */
+	KEY_ENTER = 13 /*!< Enter button on the keyboard */
+};
+
+/**
+ * @brief A enum that holds every ASCII character that we use
+*/
+enum class Art
+{
+	SPACE = 32, /*!< The empty space character */
+	VERTICAL_LINE = 179, /*!< Vertical line */
+	VERTICAL_LEFT_LINE = 180, /*!< Vertical line with left line */
+	UPPER_RIGHT_CORNER = 191, /*!< Upper right corner */
+	LOWER_LEFT_CORNER = 192, /*!< Lower left corner */
+	HORIZONTAL_UP_LINE = 193, /*! Horizontal line with upper vertical line */
+	HORIZONTAL_DOWN_LINE = 194, /*! Horizontal line with lower vertical line */
+	VERTICAL_RIGHT_LINE = 195, /*!< Vertical line with right line */
+	HORIZONTAL_LINE = 196, /*!< Horizontal line */
+	LOWER_RIGHT_CORNER = 217, /*!< Lower right corner */
+	UPPER_LEFT_CORNER = 218, /*!< Upper left corner */
+	U_SWORD = 179, /*!< The upper part of the sword */
+	D_SWORD = 216, /*!< The lower part of the sword */
+	KEY = 12, /*!< Symbol for the key */
+	HEALTH_SHOP = 3, /*!< Symbol for the health in the shop */
+	ARMOR_SHOP = 233, /*!< Symbol for the armor in the shop */
+	WIZARD = 30, /*!< Symbol for the wizard */
+	MONEY = 36, /*!< Symbol for the money / Dolar sign */
+	FIRST_MONSTER = 254, /*!< ASCII character representation of the first monster */
+	SECOND_MONSTER = 4,/*!< ASCII character representation of the second monster */
+	F_PART_THIRD_MONSTER = 203, /*!< ASCII character representation of the first part of the third monster */
+	S_PART_THIRD_MONSTER = 176, /*!< ASCII character representation of the second part of the third monster */
+	F_PART_FOURTH_MONSTER = 209, /*!< ASCII character representation of the first part of the fourth monster */
+	S_PART_FOURTH_MONSTER = 215, /*!< ASCII character representation of the second part of the fourth monster */
+	BOSS_F_PART = 206, /*!< ASCII character representation of the first part of the Boss */
+	BOSS_S_PART = 178, /*!< ASCII character representation of the second part of the Boss */
+	BOSS_T_PART = 201, /*!< ASCII character representation of the third part of the Boss */
+	BOSS_FO_PART = 187, /*!< ASCII character representation of the fourth part of the Boss */
+	CHEST = 219, /*!< Symbol for the chest */
+	BUSH = 157, /*!< Symbol for the bush */
+	ROCK = 240, /*!< Symbol for the rock */
+	HOLE_GL = 201, /*!< Symbol for the hole */
+	HOLE_GD = 187, /*!< Symbol for the hole */
+	HOLE_DL = 200, /*!< Symbol for the hole */
+	HOLE_DD = 188, /*!< Symbol for the hole */
+	HOLES_R1 = 205, /*!< Symbol for the hole */
+	HOLES_R2 = 186 /*!< Symbol for the hole */
+};
+
+//Typedef
 typedef void (*Operation)(int option, bool option2);
 
 //Structures
@@ -117,8 +107,6 @@ void printOptions(std::vector<MenuOptions> menuOptions, int selectedOption, Oper
 void printBossOnMenu();
 void printMainLogo();
 void printMainMenu(int selectedOption, bool printLogo);
-void printSettingsLogo();
-void printSettings(int selectedOption, bool printLogo);
 void printHowToPlayLogo();
 void printHowToPlay(int selectedOption, bool printLogo);
 
