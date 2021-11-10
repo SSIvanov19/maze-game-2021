@@ -21,8 +21,8 @@
   A mighty but shady wizard hires you to kill Djamal Sehdi Albadas Pethi III, lord of the dungeons in the Middle-earth! Welcome to Braven a dungeon crawler rogue-like game, where you navigate trough rooms and mazes, killing enemies while helping wizard.
 </p>
 <h1>🎥 Demo of our project </h1>
-<img src  = "gifts/index.gif" alt="demo gif">
-<img src  = "gifts/index.img" alt="demo img">
+<img src  = "https://raw.githubusercontent.com/SSIvanov19/maze-game-2021/master/img/img1.png" alt="demo img 1">
+<img src  = "https://raw.githubusercontent.com/SSIvanov19/maze-game-2021/master/img/img2.png" alt="demo img 2">
 
 # [📄 Online Documentation](https://ssivanov19.github.io/braven-documentation/index.html)
 # [📄 Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/ssivanov19_codingburgas_bg/Ef3D5tOVSVdAn_65XNKjjNsBrI0uxP9aQ8EOq__vaUhD5w?e=lurG6j)
@@ -44,7 +44,7 @@
   </li>
   <li> <p>Here you can see how these two parts combines and create our project:</p>
     <ul>
-      <li> <img src  = "gifts/account.gif" alt="example gif"> </li>
+      <li> <img src  = "https://raw.githubusercontent.com/SSIvanov19/maze-game-2021/master/img/img3.jpg" alt="demo img 3"> </li>
     </ul>
   </li>
 </ol>
