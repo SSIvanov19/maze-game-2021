@@ -1,2 +1,2 @@
-*.cpp text crlf diff
-*.c crlf diff
+*.cpp -text crlf diff
+*.h -text crlf diff
