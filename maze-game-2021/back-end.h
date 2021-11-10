@@ -17,7 +17,15 @@
 #define COL_ROOM 17
 
 //Structures
-struct Room;
+struct Room
+{
+	bool visited;
+	bool top;
+	bool bot;
+	bool left;
+	bool right;
+	char show;
+};
 
 struct Data
 {

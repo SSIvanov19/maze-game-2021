@@ -17,19 +17,6 @@ struct MenuOptions
 };
 
 /**
- * @brief A struct for room.
-*/
-struct Room
-{
-	bool visited;
-	bool top;
-	bool bot;
-	bool left;
-	bool right;
-	char show;
-};
-
-/**
  * @brief A function that get the output handle.
  * @return HANDLE
 */
@@ -778,18 +765,6 @@ void game()
 		{
 			{
 				"Wizard", "Ok so you can walk, but can you fight. Now go to that enemy and try to fight him!"
-			}
-		}
-	};
-
-	Dialogue afterFirstFightDialogue =
-	{
-		{
-			{
-				"Wizard", "Good work, now I am going to leave you, good luck!"
-			},
-			{
-				"", "(A smoke appear in front of you and he disappears, but you can still see him as he goes through the door)"
 			}
 		}
 	};

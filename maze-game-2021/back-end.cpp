@@ -3,16 +3,7 @@
 */
 #include "back-end.h"
 #include "front-end.h"
-
-struct Room
-{
-	bool visited;
-	bool top;
-	bool bot;
-	bool left;
-	bool right;
-	char show;
-};
+#include "dialogue.h"
 
 char uSword = 179;
 char dSword = 216;
@@ -240,7 +231,7 @@ void generateMaze(Room** maze)
  * @param col The column coordinate
  * @return bool value
 */
-bool isMovePossible(Room** board, short row, short col, bool &isChest)
+bool isMovePossible(Room** board, short row, short col, bool& isChest)
 {
 	isChest = false;
 
@@ -262,7 +253,7 @@ bool isMovePossible(Room** board, short row, short col, bool &isChest)
 	return true;
 }
 
-char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int &keyChest)
+char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int& keyChest)
 {
 	static int mapRoom;
 	static int drawArt;
@@ -272,7 +263,7 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	static int openChests = 0;
 	static int choiseShopX[2];
 	static int choiseShopY[2];
-	static int choiseMazeX[4]; 
+	static int choiseMazeX[4];
 	static int choiseMazeY[4];
 	static int levelOfEnemies1;
 	static int levelOfEnemies2;
@@ -283,8 +274,124 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	static int indexOfMaze;
 	static bool wizardTalking = false;
 	static bool haveKey = false;
+	static bool storeUnderAttackFirstTime = true;
+	static bool storeFirstTime = true;
+	static bool firstTimeInMaze = true;
+	static bool firstTimeWithBoss = true;
+	static bool firstTimeEnter = true;
 
-	char** room = new char * [ROW_ROOM + 4];
+	Dialogue dialogueAtStoreAttack = {
+		{
+			{
+				"Wizard", "Oh no, monsters are attaking my shop, help me!!!"
+			}
+		}
+	};
+
+	Dialogue dialogueAfterStoreAttack = {
+		{
+			{
+				"Wizard", "Thanks for saving my shop, here you can upgrade you gear or regain your health, at a cost of course!"
+			},
+			{
+				"You", "Wait aren't you supposed to help me and give me these thing for free?"
+			},
+			{
+				"Wizard", "Well yes, but actually no. You see, the institute of magicians around the globe is out of money, which reminds me, before we continue, I would like to thank our sponsor Raid Shadow Le...."
+			},
+			{
+				"You", "Ok ok I understand!"
+			}
+		}
+	};
+
+	Dialogue firstTimeInMazeDialogue = {
+		{
+			{
+				"Wizard", "Hello There, I see you found the maze. There are signed short int number of chest in this maze."
+			},
+			{
+				"Wizard", "In every one of them you might find potion for health, better armour, money or key. The key is used to unlock the lair of the [."
+			},
+			{
+				"Wizard", "I know that to hide the key in some of these chests isn't the best secure system, but Stoyan Kolev wasn't around and nobody could test the system, so they just leave it that way, what a fools."
+			},
+			{
+				"You", "Wait who is Stoyan Kolev?"
+			},
+			{
+				"Wizard", "That is not important. Do you have any other questions?"
+			},
+			{
+				"You", "Actually..."
+			},
+			{
+				"Wizard", "Keine Fragen? Super!"
+			}
+		}
+	};
+
+	Dialogue key = {
+		{
+			{
+				"Wizard", "So did you find the key for the liar of the [?"
+			},
+			{
+				"You: ", "Yes!"
+			},
+			{
+				"Wizard", "Very well! But before you go in, I need to advice you to prepare yourself with good gear. Are you sure yuu are ready?"
+			},
+			{
+				"You", "Yeep, let's do that!"
+			},
+			{
+				"Wizard", "Ok, now is your time to shine. Go in and beat him!"
+			},
+			{
+				"You", "Wait, if you are so powerful, why don't you go and defeat him?"
+			},
+			{
+				"Wizard", "Ah, oh, What sorry I can't here you I am going into a tunnel."
+			},
+			{
+				"You", "What are you talking about?"
+			},
+			{
+				"", "(Without more hesitation, you go in)"
+			}
+		}
+	};
+
+	Dialogue noKey = {
+		{
+			{
+				"Wizard", "So did you find the key for the liar of the [?"
+			},
+			{
+				"You: ", "No."
+			},
+			{
+				"Wizard", "Then go and find the key!"
+			}
+		}
+	};
+
+	Dialogue beforeBossBattle = {
+		{
+			{
+				"[", "So you are the unnamed hero that defeat my guards!"
+			},
+			{
+				"You: ", "Yes I am, but I expected you to be a little bigger, you are like four ascii characters."
+			},
+			{
+				"[", "Ascii what? Don't bother me with your nonsense! Now is time for your defeat!"
+			}
+		}
+	};
+
+	char** room = new char* [ROW_ROOM + 4];
 
 	for (int i = 0; i < ROW_ROOM + 4; i++)
 	{
@@ -738,69 +845,175 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 
 	if (*level == nextLevel) {
 		srand(time(NULL));
-		if (*mapX == 3 && *mapY == 3 && haveKey) {
-			role[0][0].keys--;
-			for (int i = 0; i < 4; i++) {
-						for (int j = 1; j <= 4; j++) {
-							if (role[j][i].person == 'D') {
-								if (j == 1) {
-									role[j][i].person = firstMonster;
-									role[j][i].health = 15;
-									role[j][i].money = 1;
-								}
-								if (j == 2) {
-									role[j][i].person = secondMonster;
-									role[j][i].health = 25;
-									role[j][i].money = 3;
-								}
-								if (j == 3) {
-									role[j][i].person = sPartThirdMonster;
-									role[j][i].health = 50;
-									role[j][i].money = 6;
-								}
-								if (j == 4) {
-									role[j][i].person = sPartFourthMonster;
-									role[j][i].health = 75;
-									role[j][i].money = 10;
-								}
+		if (*mapX == 3 && *mapY == 3)
+		{
+			if (haveKey)
+			{
+				if (firstTimeEnter)
+				{
+					startDialogue(key);
+					firstTimeEnter = false;
+				}
+
+				role[0][0].keys--;
+				for (int i = 0; i < 4; i++) {
+					for (int j = 1; j <= 4; j++) {
+						if (role[j][i].person == 'D') {
+							if (j == 1) {
+								role[j][i].person = firstMonster;
+								role[j][i].health = 15;
+								role[j][i].money = 1;
+							}
+							if (j == 2) {
+								role[j][i].person = secondMonster;
+								role[j][i].health = 25;
+								role[j][i].money = 3;
+							}
+							if (j == 3) {
+								role[j][i].person = sPartThirdMonster;
+								role[j][i].health = 50;
+								role[j][i].money = 6;
+							}
+							if (j == 4) {
+								role[j][i].person = sPartFourthMonster;
+								role[j][i].health = 75;
+								role[j][i].money = 10;
 							}
 						}
 					}
+				}
 
-			// BOSS IS HERE
-			tempX[0] = 19;
-			tempY[0] = 9;
-			*tempE = 1;
-			room[20][8] = bossFPart;
-			room[20][9] = bossSPart;
-			room[19][9] = bossTPart;
-			room[21][9] = bossFoPart;
-			BossIshere = true;
+				// BOSS IS HERE
+				tempX[0] = 19;
+				tempY[0] = 9;
+				*tempE = 1;
+				room[20][8] = bossFPart;
+				room[20][9] = bossSPart;
+				room[19][9] = bossTPart;
+				room[21][9] = bossFoPart;
+				BossIshere = true;
+			}
+			else
+			{
+				startDialogue(noKey);
+			}
 		}
-		else { 
+		else {
 			if (*mapX == 0 && *mapY == 0 && !wizardTalking) {
 				wizardTalking = true;
 				room[20][8] = wizard;
+				randomSizeOfEnemies = 1;
+				*tempE += randomSizeOfEnemies;
+				bool ready;
 				nextLevel++;
+				for (counterOfEnemies = 0; counterOfEnemies < randomSizeOfEnemies; counterOfEnemies++) {
+					do {
+						ready = false;
+						tempX[counterOfEnemies] = 30;
+						tempY[counterOfEnemies] = 10;
+
+					} while (ready);
+				}
+
+				/* RULES */
+				// before 15
+				if (role[0][0].attack < 15) {
+					levelSize = 4;
+					levelOfEnemies1 = 1;
+					levelOfEnemies2 = 1;
+				}
+				// after 15 and before 20
+				else if (role[0][0].attack == 15) {
+					levelSize = 1;
+					levelOfEnemies1 = 1;
+					levelOfEnemies2 = 2;
+				}
+				// after 20 and before 25
+				else if (role[0][0].attack == 20) {
+					levelSize = 3;
+					levelOfEnemies1 = 1;
+					levelOfEnemies2 = 2;
+				}
+				// after 25 and before 45
+				else if (role[0][0].attack >= 25 && role[0][0].attack < 45) {
+					levelSize = 1;
+					levelOfEnemies1 = 2;
+					levelOfEnemies2 = 3;
+				}
+				// after 45 and before 60
+				else if (role[0][0].attack >= 45 && role[0][0].attack < 60) {
+					levelSize = 3;
+					levelOfEnemies1 = 2;
+					levelOfEnemies2 = 3;
+				}
+				// after 60 and before 75
+				else if (role[0][0].attack >= 60 && role[0][0].attack < 75) {
+					levelSize = 2;
+					levelOfEnemies1 = 3;
+					levelOfEnemies2 = 4;
+				}
+				// after 75
+				else if (role[0][0].attack >= 75) {
+					levelSize = 4;
+					levelOfEnemies1 = 4;
+					levelOfEnemies2 = 4;
+				}
+				for (int i = 0; i < 4; i++) {
+					for (int j = 1; j <= 4; j++) {
+						if (role[j][i].person == 'D') {
+							if (j == 1) {
+								role[j][i].person = firstMonster;
+								role[j][i].health = 15;
+								role[j][i].money = 1;
+							}
+							if (j == 2) {
+								role[j][i].person = secondMonster;
+								role[j][i].health = 25;
+								role[j][i].money = 3;
+							}
+							if (j == 3) {
+								role[j][i].person = sPartThirdMonster;
+								role[j][i].health = 50;
+								role[j][i].money = 6;
+							}
+							if (j == 4) {
+								role[j][i].person = sPartFourthMonster;
+								role[j][i].health = 75;
+								role[j][i].money = 10;
+							}
+						}
+					}
+				}
 				bool notReadyCordinates = false;
-				for (int i = 0; i < 2; i++) {
+				do {
+					int id = 0;
 					do {
 						notReadyCordinates = false;
-						choiseShopX[i] = rand() % 4;
-						choiseShopY[i] = rand() % 4;
-						if (choiseShopX[i] == choiseShopX[i - 1] || choiseShopY[i] == choiseShopY[i - 1])
+						choiseShopX[id] = rand() % 4;
+						choiseShopY[id] = rand() % 4;
+						if (choiseShopX[id] == choiseShopX[id - 1] || choiseShopY[id] == choiseShopY[id - 1])
 							notReadyCordinates = true;
-						if (choiseShopX[i] == 0 && choiseShopY[i] == 0)
+						if (choiseShopX[id] == 0 && choiseShopY[id] == 0)
 							notReadyCordinates = true;
-						if (choiseShopX[i] == 3 && choiseShopY[i] == 3)
+						if (choiseShopX[id] == 3 && choiseShopY[id] == 3)
 							notReadyCordinates = true;
-						if (choiseShopX[i] == 2 && choiseShopY[i] == 3)
+						if (choiseShopX[id] == 2 && choiseShopY[id] == 3)
 							notReadyCordinates = true;
-						if (choiseShopX[i] == 3 && choiseShopY[i] == 2)
+						if (choiseShopX[id] == 3 && choiseShopY[id] == 2)
 							notReadyCordinates = true;
+						if ((choiseShopX[id] == 0 && choiseShopY[id] == 3) || (choiseShopX[id] == 1 && choiseShopY[id] == 2)) {
+							if (choiseShopX[id] == 1) {
+								choiseShopX[id + 1] = 3;
+								choiseShopY[id + 1] = 0;
+							}
+							else {
+								choiseShopX[id + 1] = 3;
+								choiseShopY[id + 1] = 1;
+							}
+							notReadyCordinates = false;
+						}
 					} while (notReadyCordinates);
-				}
-				do {
+
 					for (int i = 0; i < 4; i++) {
 						do {
 							notReadyCordinates = false;
@@ -871,33 +1084,6 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 						} while (ready);
 					}
 
-					for (int i = 0; i < 4; i++) {
-						for (int j = 1; j <= 4; j++) {
-							if (role[j][i].person == 'D') {
-								if (j == 1) {
-									role[j][i].person = firstMonster;
-									role[j][i].health = 15;
-									role[j][i].money = 1;
-								}
-								if (j == 2) {
-									role[j][i].person = secondMonster;
-									role[j][i].health = 25;
-									role[j][i].money = 3;
-								}
-								if (j == 3) {
-									role[j][i].person = sPartThirdMonster;
-									role[j][i].health = 50;
-									role[j][i].money = 6;
-								}
-								if (j == 4) {
-									role[j][i].person = sPartFourthMonster;
-									role[j][i].health = 75;
-									role[j][i].money = 10;
-								}
-							}
-						}
-					}
-
 					/* RULES */
 					// before 15
 					if (role[0][0].attack < 15) {
@@ -941,14 +1127,46 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 						levelOfEnemies1 = 4;
 						levelOfEnemies2 = 4;
 					}
+					for (int i = 0; i < 4; i++) {
+						for (int j = 1; j <= 4; j++) {
+							if (role[j][i].person == 'D') {
+								if (j == 1) {
+									role[j][i].person = firstMonster;
+									role[j][i].health = 15;
+									role[j][i].money = 1;
+								}
+								if (j == 2) {
+									role[j][i].person = secondMonster;
+									role[j][i].health = 25;
+									role[j][i].money = 3;
+								}
+								if (j == 3) {
+									role[j][i].person = sPartThirdMonster;
+									role[j][i].health = 50;
+									role[j][i].money = 6;
+								}
+								if (j == 4) {
+									role[j][i].person = sPartFourthMonster;
+									role[j][i].health = 75;
+									role[j][i].money = 10;
+								}
+							}
+						}
+					}
 				}
 				else {
+					if (firstTimeInMaze)
+					{
+						startDialogue(firstTimeInMazeDialogue);
+						firstTimeInMaze = false;
+					}
+
 					moveInMaze(false);
 					nextLevel++;
 					openChests++;
 					choiseMazeX[indexOfMaze] = 5;
 					choiseMazeY[indexOfMaze] = 5;
-					
+
 					if (openChests == keyChest)
 					{
 						role[0][0].keys++;
@@ -970,6 +1188,13 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		if (!mazeIsHere) {
 			for (int i = 0; i < randomSizeOfEnemies; i++) {
 				if (shopIsHere) {
+					//Start first dialogue
+					if (storeUnderAttackFirstTime)
+					{
+						startDialogue(dialogueAtStoreAttack);
+						storeUnderAttackFirstTime = false;
+					}
+
 					// shop
 					room[20][7] = wizard;
 					room[13][9] = '2';
@@ -1029,6 +1254,12 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 						room[28][5] = ' '; // -|
 						room[11][13] = ' '; // |_
 						room[28][13] = ' '; // _|
+
+						if (storeFirstTime)
+						{
+							startDialogue(dialogueAfterStoreAttack);
+							storeFirstTime = false;
+						}
 					}
 				}
 				if (i < levelSize) {
@@ -1071,11 +1302,16 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 		}
 		*/
 	}
-	else { // BOSS IS HERE
-
+	else 
+	{ 
+		if (firstTimeWithBoss)
+		{
+			startDialogue(beforeBossBattle);
+			firstTimeWithBoss = false;
+		}
 	}
 
-	if (*counterDead == *tempE) 
+	if (*counterDead == *tempE)
 	{
 		switch (mapRoom) {
 		case 1:
@@ -1151,6 +1387,17 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 			}
 			break;
 		case 7: // Boss is here
+			if (!BossIshere)
+			{
+				// up door
+				for (int i = 17; i < 24; i++) {
+					room[i][1] = ' ';
+				}
+				// left door
+				for (int i = 7; i < 10; i++) {
+					room[1][i] = ' ';
+				}
+			}
 			break;
 		case 8:
 			// right door
@@ -1191,11 +1438,58 @@ char** room(Data** role, Data* item, int* tempE, int* level, int* tempX, int* te
 	return room;
 }
 
-void attack(Data** role, int index, bool &game, int idEnemies, int* counterDead, bool* showBoard, bool& bossIsDead)
+void attack(Data** role, int index, bool& game, int idEnemies, int* counterDead, bool* showBoard, bool& bossIsDead)
 {
-	if (index != 5) 
+	static bool firstKill = false;
+
+	Dialogue afterFirstFightDialogue =
 	{
-		if (role[index][idEnemies].person != 'D') 
+		{
+			{
+				"Wizard", "Good work, now I am going to leave you, good luck!"
+			},
+			{
+				"", "(A smoke appear in front of you and he disappears, but you can still see him as he goes through the door)"
+			}
+		}
+	};
+
+	Dialogue finalDialogue = 
+	{
+		{
+			{
+				"[", "No, no you can not defeat me just like that, I will return and DESTROY YOU, DESTROY YOUUUUUUUUUU!!!!"
+			},
+			{
+				"You", "I will be waiting for you!"
+			},
+			{
+				"", "(Suddenly [ went into the ground, but the hill of golden thing, behind him, is still there)"
+			},
+			{
+				"Wizard", "Good work, now if you don't mine, I am going to take some of this gold, after all, if I didn't bring you here you would never defeat him!"
+			},
+			{
+				"You", "Wait why did you chose me?"
+			},
+			{
+				"Wizard", "I didn't chose you, it was the mighty all-knowing user, who is looking at us through this screen!"
+			},
+			{
+				"You", "What are you talking about, there is nothing over there! And now if you don't mind, I am going to leave, I have other work to do! You wizards are strange creatures."
+			},
+			{
+				"Wizard", "As you wish!"
+			},
+			{
+				"", "(Congratulation you win!)"
+			},
+		}
+	};
+
+	if (index != 5)
+	{
+		if (role[index][idEnemies].person != 'D')
 		{
 			role[index][idEnemies].health -= role[0][0].attack;
 
@@ -1206,21 +1500,26 @@ void attack(Data** role, int index, bool &game, int idEnemies, int* counterDead,
 				role[index][idEnemies].person = 'D';
 				(*counterDead)++;
 				*showBoard = true;
+				if (!firstKill)
+				{
+					startDialogue(afterFirstFightDialogue);
+					firstKill = true;
+				}
 			}
 
-			if (role[index][idEnemies].person != ' ' && role[index][idEnemies].person != 'D') 
+			if (role[index][idEnemies].person != ' ' && role[index][idEnemies].person != 'D')
 			{
-				if (role[0][0].armor > 0) 
+				if (role[0][0].armor > 0)
 				{
 					role[0][0].armor -= role[index][idEnemies].attack;
 
-					if (role[0][0].armor < 0) 
+					if (role[0][0].armor < 0)
 					{
 						role[0][0].health += role[0][0].armor;
 						role[0][0].armor = 0;
 					}
 				}
-				else 
+				else
 				{
 					role[0][0].health -= role[index][idEnemies].attack;
 
@@ -1252,19 +1551,32 @@ void attack(Data** role, int index, bool &game, int idEnemies, int* counterDead,
 				}
 			}
 			else {
+				startDialogue(finalDialogue);
 				bossIsDead = true;
 				game = false;
 			}
 		}
 		else {
+			startDialogue(finalDialogue);
 			bossIsDead = true;
 			game = false;
 		}
 	}
 }
 
-void shop(Data** role, Data* item, short index) {
-	switch (index) 
+void shop(Data** role, Data* item, short index) 
+{
+	static bool firstBuy = true;
+
+	Dialogue buyDialogue = {
+		{
+			{
+				"Wizard", "Here is your new iron sword, you will now do a lot more of damage!"
+			}
+		}
+	};
+
+	switch (index)
 	{
 		case 0:
 			// health
@@ -1278,6 +1590,11 @@ void shop(Data** role, Data* item, short index) {
 			if (role[0][0].money >= item[1].money) {
 				role[0][0].money -= item[1].money;
 				role[0][0].attack += 5;
+				if (firstBuy)
+				{
+					startDialogue(buyDialogue);
+					firstBuy = false;
+				}
 			}
 			break;
 		case 2:
@@ -1301,15 +1618,14 @@ void shop(Data** role, Data* item, short index) {
 	printPlayerData(role);
 }
 
-void GameRules(Data** role, Data* item) 
+void GameRules(Data** role, Data* item)
 {
-
 	// player
 	role[0][0].person = 'x';
 	role[0][0].health = 100;
-	role[0][0].armor = 10;
+	role[0][0].armor = 0;
 	role[0][0].attack = 15;
-	role[0][0].money = 200;
+	role[0][0].money = 0;
 	role[0][0].keys = 0;
 
 	// first type enemie | counter of enemy
@@ -1368,7 +1684,7 @@ void GameRules(Data** role, Data* item)
 
 }
 
-bool isMovePossible(bool* showBoard, short* row, short* col, Data** role, Data* item, bool& game, bool& bossIsDead, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int &keyChest)
+bool isMovePossible(bool* showBoard, short* row, short* col, Data** role, Data* item, bool& game, bool& bossIsDead, int* tempE, int* level, int* tempX, int* tempY, int* counterDead, int* mapY, int* mapX, int& keyChest)
 {
 	static bool levelUp = false;
 
