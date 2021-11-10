@@ -24,8 +24,8 @@
 <img src  = "gifts/index.gif" alt="demo gif">
 <img src  = "gifts/index.img" alt="demo img">
 
-# [📄 Online Documentation](https://github.com)
-# [📄 Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/ssivanov19_codingburgas_bg/Ef3D5tOVSVdAn_65XNKjjNsBrI0uxP9aQ8EOq__vaUhD5w?e=yVhMQA)
+# [📄 Online Documentation](https://ssivanov19.github.io/braven-documentation/index.html)
+# [📄 Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/ssivanov19_codingburgas_bg/Ef3D5tOVSVdAn_65XNKjjNsBrI0uxP9aQ8EOq__vaUhD5w?e=lurG6j)
 
 <h1>⌨️ How it works</h1>
 <p><strong>Our work can be split on 2 main things :</p></strong>
